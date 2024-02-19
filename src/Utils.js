@@ -12,3 +12,9 @@ function toggleFullscreen() {
         }
     }
 }
+
+const util = {
+    inGrid(n) {
+        return n*16;    
+    }
+}

@@ -24,14 +24,14 @@ window.OverworldMaps = {
     TestRoom: {
         lowerSrc: "lower-src.png",
         gameObjects: {
-            hero: new GameObject({
-                x: 5,
-                y:6
+            hero: new Person({
+                x: util.inGrid(5),
+                y:util.inGrid(0)
             }),
 
             npc1: new GameObject({
-                x: 7,
-                y:9,
+                x: util.inGrid(5),
+                y:util.inGrid(3),
                 src: "images/alex.png"
             })
         }

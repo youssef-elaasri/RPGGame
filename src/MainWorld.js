@@ -30,6 +30,9 @@ class MainWorld {
 
             //Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
+                object.update({
+                    
+                });
                 object.sprite.draw(this.ctx);
             })
             
@@ -48,4 +51,5 @@ class MainWorld {
         this.startGameLoop();
         
     }
+
 }

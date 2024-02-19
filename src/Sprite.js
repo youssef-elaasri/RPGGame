@@ -17,8 +17,8 @@ class Sprite {
 
     draw(ctx){
         // calcuations can be redone
-        const x = this.gameObject.x * 16;
-        const y = this.gameObject.y * 16;
+        const x = this.gameObject.x;
+        const y = this.gameObject.y;
 
         ctx.drawImage(
             this.image,

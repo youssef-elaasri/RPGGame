@@ -24,9 +24,9 @@ class Sprite {
             this.image,
             0, 0, //top left of the cut
             16, 32, // cut's dimensions
-            x, y, // top left of the postion where the object is put
+            0, 0, // top left of the postion where the object is put
             16, 32 // size of the postion where the object is put 
-            )
+        )
     }
 
 }

@@ -19,5 +19,12 @@ class MainWorld {
 
         // Draw the rectangle at the center
         this.ctx.fillRect(centerX, centerY, rectWidth, rectHeight);
+
+        const hero = new GameObject({
+            x: 0,
+            y: 0,
+        })
+
+        hero.sprite.draw(this.ctx);
     }
 }

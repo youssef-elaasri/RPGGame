@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="styles.css">
-    <title>Game Template Fullscreen Adjustment</title>
-    <script type="text/javascript" src="fullscreen.js"></script>
+    <title>INP Legends</title>
 </head>
 <body>
-<nav>
-    <strong>Game Name</strong> <a href="#" style="color: #fff;">About Us</a>
-</nav>
-<div class="game-window" id="gameWindow">
-    <canvas class="game-canvas"></canvas>
-    <span id="fullscreenBtn" onclick="toggleFullscreen()">⛶</span>
+    <nav>
+        <strong>INP Legends</strong> <a href="#" class="about-us">About Us</a>
+    </nav>
+    <div class="game-window" id="gameWindow">
+        <div class="game-container" id="gameContainer">
+            <canvas class="game-canvas" id="gameCanvas"></canvas>
+        </div>
+    <!-- FullScreen Icon -->
+    <span id="fullscreenBtn" onclick="toggleFullscreen()">
+        <i class="material-icons">fullscreen</i>
+    </span>
 </div>
+    <!-- Scripts -->
+    <script type="text/javascript" src="fullscreen.js"></script>
+    <script type="text/javascript" src="MainWorld.js"></script>
+    <script type="text/javascript" src="init.js"></script>
 </body>
 </html>

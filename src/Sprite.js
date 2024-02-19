@@ -17,14 +17,14 @@ class Sprite {
 
     draw(ctx){
         // calcuations can be redone
-        const x = this.gameObject * 16 - 8;
-        const y = this.gameObject * 16 - 18;
+        const x = this.gameObject.x * 16 - 8;
+        const y = this.gameObject.y * 16 - 18;
 
         ctx.drawImage(
             this.image,
             0, 0, //top left of the cut
             16, 32, // cut's dimensions
-            0, 0,    // top left of the postion where the object is put
+            x,  y,    // top left of the postion where the object is put
             16, 32 // size of the postion where the object is put 
         )
     }

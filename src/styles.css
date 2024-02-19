@@ -26,7 +26,7 @@ nav {
 .game-window {
     padding-top: 48px; /* Adjusted to prevent nav from overlapping the game */
     height: 100%;
-    background: #000; /* Game background, will be adjusted later */
+    background: #fff; /* Game background, will be adjusted later */
     position: relative; 
     display: flex;
     align-items: center; 
@@ -55,4 +55,8 @@ nav {
 
 .game-container canvas{
     image-rendering: pixelated;
+}
+
+#fs-icon{
+    color: black;
 }

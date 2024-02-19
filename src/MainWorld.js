@@ -5,7 +5,23 @@ class MainWorld {
         this.ctx = this.canvas.getContext("2d");
         this.map = null;
     }
+    
+    drawGrid() {
+        const width = this.canvas.width;
+        const height = this.canvas.height;
+        const tileSize = 16;
+        // Set the stroke style for the grid lines
+        this.ctx.strokeStyle = '#ccc'; // Light grey for grid lines
 
+        // Loop through each grid cell
+        for (let x = 0; x <= width; x += tileSize) {
+            for (let y = 0; y <= height; y += tileSize) {
+                // Draw a rectangle for each grid cell
+                this.ctx.strokeRect(x, y, tileSize, tileSize);
+            }
+        }
+    }
+    
     startGameLoop() {
         const step = () => {
 
@@ -16,6 +32,9 @@ class MainWorld {
             Object.values(this.map.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
+            
+            // Draw the grid FOR DEBUG PURPOSES
+            this.drawGrid();
 
             requestAnimationFrame(() => {
                 step();
@@ -29,6 +48,4 @@ class MainWorld {
         this.startGameLoop();
         
     }
-
-    
 }

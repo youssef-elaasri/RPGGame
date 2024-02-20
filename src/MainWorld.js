@@ -23,6 +23,9 @@ class MainWorld {
     }
     
     startGameLoop() {
+        const hero = window.OverworldMaps.TestRoom.gameObjects.hero;
+
+        document.addEventListener("keydown", (e) => hero.move(e));
         const step = () => {
 
             //Draw Lower layer

@@ -22,7 +22,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        lowerSrc: "lower-src.png",
+        lowerSrc: "images/kitchen.png",
         gameObjects: {
             hero: new Person({
                 x: util.inGrid(5),

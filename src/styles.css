@@ -35,7 +35,9 @@ nav {
 
 .game-container {
 
-    transform: scale(5);
+    transform: scale(3);
+    height: 198;
+    width: 352;
 }
 
 #fullscreenBtn {

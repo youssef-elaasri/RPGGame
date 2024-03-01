@@ -23,11 +23,18 @@ class OverworldMap {
 window.OverworldMaps = {
     TestRoom: {
         lowerSrc: "images/maps/landProto.png",
+        upperSrc: "",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled : true,
                 x: util.inGrid(5),
                 y:util.inGrid(0)
+            }),
+
+            dog: new GameObject({
+                src: "images/characters/dog.png",
+                x: util.inGrid(2),
+                y: util.inGrid(4),
             }),
 
         }

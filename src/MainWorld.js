@@ -23,7 +23,7 @@ class MainWorld {
     }
     
     startGameLoop() {
-        const hero = window.OverworldMaps.TestRoom.gameObjects.hero;
+        const cameraPerson = this.map.gameObjects.hero;
         const step = () => {
 
             // This clears the canva each time so the are no unwanted frames left
@@ -37,9 +37,11 @@ class MainWorld {
                 object.update({
                     arrow : this.directionInput.direction
                 });
-                object.sprite.draw(this.ctx);
+                object.sprite.draw(this.ctx, cameraPerson);
 
             })
+
+            this.map.drawUpperImage(this.ctx)
             
             // Draw the grid FOR DEBUG PURPOSES
             this.drawGrid();

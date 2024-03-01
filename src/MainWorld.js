@@ -24,8 +24,6 @@ class MainWorld {
     
     startGameLoop() {
         const hero = window.OverworldMaps.TestRoom.gameObjects.hero;
-
-        document.addEventListener("keydown", (e) => hero.move(e));
         const step = () => {
 
             //Draw Lower layer
@@ -34,7 +32,7 @@ class MainWorld {
             //Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
                 object.update({
-                    
+                    arrow : this.directionInput.direction
                 });
                 object.sprite.draw(this.ctx);
             })
@@ -50,7 +48,9 @@ class MainWorld {
     }
 
     init() {
-        this.map = new OverworldMap(window.OverworldMaps.TestRoom)
+        this.map = new OverworldMap(window.OverworldMaps.TestRoom);
+        this.directionInput = new DirectionInput();
+        this.directionInput.init();
         this.startGameLoop();
         
     }

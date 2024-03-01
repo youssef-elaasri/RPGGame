@@ -36,8 +36,8 @@ nav {
 .game-container {
 
     transform: scale(3);
-    height: 198;
-    width: 352;
+    height: 240;
+    width: 480;
 }
 
 #fullscreenBtn {
@@ -52,8 +52,8 @@ nav {
 
 .game-canvas {
     position: relative;
-    width: 352px;
-    height: 198px;
+    width: 480px;
+    height: 240px;
 }
 
 .game-container canvas{

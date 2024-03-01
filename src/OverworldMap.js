@@ -30,11 +30,6 @@ window.OverworldMaps = {
                 y:util.inGrid(0)
             }),
 
-            npc1: new Person({
-                x: util.inGrid(5),
-                y:util.inGrid(3),
-                src: "images/characters/alex.png"
-            })
         }
     }
 }

@@ -13,6 +13,7 @@ class Person extends GameObject {
 
     update(state){
         this.updatePosition();
+        this.updateSprite(state);
 
         if (this.isPlayerControlled && this.remainingMovement == 0 && state.arrow) {
             this.direction = state.arrow;
@@ -26,5 +27,14 @@ class Person extends GameObject {
             this[property] += change;
             this.remainingMovement -= 1;
         }
+    }
+
+    updateSprite(state) {
+        //console.log("idle" + this.direction);
+        if (this.isPlayerControlled && this.remainingMovement == 0 && !state.arrow) {
+            this.sprite.setAnimation("idle-" + this.direction)
+            return
+        }
+        this.sprite.setAnimation("walk-" + this.direction)
     }
 }

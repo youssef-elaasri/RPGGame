@@ -25,11 +25,12 @@ window.OverworldMaps = {
         lowerSrc: "lower-src.png",
         gameObjects: {
             hero: new Person({
+                isPlayerControlled : true,
                 x: util.inGrid(5),
                 y:util.inGrid(0)
             }),
 
-            npc1: new GameObject({
+            npc1: new Person({
                 x: util.inGrid(5),
                 y:util.inGrid(3),
                 src: "images/alex.png"

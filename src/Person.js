@@ -2,6 +2,7 @@ class Person extends GameObject {
     constructor(config){
         super(config);
         this.remainingMovement = 0; // In pixels 
+        this.isPlayerControlled = config.isPlayerControlled || false;
         this.directions = {
             "up": ["y", -1],
             "down": ["y", 1],
@@ -12,6 +13,11 @@ class Person extends GameObject {
 
     update(state){
         this.updatePosition();
+
+        if (this.isPlayerControlled && this.remainingMovement == 0 && state.arrow) {
+            this.direction = state.arrow;
+            this.remainingMovement = 16;
+        }
     }
 
     updatePosition(){
@@ -19,18 +25,6 @@ class Person extends GameObject {
             const [property, change] = this.directions[this.direction];
             this[property] += change;
             this.remainingMovement -= 1;
-        }
-    }
-
-    move(e) {
-        if (this.remainingMovement == 0) {            
-            switch(e.key) {
-                case "ArrowUp": this.direction = "up"; break;
-                case "ArrowDown": this.direction = "down"; break;
-                case "ArrowLeft": this.direction = "left"; break;
-                case "ArrowRight": this.direction = "right"; break;
-            }
-            this.remainingMovement += 16;
         }
     }
 }

@@ -10,12 +10,20 @@ class OverworldMap {
         this.upperImage.src = config.upperSrc;
     }
 
-    drawLowerImage(ctx) {
-        ctx.drawImage(this.lowerImage,0,0);
+    drawLowerImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.lowerImage,
+            util.inGrid(14.5) - cameraPerson.x,
+            util.inGrid(7.5) - cameraPerson.y,
+        );
     }
 
-    drawUpperImage(ctx) {
-        ctx.drawImage(this.upperImage,0,0);
+    drawUpperImage(ctx, cameraPerson) {
+        ctx.drawImage(
+            this.upperImage,
+            util.inGrid(14.5) - cameraPerson.x,
+            util.inGrid(7.5) - cameraPerson.y,
+        );
     }
 }
 

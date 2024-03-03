@@ -12,29 +12,50 @@ class Person extends GameObject {
     }
 
     update(state){
-        this.updatePosition();
-        this.updateSprite(state);
+        if(this.remainingMovement > 0) { 
+            this.updatePosition();
+        }
+        else {
 
-        if (this.isPlayerControlled && this.remainingMovement == 0 && state.arrow) {
-            this.direction = state.arrow;
+
+            // case : the charcter can move and have an arrow pressed
+            if (this.isPlayerControlled && state.arrow) {
+                this.startBehavior(state, {
+                    type : "walk",
+                    direction : state.arrow,
+                })
+            }
+            this.updateSprite(state);
+        }
+    }
+
+    startBehavior(state, behavior) {
+
+        // set character direction to whatever behavior has
+        this.direction = behavior.direction;
+        if (behavior.type == "walk" ) {
+
+            // stop if the space is not free
+            if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                return;
+            }
+
+            // walk
             this.remainingMovement = 16;
         }
     }
 
     updatePosition(){
-        if(this.remainingMovement > 0) {
             const [property, change] = this.directions[this.direction];
             this[property] += change;
             this.remainingMovement -= 1;
-        }
     }
 
-    updateSprite(state) {
-        //console.log("idle" + this.direction);
-        if (this.isPlayerControlled && this.remainingMovement == 0 && !state.arrow) {
-            this.sprite.setAnimation("idle-" + this.direction)
-            return
+    updateSprite() {
+        if (this.remainingMovement > 0) {
+            this.sprite.setAnimation("walk-" + this.direction);
+            return;
         }
-        this.sprite.setAnimation("walk-" + this.direction)
+        this.sprite.setAnimation("idle-" + this.direction)
     }
 }

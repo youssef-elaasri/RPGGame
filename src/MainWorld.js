@@ -49,6 +49,9 @@ class MainWorld {
             // initialize the gameObject position
             util.setGameObjectsPosition(this.map);
 
+            window.upperObjects = [];
+            window.drawingLowerObjects = false;
+
             //Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
@@ -56,11 +59,21 @@ class MainWorld {
 
             window.Player.sprite.draw(this.ctx);
 
+            // draw all the NPCs
             Object.values(this.map.NPCs).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
 
-            this.map.drawUpperImage(this.ctx)
+            window.drawingLowerObjects = true;
+            // draw the hero
+            window.Player.sprite.draw(this.ctx);
+
+
+            //draw the upper objects and NPCs
+            for (let key in window.upperObjects) {
+                let object = window.upperObjects[key];
+                object.draw(this.ctx);
+            }
 
             requestAnimationFrame(() => {
                 step();

@@ -8,9 +8,6 @@ class OverworldMap {
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
 
-
-        this.upperImage = new Image();
-        this.upperImage.src = config.upperSrc;
     }
 
     drawLowerImage(ctx) {
@@ -21,17 +18,8 @@ class OverworldMap {
         );
     }
 
-    drawUpperImage(ctx) {
-        ctx.drawImage(
-            this.upperImage,
-            util.inGrid(14.5) - window.Player.x,
-            util.inGrid(7.5) - window.Player.y,
-        );
-    }
-
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = util.nextPosition(currentX,currentY,direction);
-        //console.log(this.gameObjectsPosition);
         return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
     }
     findNearbyNPC() {
@@ -49,9 +37,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        //lowerSrc: "images/maps/landProto.png",
-        lowerSrc: "images/maps/faf55f064bb110349ee55ec7ebfcd66e.png",
-        upperSrc: "",
+        lowerSrc: "images/maps/landProto.png",
         gameObjects: {
             dog: new GameObject({
                 src: "images/characters/dog.png",

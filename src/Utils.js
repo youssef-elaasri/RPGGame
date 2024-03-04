@@ -47,5 +47,15 @@ const util = {
                 map.gameObjectsPosition[gridCoord] = true;
             }
         }
+
+        for (let key in map.NPCs) {
+            let object = map.NPCs[key];
+            if (!object.isPlayerControlled) {
+                let gridCoord = `${object.x},${object.y}`;
+                map.gameObjectsPosition[gridCoord] = true;
+            }
+        }
+
+        console.log(map.gameObjectsPosition);
     }
 }

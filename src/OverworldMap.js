@@ -29,7 +29,8 @@ class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = util.nextPosition(currentX,currentY,direction);
-        return this.walls[`${x},${y}`] || false;
+        console.log(this.gameObjectsPosition);
+        return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
     }
 }
 
@@ -39,16 +40,17 @@ window.OverworldMaps = {
         lowerSrc: "images/maps/landProto.png",
         upperSrc: "",
         gameObjects: {
-            hero: new Person({
-                isPlayerControlled : true,
-                x: util.inGrid(5),
-                y:util.inGrid(0)
-            }),
 
             dog: new GameObject({
                 src: "images/characters/dog.png",
                 x: util.inGrid(2),
                 y: util.inGrid(4),
+            }),
+
+            hero: new Person({
+                isPlayerControlled : true,
+                x: util.inGrid(5),
+                y:util.inGrid(0)
             }),
         },
 
@@ -57,6 +59,8 @@ window.OverworldMaps = {
             [util.asGridCoord(0,0)] : true,
             [util.asGridCoord(1,-1)] : true,
             [util.asGridCoord(1,0)] : true,
-        }
+        },
+
+        gameObjectsPosition : {}
     }
 }

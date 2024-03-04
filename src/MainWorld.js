@@ -40,6 +40,10 @@ class MainWorld {
                 });
             })
 
+            // initialize the gameObject position
+
+            util.setGameObjectsPosition(this.map);
+            
             
             //Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
@@ -62,7 +66,6 @@ class MainWorld {
 
     init() {
         this.map = new OverworldMap(window.OverworldMaps.TestRoom);
-        console.log(this.map.walls);
         this.directionInput = new DirectionInput();
         this.directionInput.init();
         this.startGameLoop();

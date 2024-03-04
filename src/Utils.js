@@ -37,5 +37,15 @@ const util = {
             y += size;
         }
         return {x,y};
+    },
+    setGameObjectsPosition(map) {
+        map.gameObjectsPosition = {};
+        for (let key in map.gameObjects) {
+            let object = map.gameObjects[key];
+            if (!object.isPlayerControlled) {
+                let gridCoord = `${object.x},${object.y-16}`;
+                map.gameObjectsPosition[gridCoord] = true;
+            }
+        }
     }
 }

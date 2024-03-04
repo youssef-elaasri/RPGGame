@@ -20,20 +20,20 @@ const util = {
     asGridCoord(x,y) {
         return `${x*16},${y*16}`;
     },
-    nextPosition(initalX, initalY, direction) {
-        let x = initalX;
-        let y = initalY;
+    nextPosition(initialX, initialY, direction) {
+        let x = initialX;
+        let y = initialY;
         const size = 16;
-        if (direction == "left") {
+        if (direction === "left") {
             x -= size;
         }
-        else if (direction == "right") {
+        else if (direction === "right") {
             x += size;
         }
-        else if (direction == "up") {
+        else if (direction === "up") {
             y -= size;
         }
-        else if (direction == "down") {
+        else if (direction === "down") {
             y += size;
         }
         return {x,y};

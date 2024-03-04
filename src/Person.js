@@ -33,7 +33,7 @@ class Person extends GameObject {
 
         // set character direction to whatever behavior has
         this.direction = behavior.direction;
-        if (behavior.type == "walk" ) {
+        if (behavior.type === "walk" ) {
 
             // stop if the space is not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {

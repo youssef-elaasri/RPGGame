@@ -95,18 +95,11 @@ class MainWorld {
 
         document.addEventListener('keydown', e => {
             if (e.key === ' ') {
-                if (e.key === ' ') {
-                    e.preventDefault(); // Prevent any default action to ensure smooth behavior
-                    const nearbyNPC = this.map.findNearbyNPC();
-                    if (nearbyNPC) {
-                        if (window.dialogueIsShowing) {
-                            nearbyNPC.incrementDialogue();
-                        } else {
-                            nearbyNPC.interact();
-                        }
-                    }
+                e.preventDefault(); // Prevent any default action to ensure smooth behavior
+                const nearbyNPC = this.map.findNearbyNPC();
+                if (nearbyNPC) {
+                    nearbyNPC.interact();
                 }
-
             }
         });
 

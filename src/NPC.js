@@ -14,16 +14,13 @@ class NPC extends Person {
         this.showDialogue(); // Show the next piece of dialogue or hide if at the end
     }
      showDialogue() {
-        if (this.currentDialogueIndex < this.dialogues.length) {
-            const dialogueContainer = document.getElementById('dialogue-container');
-            const dialogueText = document.getElementById('dialogue-text');
-            dialogueText.textContent = '';
-            dialogueContainer.classList.remove('hidden');
-            dialogueText.textContent = this.dialogues[this.currentDialogueIndex];
-            window.dialogueIsShowing = true;
-        } else {
-            this.hideDialogue();
-        }
+        const dialogueContainer = document.getElementById('dialogue-container');
+        const dialogueText = document.getElementById('dialogue-text');
+        dialogueText.textContent = '';
+        dialogueContainer.classList.remove('hidden');
+        dialogueText.textContent = this.dialogues[this.currentDialogueIndex];
+        window.dialogueIsShowing = true;
+        window.Player.isPlayerControlled = false;
     }
 
      hideDialogue() {
@@ -32,14 +29,16 @@ class NPC extends Person {
         const dialogueText = document.getElementById('dialogue-text');
         dialogueText.textContent = '';
         window.dialogueIsShowing = false;
-        this.currentDialogueIndex = 0; // Reset for the next interaction
+        window.Player.isPlayerControlled = true;
     }
 
     interact() {
-        // Method to handle interaction with the player
-        if (this.dialogues.length > 0) {
+        if (this.currentDialogueIndex < this.dialogues.length) {
             this.showDialogue();
-            this.currentDialogueIndex = (this.currentDialogueIndex + 1) % this.dialogues.length;
+            this.currentDialogueIndex = this.currentDialogueIndex + 1;
+        } else {
+            this.currentDialogueIndex = 0;
+            this.hideDialogue();
         }
     }
 

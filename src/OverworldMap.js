@@ -25,7 +25,7 @@ class OverworldMap {
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
         for (let npc of Object.values(this.NPCs)) { // fixme : 30 can be adjusted !!!!
-            if (Math.abs(npc.x - window.Player.x) <= 30 && Math.abs(npc.y - window.Player.y) <= 30) {
+            if (Math.abs(npc.x - window.Player.x) <= 16 && Math.abs(npc.y - window.Player.y) <= 16) {
                 return npc;
             }
         }

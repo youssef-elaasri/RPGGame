@@ -27,7 +27,7 @@ nav {
     padding-top: 48px; /* Adjusted to prevent nav from overlapping the game */
     height: 100%;
     background: #fff; /* Game background, will be adjusted later */
-    position: relative; 
+    position: relative;
     display: flex;
     align-items: center; 
     justify-content: center;

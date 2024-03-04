@@ -23,6 +23,7 @@ class MainWorld {
     }
     
     startGameLoop() {
+        const cameraPerson = this.map.gameObjects.hero;
         const step = () => {
 
             // This clears the canva each time so there are no unwanted frames left
@@ -31,17 +32,32 @@ class MainWorld {
             // Draw Lower layer
             this.map.drawLowerImage(this.ctx);
 
+            // Update game objects
+            Object.values(this.map.gameObjects).forEach(object => {
+                object.update({
+                    arrow : this.directionInput.direction,
+                    map : this.map,
+                });
+            })
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction
             });
 
+            // initialize the gameObject position
+
+            util.setGameObjectsPosition(this.map);
+
+
+            //Draw game object
             // Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
 
             window.Player.sprite.draw(this.ctx);
+
+                object.sprite.draw(this.ctx, cameraPerson);
 
             Object.values(this.map.NPCs).forEach(object => {
                 object.sprite.draw(this.ctx);

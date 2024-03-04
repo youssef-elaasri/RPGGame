@@ -4,6 +4,7 @@ class MainWorld {
         this.canvas = this.element.querySelector(".game-canvas");
         this.ctx = this.canvas.getContext("2d");
         this.map = null;
+        window.dialogueIsShowing = false;
     }
     
     drawGrid() {
@@ -60,9 +61,6 @@ class MainWorld {
             })
 
             this.map.drawUpperImage(this.ctx)
-            
-            // Draw the grid FOR DEBUG PURPOSES
-            //this.drawGrid();
 
             requestAnimationFrame(() => {
                 step();
@@ -83,11 +81,19 @@ class MainWorld {
         this.directionInput = new DirectionInput();
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Space') {
-                const nearbyNPC = this.map.findNearbyNPC();
-                if (nearbyNPC) {
-                    nearbyNPC.interact();
+            if (e.key === ' ') {
+                if (e.key === ' ') {
+                    e.preventDefault(); // Prevent any default action to ensure smooth behavior
+                    const nearbyNPC = this.map.findNearbyNPC();
+                    if (nearbyNPC) {
+                        if (window.dialogueIsShowing) {
+                            nearbyNPC.incrementDialogue();
+                        } else {
+                            nearbyNPC.interact();
+                        }
+                    }
                 }
+
             }
         });
 

@@ -9,11 +9,36 @@ class NPC extends Person {
         this.autoMoveIndex = 0; // Current step in the automated movement pattern
     }
 
+    incrementDialogue() {
+        this.currentDialogueIndex++; // Advance the dialogue index
+        this.showDialogue(); // Show the next piece of dialogue or hide if at the end
+    }
+     showDialogue() {
+        if (this.currentDialogueIndex < this.dialogues.length) {
+            const dialogueContainer = document.getElementById('dialogue-container');
+            const dialogueText = document.getElementById('dialogue-text');
+            dialogueText.textContent = '';
+            dialogueContainer.classList.remove('hidden');
+            dialogueText.textContent = this.dialogues[this.currentDialogueIndex];
+            window.dialogueIsShowing = true;
+        } else {
+            this.hideDialogue();
+        }
+    }
+
+     hideDialogue() {
+        const dialogueContainer = document.getElementById('dialogue-container');
+        dialogueContainer.classList.add('hidden');
+        const dialogueText = document.getElementById('dialogue-text');
+        dialogueText.textContent = '';
+        window.dialogueIsShowing = false;
+        this.currentDialogueIndex = 0; // Reset for the next interaction
+    }
+
     interact() {
         // Method to handle interaction with the player
         if (this.dialogues.length > 0) {
-            const dialogue = this.dialogues[this.currentDialogueIndex];
-            console.log(dialogue); // Display the dialogue - replace with your game's dialogue display logic
+            this.showDialogue();
             this.currentDialogueIndex = (this.currentDialogueIndex + 1) % this.dialogues.length;
         }
     }

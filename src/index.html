@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <title>INP Legends</title>
 </head>
@@ -15,6 +16,9 @@
     <div class="game-window" id="gameWindow">
         <div class="game-container" id="gameContainer">
             <canvas class="game-canvas" id="gameCanvas" width="480" height="240"></canvas>
+            <div id="dialogue-container" class="hidden">
+                <p id="dialogue-text"></p>
+            </div>
         </div>
     <!-- FullScreen Icon -->
     <span id="fullscreenBtn" onclick="toggleFullscreen()">

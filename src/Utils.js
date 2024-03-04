@@ -56,6 +56,6 @@ const util = {
             }
         }
 
-        console.log(map.gameObjectsPosition);
+        //console.log(map.gameObjectsPosition);
     }
 }

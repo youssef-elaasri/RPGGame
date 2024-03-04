@@ -63,3 +63,30 @@ nav {
 #fs-icon{
     color: black;
 }
+
+
+#dialogue-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: lightgray;
+    color: #000;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dialogue-text {
+    max-width: 90%;
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    color: #ffffff; /* Bright color for the text */
+    text-shadow: 2px 2px #000000; /* Shadow to make text stand out */
+    font-size: small;
+}
+
+.hidden {
+    display: none;
+}

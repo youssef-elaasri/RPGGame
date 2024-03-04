@@ -31,13 +31,13 @@ class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = util.nextPosition(currentX,currentY,direction);
-        console.log(this.gameObjectsPosition);
+        //console.log(this.gameObjectsPosition);
         return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
     }
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
-        for (let npc of this.NPCs) {
-            if (Math.abs(npc.x - window.Player.x) === 1 && Math.abs(npc.y - window.Player.y) === 1) {
+        for (let npc of Object.values(this.NPCs)) { // fixme : 30 can be adjusted !!!!
+            if (Math.abs(npc.x - window.Player.x) <= 30 && Math.abs(npc.y - window.Player.y) <= 30) {
                 return npc;
             }
         }
@@ -49,7 +49,8 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        lowerSrc: "images/maps/landProto.png",
+        //lowerSrc: "images/maps/landProto.png",
+        lowerSrc: "images/maps/faf55f064bb110349ee55ec7ebfcd66e.png",
         upperSrc: "",
         gameObjects: {
             dog: new GameObject({
@@ -61,8 +62,14 @@ window.OverworldMaps = {
         NPCs: {
             ElProfesor: new NPC({
                 name : "El Profesor",
-                dialogues : ["Hello"],
+                dialogues : ["Hello", "Hey maaaan"],
                 x: util.inGrid(9),
+                y:util.inGrid(3)
+            }),
+            Heisenberg: new NPC({
+                name : "Heisenberg",
+                dialogues : ["Do you want some blue meth?"],
+                x: util.inGrid(7),
                 y:util.inGrid(3)
             }),
         },

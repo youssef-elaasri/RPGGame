@@ -34,6 +34,16 @@ class OverworldMap {
         console.log(this.gameObjectsPosition);
         return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
     }
+    findNearbyNPC() {
+        // Iterate through NPCs to find one within interaction range of the player
+        for (let npc of this.NPCs) {
+            if (Math.abs(npc.x - window.Player.x) === 1 && Math.abs(npc.y - window.Player.y) === 1) {
+                return npc;
+            }
+        }
+        return null;
+    }
+
 }
 
 

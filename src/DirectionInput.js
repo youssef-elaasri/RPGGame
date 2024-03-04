@@ -8,6 +8,7 @@ class DirectionInput {
             "ArrowRight" : "right",
             "ArrowLeft" : "left",
         }
+        this.init()
     }
 
     get direction() {
@@ -29,6 +30,6 @@ class DirectionInput {
             if (index>-1) {
                 this.heldDirection.splice(index,1);
             }
-        })
+        });
     }
 }

@@ -72,14 +72,25 @@ class MainWorld {
     }
 
     init() {
-        this.map = new OverworldMap(window.OverworldMaps.TestRoom);
-        this.directionInput = new DirectionInput();
-        this.directionInput.init();
+        /* The Player */
         window.Player = new Person({
             isPlayerControlled : true,
             x: util.inGrid(5),
             y:util.inGrid(0)
         });
+
+        this.map = new OverworldMap(window.OverworldMaps.TestRoom);
+        this.directionInput = new DirectionInput();
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Space') {
+                const nearbyNPC = this.map.findNearbyNPC();
+                if (nearbyNPC) {
+                    nearbyNPC.interact();
+                }
+            }
+        });
+
         this.startGameLoop();
         
     }

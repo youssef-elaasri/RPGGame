@@ -23,30 +23,31 @@ class MainWorld {
     }
     
     startGameLoop() {
-        const cameraPerson = this.map.gameObjects.hero;
         const step = () => {
 
-            // This clears the canva each time so the are no unwanted frames left
+            // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            //Draw Lower layer
-            this.map.drawLowerImage(this.ctx, cameraPerson);
+            // Draw Lower layer
+            this.map.drawLowerImage(this.ctx);
 
-            // Update game objects
+            // Update player
+            window.Player.update({
+                arrow : this.directionInput.direction
+            });
+
+            // Draw game object
             Object.values(this.map.gameObjects).forEach(object => {
-                object.update({
-                    arrow : this.directionInput.direction
-                });
+                object.sprite.draw(this.ctx);
             })
 
-            //Draw game object
-            Object.values(this.map.gameObjects).forEach(object => {
-                
-                object.sprite.draw(this.ctx, cameraPerson);
+            window.Player.sprite.draw(this.ctx);
 
+            Object.values(this.map.NPCs).forEach(object => {
+                object.sprite.draw(this.ctx);
             })
 
-            this.map.drawUpperImage(this.ctx, cameraPerson)
+            this.map.drawUpperImage(this.ctx)
             
             // Draw the grid FOR DEBUG PURPOSES
             //this.drawGrid();
@@ -62,6 +63,11 @@ class MainWorld {
         this.map = new OverworldMap(window.OverworldMaps.TestRoom);
         this.directionInput = new DirectionInput();
         this.directionInput.init();
+        window.Player = new Person({
+            isPlayerControlled : true,
+            x: util.inGrid(5),
+            y:util.inGrid(0)
+        });
         this.startGameLoop();
         
     }

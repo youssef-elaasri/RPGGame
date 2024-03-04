@@ -68,12 +68,12 @@ class Sprite {
 
     }
 
-    draw(ctx, cameraPerson){
+    draw(ctx){
         // calcuations can be redone
-        const x = this.gameObject.x - cameraPerson.x + util.inGrid(14.5);
-        const y = this.gameObject.y - cameraPerson.y + util.inGrid(7.5);
+        const x = this.gameObject.x - window.Player.x + util.inGrid(14.5);
+        const y = this.gameObject.y - window.Player.y + util.inGrid(7.5);
         const [frameX, frameY] = this.frame;
-        console.log(this.currentAnimation + " " + this.frame + " ")
+        // console.log(this.currentAnimation + " " + this.frame + " ")
 
         ctx.drawImage(
             this.image,

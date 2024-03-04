@@ -60,7 +60,7 @@ class Sprite {
     }
     
     setAnimation(animation){
-        if(this.currentAnimation == animation) return;
+        if(this.currentAnimation === animation) return;
         this.currentAnimation = animation;
         this.currentAnimationFrame = 0;
         this.animationFrameProgress = this.animationFrameLimit

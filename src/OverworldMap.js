@@ -37,7 +37,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        lowerSrc: "images/maps/landProto.png",
+        lowerSrc: "images/maps/BG_test.png",
         gameObjects: {
             dog: new GameObject({
                 src: "images/characters/dog.png",

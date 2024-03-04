@@ -38,7 +38,8 @@ const util = {
         }
         return {x,y};
     },
-    setGameObjectsPosition(map) {
+    setGameObjectsPosition() {
+        const map = window.currentMap;
         map.gameObjectsPosition = {};
         for (let key in map.gameObjects) {
             let object = map.gameObjects[key];

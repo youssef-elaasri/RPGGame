@@ -31,5 +31,15 @@ class DirectionInput {
                 this.heldDirection.splice(index,1);
             }
         });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === ' ') {
+                e.preventDefault(); // Prevent any default action to ensure smooth behavior
+                const nearbyNPC = window.currentMap.findNearbyNPC();
+                if (nearbyNPC) {
+                    nearbyNPC.interact();
+                }
+            }
+        });
     }
 }

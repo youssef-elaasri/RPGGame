@@ -3,7 +3,7 @@ class MainWorld {
         this.element = config.element;
         this.canvas = this.element.querySelector(".game-canvas");
         this.ctx = this.canvas.getContext("2d");
-        this.map = null;
+        window.currentMap = null;
         window.dialogueIsShowing = false;
     }
     
@@ -30,37 +30,37 @@ class MainWorld {
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // Draw Lower layer
-            this.map.drawLowerImage(this.ctx);
+            window.currentMap.drawLowerImage(this.ctx);
 
             // Update game objects
-            Object.values(this.map.gameObjects).forEach(object => {
+            Object.values(window.currentMap.gameObjects).forEach(object => {
                 object.update({
                     arrow : this.directionInput.direction,
-                    map : this.map,
+                    map : window.currentMap,
                 });
             })
 
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,
-                map : this.map,
+                map : window.currentMap,
             });
 
             // initialize the gameObject position
-            util.setGameObjectsPosition(this.map);
+            util.setGameObjectsPosition(window.currentMap);
 
             window.upperObjects = [];
             window.drawingLowerObjects = false;
 
             //Draw game object
-            Object.values(this.map.gameObjects).forEach(object => {
+            Object.values(window.currentMap.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
 
             window.Player.sprite.draw(this.ctx);
 
             // draw all the NPCs
-            Object.values(this.map.NPCs).forEach(object => {
+            Object.values(window.currentMap.NPCs).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
 
@@ -86,22 +86,12 @@ class MainWorld {
         /* The Player */
         window.Player = new Person({
             isPlayerControlled : true,
-            x: util.inGrid(5),
-            y:util.inGrid(0)
+            x: util.inGrid(10),
+            y:util.inGrid(10)
         });
 
-        this.map = new OverworldMap(window.OverworldMaps.TestRoom);
+        window.currentMap = new OverworldMap(window.OverworldMaps.TestRoom);
         this.directionInput = new DirectionInput();
-
-        document.addEventListener('keydown', e => {
-            if (e.key === ' ') {
-                e.preventDefault(); // Prevent any default action to ensure smooth behavior
-                const nearbyNPC = this.map.findNearbyNPC();
-                if (nearbyNPC) {
-                    nearbyNPC.interact();
-                }
-            }
-        });
 
         this.startGameLoop();
         

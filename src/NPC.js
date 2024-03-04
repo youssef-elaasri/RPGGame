@@ -13,7 +13,7 @@ class NPC extends Person {
         // Method to handle interaction with the player
         if (this.dialogues.length > 0) {
             const dialogue = this.dialogues[this.currentDialogueIndex];
-            console.log(dialogue); // Display the dialogue - replace with your game's dialogue display logic
+            //console.log(dialogue); // Display the dialogue - replace with your game's dialogue display logic
             this.currentDialogueIndex = (this.currentDialogueIndex + 1) % this.dialogues.length;
         }
     }

@@ -43,7 +43,7 @@ const util = {
         for (let key in map.gameObjects) {
             let object = map.gameObjects[key];
             if (!object.isPlayerControlled) {
-                let gridCoord = `${object.x},${object.y-16}`;
+                let gridCoord = `${object.x},${object.y}`;
                 map.gameObjectsPosition[gridCoord] = true;
             }
         }
@@ -55,7 +55,5 @@ const util = {
                 map.gameObjectsPosition[gridCoord] = true;
             }
         }
-
-        console.log(map.gameObjectsPosition);
     }
 }

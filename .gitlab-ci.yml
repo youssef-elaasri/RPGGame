@@ -30,10 +30,11 @@ pages:
   stage: build
   script:
     - mkdir -p public
+    - mkdir -p public/images
     - cp src/index.html public/index.html
     - cp src/styles.css public/styles.css
-    - cp src/images/ public/images/  # Assuming your images are in an 'assets' directory
-    - cp src/*.js public/  # Copy all JavaScript files
+    - cp -r src/images/* public/images/
+    - cp src/*.js public/ 
   artifacts:
     paths:
       - public

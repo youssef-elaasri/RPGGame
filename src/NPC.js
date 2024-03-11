@@ -14,8 +14,8 @@ class NPC extends Person {
         this.showDialogue(); // Show the next piece of dialogue or hide if at the end
     }
      showDialogue() {
-        const dialogueContainer = document.getElementById('dialogue-container');
-        const dialogueText = document.getElementById('dialogue-text');
+        const dialogueContainer = document.querySelector('.dialogue-container');
+        const dialogueText = document.querySelector('.dialogue-text');
         dialogueText.textContent = '';
         dialogueContainer.classList.remove('hidden');
         dialogueText.textContent = this.dialogues[this.currentDialogueIndex];
@@ -24,9 +24,9 @@ class NPC extends Person {
     }
 
      hideDialogue() {
-        const dialogueContainer = document.getElementById('dialogue-container');
+        const dialogueContainer = document.querySelector('.dialogue-container');
         dialogueContainer.classList.add('hidden');
-        const dialogueText = document.getElementById('dialogue-text');
+        const dialogueText = document.querySelector('.dialogue-text');
         dialogueText.textContent = '';
         window.dialogueIsShowing = false;
         window.Player.isPlayerControlled = true;

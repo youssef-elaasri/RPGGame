@@ -1,0 +1,39 @@
+stages:
+  - lint
+  - test
+  - build
+
+eslint:
+  stage: lint
+  image: node:latest
+  script:
+    - npm install
+    - npx eslint src/*.js
+
+htmlhint:
+  stage: lint
+  image: node:latest
+  script:
+    - npm install htmlhint
+    - npx htmlhint src/*.html
+  except:
+    - tags
+
+stylelint:
+  stage: lint
+  image: node:latest
+  script:
+    - npm install csslint-cli
+    - npx csslint-cli src/*.css
+
+pages:
+  stage: build
+  script:
+    - mkdir -p public
+    - cp src/index.html public/index.html
+    - cp src/styles.css public/styles.css
+    - cp src/images/ public/images/  # Assuming your images are in an 'assets' directory
+    - cp src/*.js public/  # Copy all JavaScript files
+  artifacts:
+    paths:
+      - public

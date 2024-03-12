@@ -48,13 +48,17 @@ window.OverworldMaps = {
         NPCs: {
             ElProfesor: new NPC({
                 name : "El Profesor",
-                dialogues : ["Hello", "Hey maaaan"],
+                dialogues : ["Hello!", "Welcome to INP Legends."],
                 x: util.inGrid(9),
                 y:util.inGrid(3)
             }),
             Heisenberg: new NPC({
                 name : "Heisenberg",
-                dialogues : ["Do you want some blue meth?"],
+                dialogues : [
+                    "Psst...",
+                    "Did you hear about this new revolutionary feature ?",
+                    "You can now talk to characters."
+                ],
                 x: util.inGrid(7),
                 y:util.inGrid(3)
             }),

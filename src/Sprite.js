@@ -70,7 +70,6 @@ class Sprite {
 
     draw(ctx){
         if (this.gameObject.y < window.Player.y || window.drawingLowerObjects) {
-            console.log(this.gameObject.y - window.Player.y);
             // calcuations can be redone
             const x = this.gameObject.x - window.Player.x + util.inGrid(14.5);
             const y = this.gameObject.y - window.Player.y + util.inGrid(7.5);

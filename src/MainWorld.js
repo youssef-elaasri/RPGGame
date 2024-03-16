@@ -25,12 +25,15 @@ class MainWorld {
     
     startGameLoop() {
         const step = () => {
-
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // Draw Lower layer
             window.currentMap.drawLowerImage(this.ctx);
+
+            // update map
+
+            window.currentMap.updateMap();
 
             // Update game objects
             Object.values(window.currentMap.gameObjects).forEach(object => {
@@ -82,6 +85,11 @@ class MainWorld {
         step();
     }
 
+    startMap(mapConfig) {
+        window.currentMap = new OverworldMap(mapConfig);
+        window.currentMap.overworld = this;
+    }
+
     init() {
         /* The Player */
         window.Player = new Person({
@@ -90,7 +98,7 @@ class MainWorld {
             y:util.inGrid(10)
         });
 
-        window.currentMap = new OverworldMap(window.OverworldMaps.TestRoom);
+        this.startMap(window.OverworldMaps.TestRoom);
         this.directionInput = new DirectionInput();
 
         this.startGameLoop();

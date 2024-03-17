@@ -56,5 +56,15 @@ const util = {
                 map.gameObjectsPosition[gridCoord] = true;
             }
         }
-    }
+    },
+    oppositeDirection(currentDirection) {
+    const opposites = {
+        "up": "down",
+        "down": "up",
+        "left": "right",
+        "right": "left",
+    };
+
+    return opposites[currentDirection] || null;
+}
 }

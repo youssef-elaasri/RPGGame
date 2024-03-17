@@ -12,6 +12,10 @@ class GameObject {
         })
     }
 
+    upgradeDirection (direction){
+        this.direction  = direction;
+    }
+
     // Most game objects don't really need to be updated actually :)
     update(){
         

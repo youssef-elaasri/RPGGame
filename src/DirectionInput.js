@@ -37,6 +37,7 @@ class DirectionInput {
                 e.preventDefault(); // Prevent any default action to ensure smooth behavior
                 const nearbyNPC = window.currentMap.findNearbyNPC();
                 if (nearbyNPC) {
+                    window.currentNPC = nearbyNPC;
                     nearbyNPC.interact();
                 }
             }

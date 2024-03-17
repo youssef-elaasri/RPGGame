@@ -32,6 +32,7 @@ class NPC extends Person {
     }
 
     interact() {
+        console.log(this.currentDialogueIndex);
         if (this.currentDialogueIndex < this.dialogues.length) {
             this.showDialogue();
             this.currentDialogueIndex = this.currentDialogueIndex + 1;

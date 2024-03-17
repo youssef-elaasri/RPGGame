@@ -58,11 +58,49 @@ const util = {
         }
     },
     displayIDE() {
+        // add the div of the editor and the run button
+        const gameWindow = document.getElementById('gameWindow');
+
+        // Create the 'editor' div
+        const editorDiv = document.createElement('div');
+        editorDiv.className = 'editor'; // Add class name
+        editorDiv.id = 'editor'; // Add id
+
+        // Append the 'editor' div to the 'game-window' div
+        gameWindow.appendChild(editorDiv);
+
+        // Create the 'button-container' div
+        const buttonContainerDiv = document.createElement('div');
+        buttonContainerDiv.className = 'button-container'; // Add class name
+
+        // Create the button element
+        const button = document.createElement('button');
+        button.className = 'btn'; // Add class name
+        button.textContent = 'Run'; // Set the text inside the button
+        button.setAttribute('onclick', 'executeTests()'); // Set the onclick attribute to call the 'executeTests' function
+
+        // Append the button to the 'button-container' div
+        buttonContainerDiv.appendChild(button);
+
+        // Finally, append the 'button-container' div to the 'game-window' div
+        gameWindow.appendChild(buttonContainerDiv);
+
 
         window.editor = ace.edit("editor");
         window.editor.setTheme("ace/theme/monokai");
         window.editor.session.setMode("ace/mode/python");
         window.IDEdisplayed = true;
+    },
+    deleteIDE () {
+        const editorDiv = document.getElementById('editor');
+        if (editorDiv) {
+            editorDiv.remove();
+        }
+        const buttonContainers = document.getElementsByClassName('button-container');
+        if (buttonContainers.length > 0) {
+            // Removes the first (and assumed only) button container found
+            buttonContainers[0].remove();
+        }
     }
 }
 
@@ -76,6 +114,11 @@ function executeTests() {
         success : function (response) {
             $(".output").text((response))
         }
-    })
+    });
+    window.Player.isPlayerControlled = true;
+    window.currentNPC.currentDialogueIndex = 0;
+    window.currentNPC = null;
+    util.deleteIDE();
+    window.IDEdisplayed = false;
 
 }

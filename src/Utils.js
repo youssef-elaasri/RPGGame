@@ -56,5 +56,26 @@ const util = {
                 map.gameObjectsPosition[gridCoord] = true;
             }
         }
+    },
+    displayIDE() {
+
+        window.editor = ace.edit("editor");
+        window.editor.setTheme("ace/theme/monokai");
+        window.editor.session.setMode("ace/mode/python");
+        window.IDEdisplayed = true;
     }
+}
+
+function executeTests() {
+    $.ajax({
+        url : "app/tester.php",
+        method: "POST",
+        data: {
+            code : window.editor.getSession().getValue()
+        },
+        success : function (response) {
+            $(".output").text((response))
+        }
+    })
+
 }

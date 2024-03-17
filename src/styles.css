@@ -34,6 +34,7 @@ nav {
 }
 
 .game-container {
+    position: relative;
     transform: scale(3);
 }
 
@@ -82,6 +83,22 @@ nav {
     margin: 0;
     max-width: 90%;
     text-shadow: 2px 2px #000000; /* Shadow to make text stand out */
+}
+
+.editor {
+    width: 900px;
+    height: 400px;
+    position: absolute;
+    bottom: 200px;
+    right: 10px;
+    z-index: 30;
+}
+
+.button-container {
+    position: absolute;
+    bottom: 70px;
+    right: 10px;
+    z-index: 30;
 }
 
 .hidden {

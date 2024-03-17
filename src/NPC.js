@@ -29,16 +29,19 @@ class NPC extends Person {
         const dialogueText = document.querySelector('.dialogue-text');
         dialogueText.textContent = '';
         window.dialogueIsShowing = false;
-        window.Player.isPlayerControlled = true;
     }
 
     interact() {
         if (this.currentDialogueIndex < this.dialogues.length) {
             this.showDialogue();
             this.currentDialogueIndex = this.currentDialogueIndex + 1;
-        } else {
-            this.currentDialogueIndex = 0;
+        } else if (this.currentDialogueIndex === this.dialogues.length) {
             this.hideDialogue();
+            util.displayIDE();
+            this.currentDialogueIndex = this.currentDialogueIndex + 1;
+        } else {
+            window.Player.isPlayerControlled = true;
+            this.currentDialogueIndex = 0;
         }
     }
 

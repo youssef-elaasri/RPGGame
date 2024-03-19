@@ -49,7 +49,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        lowerSrc: "images/maps/BG_test.png",
+        lowerSrc: "https://firebasestorage.googleapis.com/v0/b/inp-legends.appspot.com/o/images%2Fmaps%2FBG_test.png?alt=media&token=1bb5b749-abc3-4709-adfe-1f1a959acd5c",
         gameObjects: {
             dog: new GameObject({
                 src: "images/characters/dog.png",

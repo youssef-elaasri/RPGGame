@@ -105,16 +105,29 @@ const util = {
 }
 
 function executeTests() {
-    $.ajax({
-        url : "app/tester.php",
-        method: "POST",
-        data: {
-            code : window.editor.getSession().getValue()
+    
+    fetch('http://localhost:8080/python', {
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
         },
-        success : function (response) {
-            $(".output").text((response))
+        body: JSON.stringify({script: window.editor.getSession().getValue()})
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new Error("Response not ok")
         }
-    });
+
+        return response.text();
+    })
+    .then(data => {
+        console.log('Response: ', data);
+    })
+    .catch(error => {
+        console.error('fetch operation failed: ', error);
+    })
+
+
     window.Player.isPlayerControlled = true;
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;

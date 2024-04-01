@@ -65,15 +65,14 @@ const util = {
         }
     },
     oppositeDirection(currentDirection) {
-    const opposites = {
-        "up": "down",
-        "down": "up",
-        "left": "right",
-        "right": "left",
-    };
+        const opposites = {
+            "up": "down",
+            "down": "up",
+            "left": "right",
+            "right": "left",
+        };
 
-    return opposites[currentDirection] || null;
-}
+        return opposites[currentDirection] || null;
     },
     displayIDE() {
         // add the div of the editor and the run button

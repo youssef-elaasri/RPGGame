@@ -93,22 +93,24 @@ class MainWorld {
     async init(userId) {
         try {
             // Load the saved game state for the given user
-            const gameState = await loadGame(userId);
-
-            if (gameState) {
-                // If a saved game state exists, use it to initialize the player and map
-                window.Player = new Person({
-                    x: gameState.playerX, // Use the loaded X position
-                    y: gameState.playerY, // Use the loaded Y position
-                    id: userId
-                });
-                console.log("Here")
-                // Assuming the game state includes the name of the map to start
-                this.startMap(window.OverworldMaps[gameState.mapName]);
-                console.log("HHHere")
-            } else {
+            // const gameState = await loadGame(userId);
+            //
+            // if (gameState) {
+            //     // If a saved game state exists, use it to initialize the player and map
+            //     window.Player = new Person({
+            //         isPlayerControlled: true,
+            //         x: gameState.playerX, // Use the loaded X position
+            //         y: gameState.playerY, // Use the loaded Y position
+            //         id: userId
+            //     });
+            //     console.log("Here")
+            //     // Assuming the game state includes the name of the map to start
+            //     this.startMap(window.OverworldMaps[gameState.mapName]);
+            //     console.log("HHHere")
+            // } else {
                 // If no saved game state exists, start with default values
                 window.Player = new Person({
+                    isPlayerControlled: true,
                     x: util.inGrid(10),
                     y: util.inGrid(10),
                     id: userId
@@ -116,7 +118,7 @@ class MainWorld {
 
                 // Start with a default map if no saved state is found
                 this.startMap(window.OverworldMaps.TestRoom);
-            }
+            //}
 
             // Start capturing direction input
             this.directionInput = new DirectionInput();

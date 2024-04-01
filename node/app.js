@@ -1,10 +1,26 @@
-const Docker = require('./dockerManager')
 const express = require('express');
-const fs = require('fs')
-const cors = require('cors')
-
+const userRoutes = require('./routes/userRoutes');
+const gameRoutes = require('./routes/gameRoutes');
 
 const app = express();
+app.use(express.json()); // Middleware to parse JSON bodies
+
+const cors = require('cors');
+app.use(cors()); // This will allow all CORS requests
+
+// Use the routes
+app.use(userRoutes);
+app.use(gameRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+
+
+//
+
+const Docker = require('./dockerManager');
+const fs = require('fs');
 
 // Middleware for parsing json. We love json <3
 app.use(express.json());
@@ -34,9 +50,9 @@ class App {
 
     scriptIntercept(){
         app.post('/python', (req, res) => {
-            const pythonScript = req.body.script;
-            fs.writeFileSync('python_scripts/script.py', pythonScript);
-            this.docker.runContainer('script')
+            // const pythonScript = req.body.script;
+            // fs.writeFileSync('python_scripts/script.py', pythonScript);
+            this.docker.buildImageAndRunContainer('script')
             .then(output => res.status(200).send(output))
             
         })

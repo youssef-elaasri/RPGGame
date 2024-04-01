@@ -1,5 +1,6 @@
 class GameObject {
     constructor(config){
+        this.id = null;
         this.isMounted = false;
         // Object position (in px)
         this.x = config.x || 0;
@@ -11,12 +12,43 @@ class GameObject {
             gameObject : this,
             src: config.src ||"images/characters/hero.png" // If the user is lazy and doesn't give an image put the image of Alex by default... bcs we love Alex
         })
+        this.behaviorLoop = config.behaviorLoop || [];
+        this.behaviorLoopIndex = 0;
     }
 
     mount(map){
-        console.log("mounting");
         this.isMounted = true;
         map.addWall(this.x, this.y);
+
+        // kick off the behavior loop
+
+        setTimeout(() => {
+            this.startBehaviorLoop(map);
+        }, 10)
+    }
+
+
+    async startBehaviorLoop(map){
+
+        console.log(`${this.id}'s behavior is starting...`);
+        if(map.isCutScenePlaing || this.behaviorLoop.length === 0)
+            return;
+
+        let event = this.behaviorLoop[this.behaviorLoopIndex]
+
+        event.doer = this.id;
+
+        // create an event instance to handle it
+        const eventhandler = new OverworldEvent({map, event: event})
+        await eventhandler.init();
+
+        console.log("event was nicely handled");
+        // Increment the index by one and making sure it loops
+        this.behaviorLoopIndex = (this.behaviorLoopIndex + 1) % this.behaviorLoop.length;
+        
+        // Repeat
+        startBehaviorLoop(map)
+
     }
 
     upgradeDirection (direction){
@@ -27,4 +59,5 @@ class GameObject {
     update(){
         
     }
+
 }

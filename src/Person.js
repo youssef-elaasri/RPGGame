@@ -19,7 +19,7 @@ class Person extends GameObject {
 
 
             // case : the charcter can move and have an arrow pressed
-            if (this.isPlayerControlled && state.arrow) {
+            if (this.isPlayerControlled && state.arrow &&!state.map.isCutscenePlaying) {
                 this.startBehavior(state, {
                     type : "walk",
                     direction : state.arrow,
@@ -30,7 +30,6 @@ class Person extends GameObject {
     }
 
     startBehavior(state, behavior) {
-
         // set character direction to whatever behavior has
         this.direction = behavior.direction;
         if (behavior.type === "walk" ) {
@@ -41,14 +40,24 @@ class Person extends GameObject {
             }
 
             // walk
+            state.map.moveWall(this.x, this.y, this.direction)
             this.remainingMovement = 16;
         }
     }
 
     updatePosition(){
-            const [property, change] = this.directions[this.direction];
-            this[property] += change;
-            this.remainingMovement -= 1;
+        console.log("position is being updated");
+        const [property, change] = this.directions[this.direction];
+        this[property] += change;
+        this.remainingMovement -= 1;
+
+        if(this.remainingMovement === 0){
+            // Person finished walking!
+            console.log("I'll signal that i'm done walking");
+            util.emitEvent("PersonWalkingComplete", {
+                doesId: this.id
+            })
+        }
     }
 
     updateSprite() {

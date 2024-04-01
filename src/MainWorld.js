@@ -43,6 +43,13 @@ class MainWorld {
                 });
             })
 
+            Object.values(window.currentMap.NPCs).forEach(object => {
+                object.update({
+                    arrow : this.directionInput.direction,
+                    map : window.currentMap,
+                });
+            })
+
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,
@@ -88,9 +95,7 @@ class MainWorld {
     startMap(mapConfig) {
         window.currentMap = new OverworldMap(mapConfig);
         window.currentMap.overworld = this;
-        console.log(window.currentMap.walls);
         window.currentMap.mountObjects();
-        console.log(window.currentMap.walls);
     }
 
     init() {

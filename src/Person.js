@@ -9,6 +9,8 @@ class Person extends GameObject {
             "left": ["x", -1],
             "right": ["x", 1],
         }
+        this.completedStages = config.completedStages || {};
+        this.id = config.id || -1;
     }
 
     update(state){
@@ -18,7 +20,7 @@ class Person extends GameObject {
         else {
 
 
-            // case : the charcter can move and have an arrow pressed
+            // case : the character can move and have an arrow pressed
             if (this.isPlayerControlled && state.arrow) {
                 this.startBehavior(state, {
                     type : "walk",

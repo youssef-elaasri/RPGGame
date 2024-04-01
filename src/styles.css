@@ -5,6 +5,7 @@ body, html {
     padding: 0;
 }
 
+/* About us button */
 .about-us {
     color: #fff;
     font-weight: bold;
@@ -37,16 +38,6 @@ nav {
     transform: scale(3);
 }
 
-.fullscreenBtn {
-    bottom: 10px;
-    color: #fff;
-    cursor: pointer;
-    font-size: 24px;
-    position: absolute;
-    right: 10px;
-    z-index: 20;
-}
-
 .game-canvas {
     height: 240px;
     position: relative;
@@ -55,10 +46,6 @@ nav {
 
 .game-container canvas{
     image-rendering: pixelated;
-}
-
-.fs-icon{
-    color: black;
 }
 
 
@@ -86,4 +73,61 @@ nav {
 
 .hidden {
     display: none;
+}
+
+
+.modal {
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Container for control icons */
+.control-icons {
+    position: absolute;
+    right: 10px; /* Positions the container at the bottom right corner of its relative parent */
+    bottom: 10px;
+    z-index: 20;
+    color: black;
+}
+
+/* Styles for the fullscreen button */
+.fullscreenBtn {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+/* Styles for the save button */
+.saveBtn {
+    font-size: 24px;
+    margin-right: 20px; /* Adds space between the save and fullscreen buttons */
+}
+
+/* Styles for the logout button */
+.logoutBtn {
+    font-size: 28px;
+    margin-right: 20px; /* Adds space between the logout and save buttons */
+    padding-bottom: 40px;
+}
+
+/* Hover effect for both buttons */
+.fullscreenBtn:hover, .saveBtn:hover, .logoutBtn:hover{
+    cursor: pointer;
+
+    color: #E0E0E0; /* Changes color on hover */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Adds a subtle glow effect */
 }

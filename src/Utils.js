@@ -1,7 +1,7 @@
 
 // Method used by the fullscreen icon
 function toggleFullscreen() {
-    var elem = document.querySelector('.game-window');
+    let elem = document.querySelector('.game-window');
     if (!document.fullscreenElement) {
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
@@ -14,6 +14,13 @@ function toggleFullscreen() {
 }
 
 const util = {
+    gameInit(userId) {
+        const mainWorld = new MainWorld({
+                element: document.querySelector(".game-container")
+            }
+        );
+        mainWorld.init(userId);
+    },
     inGrid(n) {
         return n*16;    
     },

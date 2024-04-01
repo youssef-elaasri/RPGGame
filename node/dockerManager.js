@@ -12,7 +12,7 @@ class DockerManager {
         return new Promise((resolve, reject) => {
             const buildOptions = {
                 context: __dirname,
-                src: ['Dockerfile', 'loader.py', 'python_scripts'], // Include loader script and python scripts folder
+                src: ['Dockerfile', 'loader.py'], // Include loader script and python scripts folder
             };
     
             this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
@@ -47,6 +47,12 @@ class DockerManager {
                 Cmd: [`${scriptName}.py`],
                 AttachStdout: true,
                 AttachStderr: true,
+                Volumes: {
+                    './python_scripts': {}
+                },
+                HostConfig:{
+                    Binds:  [`${process.cwd()}/python_scripts:/app/python_scripts`]
+                }
             };
     
             this.docker.createContainer(containerOptions, (error, container) => {

@@ -36,7 +36,7 @@ class App {
         app.post('/python', (req, res) => {
             const pythonScript = req.body.script;
             fs.writeFileSync('python_scripts/script.py', pythonScript);
-            this.docker.buildImageAndRunContainer('script')
+            this.docker.runContainer('script')
             .then(output => res.status(200).send(output))
             
         })
@@ -47,5 +47,3 @@ inpLegends = new App({
     port: 8080,
     image: 'app_image'
 });
-
-

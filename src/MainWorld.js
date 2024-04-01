@@ -50,7 +50,7 @@ class MainWorld {
             });
 
             // initialize the gameObject position
-            util.setGameObjectsPosition(window.currentMap);
+            // util.setGameObjectsPosition(window.currentMap);
 
             window.upperObjects = [];
             window.drawingLowerObjects = false;
@@ -88,6 +88,9 @@ class MainWorld {
     startMap(mapConfig) {
         window.currentMap = new OverworldMap(mapConfig);
         window.currentMap.overworld = this;
+        console.log(window.currentMap.walls);
+        window.currentMap.mountObjects();
+        console.log(window.currentMap.walls);
     }
 
     init() {
@@ -97,6 +100,7 @@ class MainWorld {
             x: util.inGrid(10),
             y:util.inGrid(10)
         });
+
 
         this.startMap(window.OverworldMaps.TestRoom);
         this.directionInput = new DirectionInput();

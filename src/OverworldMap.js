@@ -25,6 +25,28 @@ class OverworldMap {
         const {x,y} = util.nextPosition(currentX,currentY,direction);
         return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
     }
+
+    addWall(x, y){
+        this.walls[`${x},${y}`] = true;
+    }
+
+    removeWall(x, y){
+        delete this.walls[`${x},${y}`];
+    }
+
+    moveWall(prevX, prevY, direction){
+        this.removeWall(prevX, prevY);
+        const {x, y} = utils.nextPosition(prevX, prevY, direction);
+        this.addWall(x,y);
+    }
+
+    mountObjects(){
+        // TODO: determine what objects should be mounted
+        Object.values(this.gameObjects).forEach(gameObject => gameObject.mount(this))
+        Object.values(this.NPCs).forEach(npc => npc.mount(this))
+    
+    }
+
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
         for (let npc of Object.values(this.NPCs)) { // fixme : 30 can be adjusted !!!!

@@ -1,0 +1,9 @@
+L'intelligence artificielle rebelle a synthétisé un matériau inconnu qui, selon elle, possède des propriétés uniques pouvant compromettre la sécurité des infrastructures de l'école. Les joueurs reçoivent un ensemble de données expérimentales relatives aux propriétés de plusieurs matériaux, y compris le matériau mystérieux, sans toutefois savoir à quel ensemble de données correspond ce dernier.
+
+le joueur doit créer une classe Materiau qui a comme attribut :
+- nom
+- densite
+- conductivité_thermique
+- point_de_fusion
+
+dans cette class le joueur doit écrire une fonction point_comun(materiel1) qui prend e parametre un materiel et retourne true si le materiel1 à la meme densité ou conductivité thermique ou point de fusion que self.

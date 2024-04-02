@@ -1,0 +1,5 @@
+le matériau inconnu a des propriété unique. écrit la fonction trouver_materiau_inconnu(materiaux) qui prend en paramétre une liste des materiaux et retourne le matériau inconnu.
+
+on peut bien utiliser la fonction point_comun(materiel1) pour detecter est ce qu'il y a des points comun entre les materiaux.
+
+remarque : il faut faire un import utils.py pour pouvoire utiliser la classe Materiau et la fonction point_comun(materiel1)

@@ -43,6 +43,13 @@ class MainWorld {
                 });
             })
 
+            Object.values(window.currentMap.NPCs).forEach(object => {
+                object.update({
+                    arrow : this.directionInput.direction,
+                    map : window.currentMap,
+                });
+            })
+
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,
@@ -50,7 +57,7 @@ class MainWorld {
             });
 
             // initialize the gameObject position
-            util.setGameObjectsPosition(window.currentMap);
+            // util.setGameObjectsPosition(window.currentMap);
 
             window.upperObjects = [];
             window.drawingLowerObjects = false;
@@ -88,6 +95,7 @@ class MainWorld {
     startMap(mapConfig) {
         window.currentMap = new OverworldMap(mapConfig);
         window.currentMap.overworld = this;
+        window.currentMap.mountObjects();
     }
 
     init() {
@@ -97,6 +105,7 @@ class MainWorld {
             x: util.inGrid(10),
             y:util.inGrid(10)
         });
+
 
         this.startMap(window.OverworldMaps.TestRoom);
         this.directionInput = new DirectionInput();

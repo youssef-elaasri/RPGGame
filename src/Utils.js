@@ -58,13 +58,19 @@ const util = {
         }
     },
     oppositeDirection(currentDirection) {
-    const opposites = {
-        "up": "down",
-        "down": "up",
-        "left": "right",
-        "right": "left",
-    };
+        const opposites = {
+            "up": "down",
+            "down": "up",
+            "left": "right",
+            "right": "left",
+        };
 
-    return opposites[currentDirection] || null;
-}
+        return opposites[currentDirection] || null;
+    },
+
+    emitEvent(name, detail){
+        const event = new CustomEvent(name, {detail});
+        document.dispatchEvent(event);
+    }
+
 }

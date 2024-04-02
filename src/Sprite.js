@@ -23,7 +23,7 @@ class Sprite {
         // Finally, The actual frame
         this.currentAnimationFrame = 0;
 
-        this.animationFrameLimit = config.animationFrameLimit || 32
+        this.animationFrameLimit = config.animationFrameLimit || 25
         this.animationFrameProgress = this.animationFrameLimit;
 
         //Set this image
@@ -74,7 +74,6 @@ class Sprite {
             const x = this.gameObject.x - window.Player.x + util.inGrid(14.5);
             const y = this.gameObject.y - window.Player.y + util.inGrid(7.5);
             const [frameX, frameY] = this.frame;
-            // console.log(this.currentAnimation + " " + this.frame + " ")
 
             ctx.drawImage(
                 this.image,

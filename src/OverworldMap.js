@@ -2,14 +2,20 @@ class OverworldMap {
     
     constructor(config) {
         this.overworld = null;
+
         this.gameObjects = config.gameObjects || [];
         this.NPCs = config.NPCs || [];
+        
         this.walls = config.walls || {};
         this.changeMap = config.changeMap || {};
-        this.gameObjectsPosition = {}
+        
+        //this.gameObjectsPosition = {}
+        
         this.startPosition = config.startPosition || [0,0];
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
+
+        this.isCutScenePlaying = false;
 
     }
 
@@ -23,8 +29,38 @@ class OverworldMap {
 
     isSpaceTaken(currentX, currentY, direction) {
         const {x,y} = util.nextPosition(currentX,currentY,direction);
-        return this.walls[`${x},${y}`] || this.gameObjectsPosition[`${x},${y}`] || false;
+        return this.walls[`${x},${y}`] || false;
     }
+
+    addWall(x, y){
+        this.walls[`${x},${y}`] = true;
+    }
+
+    removeWall(x, y){
+        delete this.walls[`${x},${y}`];
+    }
+
+    moveWall(prevX, prevY, direction){
+        this.removeWall(prevX, prevY);
+        const {x, y} = util.nextPosition(prevX, prevY, direction);
+        this.addWall(x,y);
+    }
+
+    mountObjects(){
+        // TODO: determine what objects should be mounted
+        Object.keys(this.gameObjects).forEach(key =>{
+            let gameObject = this.gameObjects[key];
+            gameObject.id = key;
+            gameObject.mount(this)
+        })
+        Object.keys(this.NPCs).forEach(key =>{
+            let npc = this.NPCs[key];
+            npc.id = key;
+            npc.mount(this)
+        })
+    
+    }
+
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
         for (let npc of Object.values(this.NPCs)) { // fixme : 30 can be adjusted !!!!
@@ -62,7 +98,25 @@ window.OverworldMaps = {
                 name : "El Profesor",
                 dialogues : ["Hello!", "Welcome to INP Legends."],
                 x: util.inGrid(9),
-                y:util.inGrid(3)
+                y:util.inGrid(3),
+                behaviorLoop: [
+                    { type: "walk", direction: "right"},
+                    { type: "walk", direction: "right"},
+                    { type: "stand", direction:"right", time: 1000},
+                    { type: "walk", direction:"right"},
+                    { type: "walk", direction: "right"},
+                    { type: "stand", direction:"right", time: 1000},
+                    { type: "stand", direction:"left", time: 2000},
+                    { type: "walk", direction:"left"},
+                    { type: "walk", direction:"left"},
+                    { type: "stand", direction:"left", time: 800},
+                    { type: "walk", direction:"left"},
+                    { type: "walk", direction:"left"},
+                    { type: "stand", direction:"left", time: 800},
+                    { type: "stand", direction:"right", time: 3000},
+
+
+                ]
             }),
             Heisenberg: new NPC({
                 name : "Heisenberg",
@@ -72,7 +126,14 @@ window.OverworldMaps = {
                     "You can now talk to characters."
                 ],
                 x: util.inGrid(7),
-                y:util.inGrid(3)
+                y:util.inGrid(3),
+                behaviorLoop:[
+                    {type: "stand", direction:"left", time:1000},
+                    {type: "stand", direction:"right", time:2500},
+                    {type: "stand", direction:"down", time:3000},
+                    {type: "stand", direction:"right", time:800},
+
+                ]
             }),
         },
         walls : {

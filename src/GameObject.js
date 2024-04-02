@@ -30,7 +30,6 @@ class GameObject {
 
     async startBehaviorLoop(map){
 
-        console.log(`${this.id}'s behavior is starting...`);
         if(map.isCutScenePlaing || this.behaviorLoop.length === 0)
             return;
 
@@ -42,12 +41,11 @@ class GameObject {
         const eventhandler = new OverworldEvent({map, event: event})
         await eventhandler.init();
 
-        console.log("event was nicely handled");
         // Increment the index by one and making sure it loops
         this.behaviorLoopIndex = (this.behaviorLoopIndex + 1) % this.behaviorLoop.length;
         
         // Repeat
-        startBehaviorLoop(map)
+        this.startBehaviorLoop(map)
 
     }
 

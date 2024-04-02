@@ -5,27 +5,40 @@ class OverworldEvent{
     }
 
     stand(resolve){
-
-    }
-
-    walk(resolve){
         const doer = this.map.NPCs[this.event.doer] || this.map.gameObjects[this.event.doer]
-        console.log(`${this.event.doer} is going to walk`);
         doer.startBehavior({
             map: this.map
         }, {
-            type: "walk",
-            direction: this.event.direction
+            type: "stand",
+            direction: this.event.direction,
+            time: this.event.time
         })
 
         const completeHandler = e => {
             if(e.detail.doerId == this.event.doer){
-                console.log('I"m done walking');
+                document.removeEventListener("PersonStandingComplete", completeHandler);
+                resolve();
+            }
+        }        
+        document.addEventListener("PersonStandingComplete", completeHandler)
+    }
+
+    walk(resolve){
+        const doer = this.map.NPCs[this.event.doer] || this.map.gameObjects[this.event.doer]
+        doer.startBehavior({
+            map: this.map
+        }, {
+            type: "walk",
+            direction: this.event.direction,
+            retry: true,
+        })
+
+        const completeHandler = e => {
+            if(e.detail.doerId == this.event.doer){
                 document.removeEventListener("PersonWalkingComplete", completeHandler);
                 resolve();
             }
-        }
-
+        }        
         document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 

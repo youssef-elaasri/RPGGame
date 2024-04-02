@@ -36,31 +36,43 @@ class Person extends GameObject {
 
             // stop if the space is not free
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+                if(behavior.retry){
+                    setTimeout(() => this.startBehavior(state, behavior), 10)
+                }
                 return;
             }
 
             // walk
             state.map.moveWall(this.x, this.y, this.direction)
             this.remainingMovement = 16;
+            console.log(`${this.id} will start to walk`);
+
+            this.updateSprite(state);
+        }
+        else if (behavior.type === "stand"){
+            setTimeout(()=>{
+                util.emitEvent("PersonStandingComplete", {
+                    doerId: this.id
+                })
+            }, behavior.time)
         }
     }
 
     updatePosition(){
-        console.log("position is being updated");
         const [property, change] = this.directions[this.direction];
         this[property] += change;
         this.remainingMovement -= 1;
 
         if(this.remainingMovement === 0){
             // Person finished walking!
-            console.log("I'll signal that i'm done walking");
             util.emitEvent("PersonWalkingComplete", {
-                doesId: this.id
+                doerId: this.id
             })
         }
     }
 
     updateSprite() {
+
         if (this.remainingMovement > 0) {
             this.sprite.setAnimation("walk-" + this.direction);
             return;

@@ -69,7 +69,6 @@ const util = {
     },
 
     emitEvent(name, detail){
-        console.log("emit event");
         const event = new CustomEvent(name, {detail});
         document.dispatchEvent(event);
     }

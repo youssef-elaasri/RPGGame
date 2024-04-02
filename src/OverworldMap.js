@@ -100,18 +100,25 @@ window.OverworldMaps = {
                 x: util.inGrid(9),
                 y:util.inGrid(3),
                 behaviorLoop: [
-                    { type: "walk", direction: "left"},
-                    { type: "walk", direction:"down"},
-                    //{ type: "stand", direction:"right", time: 800},
+                    { type: "walk", direction: "right"},
+                    { type: "walk", direction: "right"},
+                    { type: "stand", direction:"right", time: 1000},
                     { type: "walk", direction:"right"},
-                    { type: "walk", direction:"up"},
-                    //{ type: "stand", direction:"up", time: 100},
-
+                    { type: "walk", direction: "right"},
+                    { type: "stand", direction:"right", time: 1000},
+                    { type: "stand", direction:"left", time: 2000},
+                    { type: "walk", direction:"left"},
+                    { type: "walk", direction:"left"},
+                    { type: "stand", direction:"left", time: 800},
+                    { type: "walk", direction:"left"},
+                    { type: "walk", direction:"left"},
+                    { type: "stand", direction:"left", time: 800},
+                    { type: "stand", direction:"right", time: 3000},
 
 
                 ]
             }),
-/*             Heisenberg: new NPC({
+            Heisenberg: new NPC({
                 name : "Heisenberg",
                 dialogues : [
                     "Psst...",
@@ -121,13 +128,13 @@ window.OverworldMaps = {
                 x: util.inGrid(7),
                 y:util.inGrid(3),
                 behaviorLoop:[
-                    {type: "stand", direction:"left", time:100},
-                    {type: "stand", direction:"right", time:250},
-                    {type: "stand", direction:"down", time:500},
-                    {type: "stand", direction:"right", time:50},
+                    {type: "stand", direction:"left", time:1000},
+                    {type: "stand", direction:"right", time:2500},
+                    {type: "stand", direction:"down", time:3000},
+                    {type: "stand", direction:"right", time:800},
 
                 ]
-            }), */
+            }),
         },
         walls : {
             [util.asGridCoord(0,-1)] : true,

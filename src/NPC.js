@@ -5,7 +5,7 @@ class NPC extends Person {
         this.dialogues = config.dialogues || []; // Array of dialogue strings
         this.currentDialogueIndex = 0; // To track which dialogue to show
         this.isInteractable = config.isInteractable || true; // Whether the player can interact with the NPC
-        this.autoMovePattern = config.autoMovePattern || null; // Automated movement pattern!
+        this.autoMovePattern = config.autoMovePattern || true; // Automated movement pattern!
         this.autoMoveIndex = 0; // Current step in the automated movement pattern
     }
 

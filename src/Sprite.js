@@ -23,7 +23,7 @@ class Sprite {
         // Finally, The actual frame
         this.currentAnimationFrame = 0;
 
-        this.animationFrameLimit = config.animationFrameLimit || 32
+        this.animationFrameLimit = config.animationFrameLimit || 25
         this.animationFrameProgress = this.animationFrameLimit;
 
         //Set this image

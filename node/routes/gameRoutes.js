@@ -7,7 +7,7 @@ router.post('/stage/complete', (req, res) => {
     // Implement stage completion saving logic here
 });
 
-router.get('/api/users/:userId/last-game', (req, res) => {
+router.get('/api/users/:userId/loadGame', (req, res) => {
     const userId = req.params.userId;
 
     // Query the database to get the user's last map and position

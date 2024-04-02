@@ -1,19 +1,16 @@
-
-// Method used by the fullscreen icon
-function toggleFullscreen() {
-    let elem = document.querySelector('.game-window');
-    if (!document.fullscreenElement) {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-    }
-}
-
 const util = {
+    toggleFullscreen() {
+        let elem = document.querySelector('.game-window');
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    },
     gameInit(userId) {
         const mainWorld = new MainWorld({
                 element: document.querySelector(".game-container")
@@ -75,6 +72,8 @@ const util = {
         return opposites[currentDirection] || null;
     },
     displayIDE() {
+        document.getElementById('closeBtn').classList.remove("hidden");
+        toggleButtons();
         // add the div of the editor and the run button
         const gameWindow = document.getElementById('gameWindow');
 
@@ -109,6 +108,7 @@ const util = {
         window.IDEdisplayed = true;
     },
     deleteIDE () {
+        toggleButtons();
         const editorDiv = document.getElementById('editor');
         if (editorDiv) {
             editorDiv.remove();
@@ -118,6 +118,12 @@ const util = {
             // Removes the first (and assumed only) button container found
             buttonContainers[0].remove();
         }
+        window.Player.isPlayerControlled = true;
+        window.IDEdisplayed = false;
+    },
+    closeIDE () {
+        document.getElementById('closeBtn').classList.add("hidden");
+        this.deleteIDE();
     }
 }
 
@@ -145,10 +151,9 @@ function executeTests() {
     })
 
 
-    window.Player.isPlayerControlled = true;
+
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;
     util.deleteIDE();
-    window.IDEdisplayed = false;
 
 }

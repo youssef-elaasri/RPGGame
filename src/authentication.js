@@ -2,10 +2,10 @@ function hideModal() {
     document.getElementById('authModal').classList.add("hidden");
 }
 
-function showButtons() {
-    document.getElementById('fullscreenBtn').classList.remove("hidden");
-    document.getElementById('saveBtn').classList.remove("hidden");
-    document.getElementById('logoutBtn').classList.remove("hidden");
+function toggleButtons() {
+    document.getElementById('fullscreenBtn').classList.toggle("hidden");
+    document.getElementById('saveBtn').classList.toggle("hidden");
+    document.getElementById('logoutBtn').classList.toggle("hidden");
 }
 
 // Login function
@@ -34,7 +34,7 @@ function login() {
                 localStorage.setItem('authToken', data.token); // Store the token for later use
                 alert('Login successful');
                 hideModal();
-                showButtons();
+                toggleButtons();
                 util.gameInit(data.userId);
             } else {
                 // Handle any situation where login is successful but no token is returned
@@ -117,16 +117,8 @@ async function logout() {
     }
 }
 
-function getCurrentGameState() {
-    return {
-        playerPosition: { x: window.Player.x, y: window.Player.y }, // Example of retrieving player position
-        map: window.currentMap, // Example of retrieving current map name
-    };
-}
-
 async function saveGame() {
     // Obtain the current game state
-    const gameState = getCurrentGameState();
     const userId = window.Player.id;
     try {
         const response = await fetch(`http://localhost:3000/api/users/${userId}/saves`, {
@@ -135,9 +127,9 @@ async function saveGame() {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                mapName: gameState.map,
-                player_x: gameState.playerPosition.x,
-                player_y: gameState.playerPosition.y,
+                mapName: window.currentMap.name,
+                player_x: window.Player.x,
+                player_y: window.Player.y,
             }),
         });
 
@@ -149,6 +141,7 @@ async function saveGame() {
 
         const result = await response.json();
         console.log('Game state saved successfully:', result);
+        alert('Game saved successfully');
         return result;
     } catch (error) {
         console.error('Error saving game state:', error);
@@ -159,7 +152,7 @@ async function saveGame() {
 async function loadGame(userId) {
     console.log(userId)
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/last-game`, {
+        const response = await fetch(`http://localhost:3000/api/users/${userId}/loadGame`, {
             method: 'GET'
         });
 

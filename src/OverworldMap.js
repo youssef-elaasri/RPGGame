@@ -2,6 +2,7 @@ class OverworldMap {
     
     constructor(config) {
         this.overworld = null;
+        this.name = config.name || "";
         this.gameObjects = config.gameObjects || [];
         this.NPCs = config.NPCs || [];
         this.walls = config.walls || {};
@@ -49,6 +50,7 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
+        name: "TestRoom",
         lowerSrc: "images/maps/BG_test.png",
         gameObjects: {
             dog: new GameObject({
@@ -88,6 +90,7 @@ window.OverworldMaps = {
     },
 
     kitchen : {
+        name: "Kitchen",
         lowerSrc : "images/maps/kitchen.png",
         changeMap : {
             [util.asGridCoord(3,8)] : ["TestRoom", [util.inGrid(4),util.inGrid(0)]],

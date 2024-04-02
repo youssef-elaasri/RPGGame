@@ -50,10 +50,10 @@ class App {
 
     scriptIntercept(){
         app.post('/python', (req, res) => {
-            // const pythonScript = req.body.script;
-            // fs.writeFileSync('python_scripts/script.py', pythonScript);
-            this.docker.buildImageAndRunContainer('script')
-            .then(output => res.status(200).send(output))
+             const pythonScript = req.body.script;
+             fs.writeFileSync('python_scripts/script.py', pythonScript);
+             this.docker.runContainer('script')
+                 .then(output => res.status(200).send(output))
             
         })
     }

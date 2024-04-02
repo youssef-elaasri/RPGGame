@@ -73,19 +73,30 @@ nav {
 }
 
 .editor {
+    font-size: large;
     position: fixed; /* Utilise fixed pour le placer par rapport à la fenêtre du navigateur */
     top: 50%; /* Centre verticalement */
     left: 50%; /* Centre horizontalement */
     transform: translate(-50%, -50%); /* Ajuste le centrage */
-    width: 60vw; /* Largeur basée sur la largeur de la fenêtre du navigateur */
-    height: 60vh; /* Hauteur basée sur la hauteur de la fenêtre du navigateur */
+    width: 80vw; /* Largeur basée sur la largeur de la fenêtre du navigateur */
+    height: 80vh; /* Hauteur basée sur la hauteur de la fenêtre du navigateur */
     z-index: 30; /* Assure qu'il est au-dessus des autres éléments */
     border: 1px solid #ccc; /* Bordure de l'éditeur */
 }
 
+.closeBtn {
+    position: absolute;
+    right: 20px;
+    top: 70px;
+    z-index: 20;
+    color: black;
+    font-size: 30px;
+    cursor: pointer;
+}
+
 .button-container {
     position: absolute;
-    bottom: 20px;
+    bottom: 40px;
     right: 20px;
     z-index: 31; /* Assure qu'il est visible au-dessus de l'éditeur */
 }
@@ -144,9 +155,8 @@ nav {
 }
 
 /* Hover effect for both buttons */
-.fullscreenBtn:hover, .saveBtn:hover, .logoutBtn:hover{
+.fullscreenBtn:hover, .saveBtn:hover, .logoutBtn:hover .closeBtn:hover{
     cursor: pointer;
-
     color: #E0E0E0; /* Changes color on hover */
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Adds a subtle glow effect */
 }

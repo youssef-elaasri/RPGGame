@@ -1,7 +1,7 @@
 class GameObject {
     constructor(config){
         this.id = null;
-        this.isMounted = false;
+        this.isMounted = config.isMounted || false;
         // Object position (in px)
         this.x = config.x || 0;
         this.y = config.y || 0;

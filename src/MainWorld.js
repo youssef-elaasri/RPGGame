@@ -107,9 +107,17 @@ class MainWorld {
 
         window.dog = new GameObject({
             src: "images/characters/dog.png",
-            x: util.inGrid(2),
-            y: util.inGrid(4),
         });
+
+        window.vault1 = new GameObject({
+            src: "images/sprites/vault1.png",
+        });
+
+        window.mountain11 = new GameObject({
+            src: "images/sprites/mountain11.png",
+            isMounted : true,
+        });
+        
 
         const levelImage = new Image();
         levelImage.src = 'images/maps/level1.png';

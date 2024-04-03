@@ -80,6 +80,9 @@ const util = {
             x: this.inGrid(x),
             y: this.inGrid(y),
         })
+        if (object.isMounted) {
+            window.OverworldMaps[mapName].walls[`${this.inGrid(x)},${this.inGrid(y-1)}`] = true;
+        }
     },
 
     crateMap(mapName, image) {
@@ -97,7 +100,7 @@ const util = {
         // Get the image data from the off-screen canvas
         const imageData = offCtx.getImageData(0, 0, offScreenCanvas.width, offScreenCanvas.height);
         const data = imageData.data;
-        let indexName = 0;
+        let nameIndex = 0;
         for (let y = 0; y < offScreenCanvas.height; y++) {
             for (let x = 0; x < offScreenCanvas.width; x++) {
               const index = (y * offScreenCanvas.width + x) * 4;
@@ -105,15 +108,15 @@ const util = {
               const green = data[index + 1];
               const blue = data[index + 2];
               const alpha = data[index + 3];
-
-                console.log(red+green+blue+alpha);  
-                if (red === 0 && green === 0 && blue === 0) {
-                    this.addObject(mapName,window.dog,"dog" + indexName, x,y);
-                    indexName++;
-                }
-                else if (red === 255 && green === 0 && blue === 0) {
-                    // maybe drawing the hero.
-                }
+            
+            if (red === 0 && green === 0 && blue === 0) {
+                this.addObject(mapName,window.mountain11,"mountain11" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 255 && green === 255 && blue === 255) {
+                this.addObject(mapName,window.vault1,"vault1" + nameIndex, x,y);
+                nameIndex++;
+            }
           }
 
         }

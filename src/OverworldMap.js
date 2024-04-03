@@ -85,13 +85,8 @@ class OverworldMap {
 
 window.OverworldMaps = {
     TestRoom: {
-        lowerSrc: "images/maps/BG_test.png",
+        lowerSrc: "images/maps/whitepic.png",
         gameObjects: {
-            dog: new GameObject({
-                src: "images/characters/dog.png",
-                x: util.inGrid(2),
-                y: util.inGrid(4),
-            }),
         },
         NPCs: {
             ElProfesor: new NPC({

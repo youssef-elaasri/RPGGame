@@ -1,4 +1,5 @@
 
+
 // Method used by the fullscreen icon
 function toggleFullscreen() {
     var elem = document.querySelector('.game-window');
@@ -71,6 +72,51 @@ const util = {
     emitEvent(name, detail){
         const event = new CustomEvent(name, {detail});
         document.dispatchEvent(event);
+    },
+
+    addObject(mapName,object, objectName, x, y) {
+        window.OverworldMaps[mapName].gameObjects[objectName] = new GameObject({
+            src: object.sprite.image.src,
+            x: this.inGrid(x),
+            y: this.inGrid(y),
+        })
+    },
+
+    crateMap(mapName, image) {
+        // Create an off-screen canvas
+        const offScreenCanvas = document.createElement('canvas');
+        const offCtx = offScreenCanvas.getContext('2d');
+
+        // Set off-screen canvas size to image size
+        offScreenCanvas.width = image.width;
+        offScreenCanvas.height = image.height;
+
+        // Draw the image onto the off-screen canvas
+        offCtx.drawImage(image, 0, 0);
+
+        // Get the image data from the off-screen canvas
+        const imageData = offCtx.getImageData(0, 0, offScreenCanvas.width, offScreenCanvas.height);
+        const data = imageData.data;
+        let indexName = 0;
+        for (let y = 0; y < offScreenCanvas.height; y++) {
+            for (let x = 0; x < offScreenCanvas.width; x++) {
+              const index = (y * offScreenCanvas.width + x) * 4;
+              const red = data[index];
+              const green = data[index + 1];
+              const blue = data[index + 2];
+              const alpha = data[index + 3];
+
+                console.log(red+green+blue+alpha);  
+                if (red === 0 && green === 0 && blue === 0) {
+                    this.addObject(mapName,window.dog,"dog" + indexName, x,y);
+                    indexName++;
+                }
+                else if (red === 255 && green === 0 && blue === 0) {
+                    // maybe drawing the hero.
+                }
+          }
+
+        }
     }
 
 }

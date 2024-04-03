@@ -65,9 +65,7 @@ class MainWorld {
             //Draw game object
             Object.values(window.currentMap.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
-            })
-
-            window.Player.sprite.draw(this.ctx);
+            });
 
             // draw all the NPCs
             Object.values(window.currentMap.NPCs).forEach(object => {
@@ -105,6 +103,20 @@ class MainWorld {
             x: util.inGrid(10),
             y:util.inGrid(10)
         });
+
+
+        window.dog = new GameObject({
+            src: "images/characters/dog.png",
+            x: util.inGrid(2),
+            y: util.inGrid(4),
+        });
+
+        const levelImage = new Image();
+        levelImage.src = 'images/maps/level1.png';
+        levelImage.onload = function() {
+            util.crateMap("TestRoom",levelImage);
+          };
+
 
 
         this.startMap(window.OverworldMaps.TestRoom);

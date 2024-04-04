@@ -74,6 +74,111 @@ const util = {
         document.dispatchEvent(event);
     },
 
+    createAllObjects() {
+        window.dog = new GameObject({
+            src: "images/characters/dog.png",
+        });
+
+        window.shcoolFloor = new GameObject({
+            src : "images/sprites/shcoolFloor.png"
+        })
+
+        window.whiteSpace = new GameObject({
+            src : "images/sprites/whiteSpace.png",
+            isMounted : true,
+        })
+
+        window.leftDownShcoolwall = new GameObject({
+            src : "images/sprites/shcoolWall/leftDownShcoolwall.png",
+            isMounted : true
+        })
+        
+        window.rightDownShcoolWall = new GameObject({
+            src : "images/sprites/shcoolWall/rightDownShcoolWall.png",
+            isMounted : true
+        })
+
+        window.downShcoolWall = new GameObject({
+            src : "images/sprites/shcoolWall/downShcoolWall.png",
+            isMounted : true
+        })
+
+        window.leftShcoolWall = new GameObject({
+            src : "images/sprites/shcoolWall/leftShcoolWall.png",
+            isMounted : true
+        })
+
+        window.rightShcoolWall = new GameObject({
+            src : "images/sprites/shcoolWall/rightShcoolWall.png",
+            isMounted : true
+        })
+
+        window.shcoolWall = new GameObject({
+            src : "images/sprites/shcoolWall/shcoolWall.png",
+            isMounted : true
+        })
+
+        window.closet31 = new GameObject({
+            src : "images/sprites/closet/31.png",
+            isMounted : true
+        })
+
+        window.closet32 = new GameObject({
+            src : "images/sprites/closet/32.png",
+            isMounted : true
+        })
+
+        window.closet21 = new GameObject({
+            src : "images/sprites/closet/21.png",
+            isMounted : true
+        })
+
+        window.closet22 = new GameObject({
+            src : "images/sprites/closet/22.png",
+            isMounted : true
+        })
+
+        window.closet11 = new GameObject({
+            src : "images/sprites/closet/11.png",
+            isMounted : true
+        })
+
+        window.closet12 = new GameObject({
+            src : "images/sprites/closet/12.png",
+            isMounted : true
+        })
+
+        window.chalkboard11 = new GameObject({
+            src : "images/sprites/chalkboard/11.png",
+            isMounted : true
+        })
+
+        window.chalkboard12 = new GameObject({
+            src : "images/sprites/chalkboard/12.png",
+            isMounted : true
+        })
+
+        window.chalkboard13 = new GameObject({
+            src : "images/sprites/chalkboard/13.png",
+            isMounted : true
+        })
+
+        window.chalkboard21 = new GameObject({
+            src : "images/sprites/chalkboard/21.png",
+            isMounted : true
+        })
+
+        window.chalkboard22 = new GameObject({
+            src : "images/sprites/chalkboard/22.png",
+            isMounted : true
+        })
+
+        window.chalkboard23 = new GameObject({
+            src : "images/sprites/chalkboard/23.png",
+            isMounted : true
+        })
+    },
+
     addObject(mapName,object, objectName, x, y) {
         window.OverworldMaps[mapName].gameObjects[objectName] = new GameObject({
             src: object.sprite.image.src,
@@ -110,11 +215,67 @@ const util = {
               const alpha = data[index + 3];
             
             if (red === 0 && green === 0 && blue === 0) {
-                this.addObject(mapName,window.mountain11,"mountain11" + nameIndex, x,y);
+                this.addObject(mapName,window.whiteSpace,"whiteSpace" + nameIndex, x,y);
                 nameIndex++;
             }
             else if (red === 255 && green === 255 && blue === 255) {
-                this.addObject(mapName,window.vault1,"vault1" + nameIndex, x,y);
+                this.addObject(mapName,window.shcoolFloor,"shcoolFloor" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red ===0 && green === 255 && blue === 0) {
+                this.addObject(mapName,window.leftDownShcoolwall,"leftDownShcoolwall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red ===0 && green === 0 && blue === 255) {
+                this.addObject(mapName,window.rightDownShcoolWall,"rightDownShcoolWall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red ===255 && green === 0 && blue === 0) {
+                this.addObject(mapName,window.downShcoolWall,"downShcoolWall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red ===255 && green === 0 && blue === 255) {
+                this.addObject(mapName,window.leftShcoolWall,"leftShcoolWall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 255 && blue === 255) {
+                this.addObject(mapName,window.rightShcoolWall,"rightShcoolWall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 255 && green === 255 && blue === 0) {
+                this.addObject(mapName,window.shcoolWall,"shcoolWall" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 4 && green === 0 && blue === 0) {
+                this.addObject(mapName,window.closet31,"closet31" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 4 && blue === 0) {
+                this.addObject(mapName,window.closet32,"closet32" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 0 && blue === 4) {
+                this.addObject(mapName,window.closet21,"closet21" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 4 && green === 4 && blue === 0) {
+                this.addObject(mapName,window.closet22,"closet22" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 4 && green === 0 && blue === 4) {
+                this.addObject(mapName,window.closet11,"closet11" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 4 && blue === 4) {
+                this.addObject(mapName,window.closet12,"closet2" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 0 && blue === 0) {
+                this.addObject(mapName,window.chalkboard21,"chalkboard21" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 0 && blue === 1) {
+                this.addObject(mapName,window.chalkboard23,"chalkboard23" + nameIndex, x,y);
                 nameIndex++;
             }
           }

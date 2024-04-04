@@ -84,7 +84,7 @@ class OverworldMap {
 
 
 window.OverworldMaps = {
-    TestRoom: {
+    CPP: {
         lowerSrc: "images/maps/whitepic.png",
         gameObjects: {
         },
@@ -146,8 +146,8 @@ window.OverworldMaps = {
     kitchen : {
         lowerSrc : "images/maps/kitchen.png",
         changeMap : {
-            [util.asGridCoord(3,8)] : ["TestRoom", [util.inGrid(4),util.inGrid(0)]],
-            [util.asGridCoord(4,8)] : ["TestRoom", [util.inGrid(5),util.inGrid(0)]],
+            [util.asGridCoord(3,8)] : ["CPP", [util.inGrid(4),util.inGrid(0)]],
+            [util.asGridCoord(4,8)] : ["CPP", [util.inGrid(5),util.inGrid(0)]],
         },
     }
 }

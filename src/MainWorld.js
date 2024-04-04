@@ -100,34 +100,21 @@ class MainWorld {
         /* The Player */
         window.Player = new Person({
             isPlayerControlled : true,
-            x: util.inGrid(10),
-            y:util.inGrid(10)
+            x: util.inGrid(32),
+            y:util.inGrid(47)
         });
 
-
-        window.dog = new GameObject({
-            src: "images/characters/dog.png",
-        });
-
-        window.vault1 = new GameObject({
-            src: "images/sprites/vault1.png",
-        });
-
-        window.mountain11 = new GameObject({
-            src: "images/sprites/mountain11.png",
-            isMounted : true,
-        });
-        
+        util.createAllObjects();
 
         const levelImage = new Image();
-        levelImage.src = 'images/maps/level1.png';
+        levelImage.src = 'images/maps/CPP.png';
         levelImage.onload = function() {
-            util.crateMap("TestRoom",levelImage);
+            util.crateMap("CPP",levelImage);
           };
 
 
 
-        this.startMap(window.OverworldMaps.TestRoom);
+        this.startMap(window.OverworldMaps.CPP);
         this.directionInput = new DirectionInput();
 
         this.startGameLoop();

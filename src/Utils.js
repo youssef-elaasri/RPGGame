@@ -177,6 +177,50 @@ const util = {
             src : "images/sprites/chalkboard/23.png",
             isMounted : true
         })
+
+        window.classRoomFloor = new GameObject({
+            src : "images/sprites/classRoomFloor.png",
+        })
+
+        window.leftTable = new GameObject({
+            src : "images/sprites/table/left.png",
+            isMounted : true,
+        })
+
+        window.rightTable = new GameObject({
+            src : "images/sprites/table/right.png",
+            isMounted : true,
+        })
+
+        window.chair1 = new GameObject({
+            src : "images/sprites/chair/chair1.png",
+            isMounted : true,
+        })
+
+        window.chair2 = new GameObject({
+            src : "images/sprites/chair/chair2.png",
+            isMounted : true,
+        })
+
+        window.door11 = new GameObject({
+            src : "images/sprites/door/11.png",
+            isMounted : true,
+        })
+
+        window.door21 = new GameObject({
+            src : "images/sprites/door/21.png",
+            isMounted : true,
+        })
+
+        window.door31 = new GameObject({
+            src : "images/sprites/door/31.png",
+            isMounted : true,
+        })
+
+        window.painting = new GameObject({
+            src : "images/sprites/painting.png",
+            isMounted : true,
+        })
     },
 
     addObject(mapName,object, objectName, x, y) {
@@ -278,6 +322,49 @@ const util = {
                 this.addObject(mapName,window.chalkboard23,"chalkboard23" + nameIndex, x,y);
                 nameIndex++;
             }
+            else if (red === 0 && green === 177 && blue === 0) {
+                this.addObject(mapName,window.classRoomFloor,"classRoomFloor" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 0 && blue === 177) {
+                this.addObject(mapName,window.leftTable,"leftTable" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 1 && blue === 177) {
+                this.addObject(mapName,window.rightTable,"rightTable" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 0 && green === 2 && blue === 177) {
+                this.addObject(mapName,window.chair1,"chair1" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 0 && green === 3 && blue === 177) {
+                this.addObject(mapName,window.chair2,"chair2" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 177 && green === 177 && blue === 0) {
+                this.addObject(mapName,window.door11,"door11" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 177 && green === 177 && blue === 1) {
+                this.addObject(mapName,window.door21,"door21" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 177 && green === 177 && blue === 2) {
+                this.addObject(mapName,window.door31,"door31" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 177 && green === 0 && blue === 177) {
+                this.addObject(mapName,window.painting,"painting" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+
           }
 
         }

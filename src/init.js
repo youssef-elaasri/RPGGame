@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('loginBtn').addEventListener('click', login);
     document.getElementById('signupBtn').addEventListener('click', signup);
 
+    document.getElementById('changePasswordTrigger').addEventListener('click', function() {
+        const form = document.getElementById('changePasswordForm');
+        // Toggle the display style
+        form.classList.toggle('hidden');
+    });
 });
 
 

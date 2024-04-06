@@ -1,4 +1,5 @@
 function hideModal() {
+    document.body.classList.remove('body-no-scroll');
     document.getElementById('authModal').classList.add("hidden");
 }
 
@@ -16,6 +17,7 @@ function toggleButtons() {
     document.getElementById('fullscreenBtn').classList.toggle("hidden");
     document.getElementById('saveBtn').classList.toggle("hidden");
     document.getElementById('logoutBtn').classList.toggle("hidden");
+    document.getElementById('profileBtn').classList.toggle("hidden");
 }
 
 // Login function

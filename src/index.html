@@ -24,10 +24,41 @@
         <span id="closeBtn" class="closeBtn hidden" onclick="util.closeIDE()">
                 <i class="material-icons">close</i>
         </span>
-        <!-- FullScreen, Save and Logout Icons -->
+        <!-- Profile Panel -->
+        <div id="profilePanel" class="modal hidden">
+            <div class="modal-content">
+                <h2>Player Profile</h2>
+                <div id="playerInfo">
+                    <p><strong>Username:</strong> <span id="playerUsername"></span></p>
+                    <p><strong>Email:</strong> <span id="playerEmail"></span></p>
+                    <p><strong>Completed Stages:</strong> <span id="completedStages"></span></p>
+                </div>
+                <!-- Trigger to Show Change Password Form -->
+                <p id="changePasswordTrigger" class="change-password-trigger">Change password?</p>
+
+                <!-- Change Password Form, initially hidden -->
+                <form id="changePasswordForm" class="hidden">
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password:</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <button class="btn game-btn" type="button" onclick="changePassword()">Change Password</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Buttons -->
         <div class="control-icons">
             <span id="logoutBtn" class="logoutBtn hidden" onclick="logout()">
                 <i class="fa fa-sign-out"></i>
+            </span>
+            <span id="profileBtn" class="profileBtn hidden" onclick="toggleProfilePanel()">
+                <i class="material-icons">account_circle</i>
             </span>
             <span id ="saveBtn" class="saveBtn hidden" onclick="saveGame()">
                 <i class="material-icons save-icon">save</i>
@@ -67,6 +98,7 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="./authentication.js"></script>
+    <script type="text/javascript" src="./playerProfile.js"></script>
     <script type="text/javascript" src="./Utils.js"></script>
     <script type="text/javascript" src="./DirectionInput.js"></script>
     <script type="text/javascript" src="./GameObject.js"></script>

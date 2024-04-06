@@ -34,6 +34,7 @@ nav {
 }
 
 .game-container {
+    position: relative;
     transform: scale(3);
 }
 
@@ -82,6 +83,24 @@ nav {
     margin: 0;
     max-width: 90%;
     text-shadow: 2px 2px #000000; /* Shadow to make text stand out */
+}
+
+.editor {
+    position: fixed; /* Utilise fixed pour le placer par rapport à la fenêtre du navigateur */
+    top: 50%; /* Centre verticalement */
+    left: 50%; /* Centre horizontalement */
+    transform: translate(-50%, -50%); /* Ajuste le centrage */
+    width: 60vw; /* Largeur basée sur la largeur de la fenêtre du navigateur */
+    height: 60vh; /* Hauteur basée sur la hauteur de la fenêtre du navigateur */
+    z-index: 30; /* Assure qu'il est au-dessus des autres éléments */
+    border: 1px solid #ccc; /* Bordure de l'éditeur */
+}
+
+.button-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 31; /* Assure qu'il est visible au-dessus de l'éditeur */
 }
 
 .hidden {

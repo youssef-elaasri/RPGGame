@@ -33,10 +33,11 @@ class DirectionInput {
         });
 
         document.addEventListener('keydown', e => {
-            if (e.key === ' ') {
+            if (e.key === ' ' && window.IDEdisplayed !== true) {
                 e.preventDefault(); // Prevent any default action to ensure smooth behavior
                 const nearbyNPC = window.currentMap.findNearbyNPC();
                 if (nearbyNPC) {
+                    window.currentNPC = nearbyNPC;
                     nearbyNPC.interact();
                 }
             }

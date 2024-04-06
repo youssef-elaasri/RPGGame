@@ -19,6 +19,7 @@
     "express": "^4.19.2",
     "htmlhint": "^1.1.4",
     "jsonwebtoken": "^9.0.2",
+    "jws": "^4.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.9.3"
   }

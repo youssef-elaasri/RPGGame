@@ -2,6 +2,16 @@ function hideModal() {
     document.getElementById('authModal').classList.add("hidden");
 }
 
+function toggleErrorMessage (display, msg) {
+    const errorMessageElement = document.getElementById('errorMessage');
+    if (display)
+        errorMessageElement.classList.remove('hidden'); // Make sure this error message is visible
+    else
+        errorMessageElement.classList.add('hidden');
+
+    errorMessageElement.textContent = msg;
+}
+
 function toggleButtons() {
     document.getElementById('fullscreenBtn').classList.toggle("hidden");
     document.getElementById('saveBtn').classList.toggle("hidden");
@@ -25,7 +35,11 @@ function login() {
     })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Login failed');
+                // If not successful, parse the response as JSON to get the error message
+                return response.json().then(data => {
+                    toggleErrorMessage(true, data.error || 'Login failed for an unknown reason')
+                    throw new Error(data.error || 'Login failed for an unknown reason');
+                });
             }
             return response.json();
         })
@@ -33,6 +47,7 @@ function login() {
             if (data.token) {
                 localStorage.setItem('authToken', data.token); // Store the token for later use
                 alert('Login successful');
+                toggleErrorMessage(false, "");
                 hideModal();
                 toggleButtons();
                 util.gameInit(data.userId);
@@ -43,7 +58,7 @@ function login() {
         })
         .catch((error) => {
             console.error(error);
-            alert(error.message);
+            //alert(error.message);
         });
 }
 
@@ -64,24 +79,33 @@ function signup() {
             password: password
         })
     })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                alert('Registration successful');
-                toggleAuthMode(true);
-
-            } else {
-                alert('Registration failed');
+        .then(response => {
+            // Check if the response status indicates success (e.g., 200 OK or 201 Created)
+            if (!response.ok) {
+                // If not successful, parse the response as JSON to get the error message
+                return response.json().then(data => {
+                    toggleErrorMessage(true, data.error || 'Registration failed for an unknown reason')
+                    throw new Error(data.error || 'Registration failed for an unknown reason');
+                });
             }
+            return response.json();
+        })
+        .then(data => {
+            // Handle success case
+            toggleErrorMessage(false, '');
+            alert('Registration successful');
+            toggleAuthMode(true); // Assuming this function toggles your authentication mode/state
         })
         .catch((error) => {
+            // Handle error case, including when thrown from within the first .then() block
             console.error('Error:', error);
-            alert('Registration failed');
+            //alert(error.message); // Display the specific error message returned from the backend
         });
 }
 
 let isLoginMode = true; // Variable to track auth mode, default to log in
 function toggleAuthMode(loginMode) {
+    toggleErrorMessage(false, '');
     // Set the mode
     isLoginMode = loginMode;
 
@@ -152,6 +176,7 @@ async function saveGame() {
 }
 
 async function loadGame(userId) {
+    // todo : Manage the case where a save point doesn't exist in the db
     const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:3000/api/users/${userId}/load`, {

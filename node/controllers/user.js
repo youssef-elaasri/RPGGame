@@ -9,7 +9,15 @@ function validPassword (password) {
 
 module.exports = {
     async register(req, res) {
-        const {username, password, email} = req.body;
+        const { username, password, email } = req.body;
+
+        if (!username || !email || !password) {
+            return res.status(400).json({ error: 'You must specify the username, the email, and the password.' });
+        }
+
+        if (!validPassword(password)) {
+            return res.status(400).json({ error: 'Weak password!'});
+        }
 
         bcrypt.hash(password, 2, (err, hash) => {
             if (err) {
@@ -19,7 +27,12 @@ module.exports = {
             const query = 'INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)';
             db.query(query, [username, hash, email], (error, results) => {
                 if (error) {
-                    return res.status(400).json({error: 'Error registering user'});
+                    if (error.code === 'ER_DUP_ENTRY') {
+                        return res.status(409).json({ error: 'Username or email already exists.' });
+                    } else {
+                        console.error('Database error:', error);
+                        return res.status(500).json({ error: 'Internal server error.' });
+                    }
                 }
                 res.status(201).json({message: 'User registered successfully'});
             });
@@ -27,15 +40,20 @@ module.exports = {
     },
     async login(req, res) {
         const {username, password} = req.body;
+        if (!username || !password) {
+            return res.status(400).json({ error: 'Username and password must be provided.' });
+        }
+
         try {
-            const query = 'SELECT * FROM users WHERE username = ?';
+            const query = 'SELECT * FROM users WHERE username = ? limit 1';
 
             db.query(query, [username], async (error, users) => {
-                if (users.length === 0) {
-                    return res.status(401).json({message: 'User not found'});
+                if (error) {
+                    console.error('Database error during login:', error);
+                    return res.status(500).json({ error: 'Internal server error during login.' });
                 }
-                if (users.length > 1) {
-                    return res.status(500).json({error: 'Internal error : multiple users found'});
+                if (users.length === 0) {
+                    return res.status(401).json({error: 'User not found'});
                 }
 
                 const user = users[0];
@@ -54,7 +72,7 @@ module.exports = {
                         userId: user.user_id
                     });
                 } else {
-                    return res.status(401).json({message: 'Password is incorrect'});
+                    return res.status(401).json({error: 'Password is incorrect'});
                 }
             });
         } catch (error) {
@@ -62,7 +80,6 @@ module.exports = {
             return res.status(500).json({error: 'Internal Server Error'});
         }
     },
-
     verifyToken(req, res, next) {
         if (!req.headers || !req.headers.hasOwnProperty('x-access-token')) {
             throw {code: 403, message: 'Token missing'}

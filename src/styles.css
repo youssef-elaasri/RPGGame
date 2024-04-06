@@ -118,6 +118,11 @@ nav {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+#errorMessage{
+    color: red;
+    margin-bottom: 10px
+}
+
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto; /* 15% from the top and centered */

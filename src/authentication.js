@@ -59,6 +59,7 @@ function login() {
             if (data.token) {
                 localStorage.setItem('authToken', data.token); // Store the token for later use
                 alert('Login successful');
+                populatePlayerProfile(data);
                 toggleErrorMessage(false, "");
                 hideModal();
                 toggleButtons();
@@ -253,4 +254,13 @@ function changePassword() {
         .catch((error) => {
             console.error('Error:', error);
         });
+}
+
+function populatePlayerProfile(userData) {
+    // Example: Populate user profile information
+    document.getElementById('playerUsername').textContent = userData.username;
+    document.getElementById('playerEmail').textContent = userData.email;
+    // Todo :Populate other profile elements as needed
+
+
 }

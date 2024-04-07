@@ -175,3 +175,17 @@ nav {
     cursor: pointer; /* Change mouse cursor to indicate it's clickable */
     text-decoration: underline; /* Underline to look more like a link */
 }
+
+
+/* Styling the username and email specifically */
+#playerUsername, #playerEmail {
+    padding-left: 10px;
+    color: #121215; /* A blue color for the text */
+    font-weight: bold; /* Make the text bold */
+}
+
+/* Alternatively, if you add a class to the spans, e.g., class="profile-text", you can target them like this: */
+.profile-text {
+    color: #007BFF; /* A blue color for the text */
+    font-weight: bold; /* Make the text bold */
+}

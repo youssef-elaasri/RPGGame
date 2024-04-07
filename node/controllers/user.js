@@ -69,7 +69,9 @@ module.exports = {
                     return res.status(200).json({
                         message: 'Authentication successful',
                         token,
-                        userId: user.user_id
+                        userId: user.user_id,
+                        email: user.email,
+                        username: user.username
                     });
                 } else {
                     return res.status(401).json({error: 'Password is incorrect'});

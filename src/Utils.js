@@ -124,6 +124,9 @@ const util = {
     closeIDE () {
         document.getElementById('closeBtn').classList.add("hidden");
         this.deleteIDE();
+    },
+    togglePlayerControlled(){
+        window.Player.isPlayerControlled = !window.Player.isPlayerControlled;
     }
 }
 

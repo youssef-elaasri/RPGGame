@@ -256,11 +256,3 @@ function changePassword() {
         });
 }
 
-function populatePlayerProfile(userData) {
-    // Example: Populate user profile information
-    document.getElementById('playerUsername').textContent = userData.username;
-    document.getElementById('playerEmail').textContent = userData.email;
-    // Todo :Populate other profile elements as needed
-
-
-}

@@ -13,6 +13,16 @@ function toggleErrorMessage (display, msg) {
     errorMessageElement.textContent = msg;
 }
 
+function passwordChangeToggleErrorMessage (display, msg) {
+    const errorMessageElement = document.getElementById('changePasswordErrorMessage');
+    if (display)
+        errorMessageElement.classList.remove('hidden'); // Make sure this error message is visible
+    else
+        errorMessageElement.classList.add('hidden');
+
+    errorMessageElement.textContent = msg;
+}
+
 function toggleButtons() {
     document.getElementById('fullscreenBtn').classList.toggle("hidden");
     document.getElementById('saveBtn').classList.toggle("hidden");
@@ -202,4 +212,45 @@ async function loadGame(userId) {
         console.error('Error loading game state:', error);
         return null;
     }
+}
+
+function changePassword() {
+    const currentPassword = document.getElementById('currentPassword').value;
+    const newPassword = document.getElementById('newPassword').value;
+    const authToken = localStorage.getItem('authToken'); // Assuming the token is stored in localStorage after login
+
+    if (!authToken) {
+        alert('You must be logged in to change your password.');
+        return;
+    }
+
+    fetch('http://localhost:3000/api/users/change-password', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': authToken,
+        },
+        body: JSON.stringify({
+            currentPassword: currentPassword,
+            newPassword: newPassword
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                // If not successful, parse the response as JSON to get the error message
+                return response.json().then(data => {
+                    passwordChangeToggleErrorMessage(true, data.error || 'Password change failed for an unknown reason');
+                    throw new Error(data.error || 'Password change failed for an unknown reason');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert('Password changed successfully.');
+            passwordChangeToggleErrorMessage(false, '');
+            toggleProfilePanel();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }

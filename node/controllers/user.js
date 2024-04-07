@@ -63,7 +63,7 @@ module.exports = {
 
                 if (match) {
                     // Correctly use `jwt.sign` to generate the token
-                    const token = jws.sign({header: {alg: 'HS256'}, payload: username, secret: SECRET_KEY})
+                    const token = jws.sign({header: {alg: 'HS256'}, payload: user.user_id, secret: SECRET_KEY})
 
                     // Include user.user_id in the response
                     return res.status(200).json({
@@ -85,25 +85,89 @@ module.exports = {
             throw {code: 403, message: 'Token missing'}
         }
 
-        if (!jws.verify(req.headers['x-access-token'], 'HS256', SECRET_KEY)) {
-            throw {code: 403, message: 'Token invalid'}
+        const token = req.headers['x-access-token'];
+        if (!token) {
+            return res.status(403).json({ error: 'A token is required for authentication' });
         }
-        // Le payload du token contient le login de l'utilisateur
-        // On modifie l'objet requête pour mettre le login à disposition pour les middleware suivants
-        req.login = jws.decode(req.headers['x-access-token']).payload
-
-        next()
+        try {
+            const userId = jws.decode(token).payload;
+            // Token payload contains the userId
+            console.log(userId)
+            console.log("params :" + req.params.userId )
+            if (userId !== req.params.userId) {
+                return res.status(401).json({ error: 'Unauthorized: Token does not match user' });
+            }
+            req.user = userId;
+            next();
+        } catch (err) {
+            return res.status(401).json({ error: 'Unauthorized: Invalid token' });
+        }
     },
     async userExists(req, res, next) {
-        const query = 'SELECT * FROM users WHERE username = ? LIMIT 1';
-        db.query(query, [req.login], (error, users) => {
+        const query = 'SELECT * FROM users WHERE user_id = ? LIMIT 1';
+        db.query(query, [req.user], (error, users) => {
             if (error) {
                 return res.status(500).json({error: 'Database error'});
             }
             if (users.length === 0) {
-                return res.status(403).json({message: 'Valid token but user not found in database'});
+                return res.status(403).json({error: 'Valid token but user not found in database'});
             }
             next();
+        });
+    },
+    async changePassword(req, res) {
+        const { currentPassword, newPassword } = req.body;
+        const username = req.login; // Assuming this is set from a previous middleware
+
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({ error: 'Both current and new passwords are required.' });
+        }
+
+        if (!validPassword(newPassword)) {
+            return res.status(400).json({ error: 'Weak new password!' });
+        }
+
+        const query = 'SELECT password_hash FROM users WHERE username = ? LIMIT 1';
+
+        db.query(query, [username], (error, results) => {
+            if (error) {
+                console.error('Database error during password change:', error);
+                return res.status(500).json({ error: 'Internal server error during password change.' });
+            }
+
+            if (results.length === 0) {
+                return res.status(401).json({ error: 'User not found' });
+            }
+
+            const user = results[0];
+
+            bcrypt.compare(currentPassword, user.password_hash, (err, match) => {
+                if (err) {
+                    return res.status(500).json({ error: 'Error verifying current password' });
+                }
+
+                if (!match) {
+                    return res.status(401).json({ error: 'Current password is incorrect' });
+                }
+
+                // Current password matches, proceed with updating to the new password
+                bcrypt.hash(newPassword, 2, (err, hash) => {
+                    if (err) {
+                        return res.status(500).json({ error: 'Error hashing new password' });
+                    }
+
+                    // Update user's password in the database
+                    const updateQuery = 'UPDATE users SET password_hash = ? WHERE username = ?';
+                    db.query(updateQuery, [hash, username], (error, results) => {
+                        if (error) {
+                            console.error('Database error while updating password:', error);
+                            return res.status(500).json({ error: 'Internal server error while updating password.' });
+                        }
+
+                        res.status(200).json({ message: 'Password changed successfully.' });
+                    });
+                });
+            });
         });
     }
 }

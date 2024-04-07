@@ -6,7 +6,7 @@ const gameRoutes = require('./gameRoutes');
 const router = express.Router();
 
 // Apply common middleware
-router.use('/api/', user.verifyToken, user.userExists);
+router.use('/api/users/:userId', user.verifyToken, user.userExists);
 
 // Use specific routers
 router.use(userRoutes);

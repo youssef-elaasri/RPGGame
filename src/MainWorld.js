@@ -100,8 +100,8 @@ class MainWorld {
         /* The Player */
         window.Player = new Person({
             isPlayerControlled : true,
-            x: util.inGrid(58),
-            y:util.inGrid(35)
+            x: util.inGrid(27),
+            y:util.inGrid(13)
         });
 
         util.createAllObjects();

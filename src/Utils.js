@@ -221,6 +221,66 @@ const util = {
             src : "images/sprites/painting.png",
             isMounted : true,
         })
+
+        window.bookcase11 = new GameObject({
+            src : "images/sprites/bookcase/11.png",
+            isMounted : true,
+        })
+
+        window.bookcase12 = new GameObject({
+            src : "images/sprites/bookcase/12.png",
+            isMounted : true,
+        })
+
+        window.bookcase13 = new GameObject({
+            src : "images/sprites/bookcase/13.png",
+            isMounted : true,
+        })
+
+        window.bookcase21 = new GameObject({
+            src : "images/sprites/bookcase/21.png",
+            isMounted : true,
+        })
+
+        window.bookcase22 = new GameObject({
+            src : "images/sprites/bookcase/22.png",
+            isMounted : true,
+        })
+
+        window.bookcase23 = new GameObject({
+            src : "images/sprites/bookcase/23.png",
+            isMounted : true,
+        })
+
+        window.bookcase31 = new GameObject({
+            src : "images/sprites/bookcase/31.png",
+            isMounted : true,
+        })
+
+        window.bookcase32 = new GameObject({
+            src : "images/sprites/bookcase/32.png",
+            isMounted : true,
+        })
+
+        window.bookcase33 = new GameObject({
+            src : "images/sprites/bookcase/33.png",
+            isMounted : true,
+        })
+
+        window.stall = new GameObject({
+            src : "images/sprites/stall.png",
+            isMounted : true,
+        })
+
+        window.closedDoor1 = new GameObject({
+            src : "images/sprites/closedDoor/1.png",
+            isMounted : true,
+        })
+
+        window.closedDoor2 = new GameObject({
+            src : "images/sprites/closedDoor/2.png",
+            isMounted : true,
+        })
     },
 
     addObject(mapName,object, objectName, x, y) {
@@ -322,6 +382,22 @@ const util = {
                 this.addObject(mapName,window.chalkboard23,"chalkboard23" + nameIndex, x,y);
                 nameIndex++;
             }
+            else if (red === 177 && green === 0 && blue === 2) {
+                this.addObject(mapName,window.chalkboard22,"chalkboard22" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 0 && blue === 3) {
+                this.addObject(mapName,window.chalkboard11,"chalkboard11" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 0 && blue === 4) {
+                this.addObject(mapName,window.chalkboard12,"chalkboard12" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 0 && blue === 5) {
+                this.addObject(mapName,window.chalkboard13,"chalkboard13" + nameIndex, x,y);
+                nameIndex++;
+            }
             else if (red === 0 && green === 177 && blue === 0) {
                 this.addObject(mapName,window.classRoomFloor,"classRoomFloor" + nameIndex, x,y);
                 nameIndex++;
@@ -358,12 +434,60 @@ const util = {
                 this.addObject(mapName,window.door31,"door31" + nameIndex, x,y);
                 nameIndex++;
             }
+            else if (red === 177 && green === 177 && blue === 3) {
+                this.addObject(mapName,window.closedDoor1,"closedDoor1" + nameIndex, x,y);
+                nameIndex++;
+            }
+
+            else if (red === 177 && green === 177 && blue === 4) {
+                this.addObject(mapName,window.closedDoor2,"closedDoor2" + nameIndex, x,y);
+                nameIndex++;
+            }
 
             else if (red === 177 && green === 0 && blue === 177) {
                 this.addObject(mapName,window.painting,"painting" + nameIndex, x,y);
                 nameIndex++;
             }
-
+            else if (red === 0 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase11,"bookcase11" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 1 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase12,"bookcase12" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 2 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase13,"bookcase13" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 3 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase21,"bookcase21" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 4 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase22,"bookcase22" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 5 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase23,"bookcase23" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 6 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase31,"bookcase31" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 7 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase32,"bookcase32" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 8 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.bookcase33,"bookcase33" + nameIndex, x,y);
+                nameIndex++;
+            }
+            else if (red === 177 && green === 177 && blue === 177) {
+                this.addObject(mapName,window.stall,"stall" + nameIndex, x,y);
+                nameIndex++;
+            }
 
           }
 

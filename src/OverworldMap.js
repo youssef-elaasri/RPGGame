@@ -89,7 +89,7 @@ window.OverworldMaps = {
         gameObjects: {
         },
         NPCs: {
-            ElProfesor: new NPC({
+            /* ElProfesor: new NPC({
                 name : "El Profesor",
                 dialogues : ["Hello!", "Welcome to INP Legends."],
                 x: util.inGrid(9),
@@ -112,13 +112,13 @@ window.OverworldMaps = {
 
 
                 ]
-            }),
+            }), */
             Heisenberg: new NPC({
                 name : "Heisenberg",
                 dialogues : [
                     "Psst...",
-                    "Did you hear about this new revolutionary feature ?",
-                    "You can now talk to characters."
+                    "You're late to the class.",
+                    "To reach the classroom you need to go down the  go on the right."
                 ],
                 x: util.inGrid(15),
                 y:util.inGrid(10),
@@ -130,12 +130,88 @@ window.OverworldMaps = {
 
                 ]
             }),
+            Professor: new NPC({
+                name : "prof",
+                dialogues : [
+                    "HEY YOU!",
+                    "Why are you always late to class?",
+                    "You must solve this puzzle!"
+                ],
+                x: util.inGrid(45),
+                y:util.inGrid(23),
+                challenge: () => {
+                    fetch('http://localhost:8080/python_script', {
+                    method:'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({file: 'hello_world'})
+                })
+                .then(response => {
+                    if(!response.ok){
+                        throw new Error("Response not ok")
+                    }
+
+                    return response.text();
+                })
+                .then(data => {
+                    util.displayIDE(data, 'Professor')
+                })
+                .catch(error => {
+                    console.error('fetch operation failed: ', error);
+                })
+
+                let runHandler = e =>{
+                    fetch('http://localhost:8080/python', {
+                        method:'POST',
+                        headers:{
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            script: window.editor.getSession().getValue(),
+                            level: 'hello_world'
+                        })
+                    })
+                    .then(response => {
+                        if(!response.ok){
+                            throw new Error("Response not ok")
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        console.log();
+                        if(data === '1'){
+                            
+                            window.currentMap.NPCs[e.detail.doerId].dialogues = [
+                                "You've failed miserably.",
+                                "But since I'm feeling kind today, I'll let you try again."
+                            ];
+                        }
+                        else{
+                            window.currentMap.NPCs[e.detail.doerId].dialogues = [
+                                "Good job.",
+                            ];
+                            window.currentMap.NPCs[e.detail.doerId].challenge = null;
+                        }
+
+                        console.log(e.detail.doerId.dialogues);
+                        
+                        
+                    })
+                    .catch(error => {
+                        console.error('fetch operation failed: ', error);
+                    })
+
+                    document.removeEventListener('run', runHandler);
+                }
+
+                document.addEventListener("run", runHandler);
+
+                    
+                }
+            }),
         },
         walls : {
-            [util.asGridCoord(0,-1)] : true,
-            [util.asGridCoord(0,0)] : true,
-            [util.asGridCoord(1,-1)] : true,
-            [util.asGridCoord(1,0)] : true,
         },
         changeMap : {
             [util.asGridCoord(4,-1)] : ["kitchen",[util.inGrid(3),util.inGrid(7)]],

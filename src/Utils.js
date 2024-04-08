@@ -493,7 +493,7 @@ const util = {
 
         }
     },
-    displayIDE(exercice) {
+    displayIDE(exercice, doerId) {
         // add the div of the editor and the run button
         const gameWindow = document.getElementById('gameWindow');
 
@@ -514,12 +514,14 @@ const util = {
         const buttonContainerDiv = document.createElement('div');
         buttonContainerDiv.className = 'button-container'; // Add class name
 
+        // On click function
+        let onclick = () => executeTests(doerId);
+
         // Create the button element
         const button = document.createElement('button');
         button.className = 'btn'; // Add class name
         button.textContent = 'Run'; // Set the text inside the button
-        button.setAttribute('onclick', 'executeTests()'); // Set the onclick attribute to call the 'executeTests' function
-
+        button.onclick = onclick;
         // Append the button to the 'button-container' div
         buttonContainerDiv.appendChild(button);
 
@@ -545,17 +547,9 @@ const util = {
     }
 }
 
-function executeTests() {
-    $.ajax({
-        url : "app/tester.php",
-        method: "POST",
-        data: {
-            code : window.editor.getSession().getValue()
-        },
-        success : function (response) {
-            $(".output").text((response))
-        }
-    });
+function executeTests(doerId) {
+    
+    util.emitEvent('run',{doerId: doerId})
     window.Player.isPlayerControlled = true;
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;

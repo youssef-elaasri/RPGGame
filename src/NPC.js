@@ -7,6 +7,8 @@ class NPC extends Person {
         this.isInteractable = config.isInteractable || true; // Whether the player can interact with the NPC
         this.autoMovePattern = config.autoMovePattern || true; // Automated movement pattern!
         this.autoMoveIndex = 0; // Current step in the automated movement pattern
+
+        this.challenge = config.challenge;
     }
 
     incrementDialogue() {
@@ -38,7 +40,10 @@ class NPC extends Person {
             this.currentDialogueIndex = this.currentDialogueIndex + 1;
         } else if (this.currentDialogueIndex === this.dialogues.length) {
             this.hideDialogue();
-            util.displayIDE();
+            console.log(this.challenge);
+            if(this.challenge){
+                this.challenge();
+            }
             this.currentDialogueIndex = this.currentDialogueIndex + 1;
         } else {
             window.Player.isPlayerControlled = true;

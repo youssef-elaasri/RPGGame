@@ -493,7 +493,7 @@ const util = {
 
         }
     },
-    displayIDE() {
+    displayIDE(exercice) {
         // add the div of the editor and the run button
         const gameWindow = document.getElementById('gameWindow');
 
@@ -504,6 +504,11 @@ const util = {
 
         // Append the 'editor' div to the 'game-window' div
         gameWindow.appendChild(editorDiv);
+
+
+        //add the exercice as a comment in the IDE
+        if(exercice) 
+            editorDiv.innerHTML += exercice;
 
         // Create the 'button-container' div
         const buttonContainerDiv = document.createElement('div');

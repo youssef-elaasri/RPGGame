@@ -120,8 +120,8 @@ window.OverworldMaps = {
                     "Did you hear about this new revolutionary feature ?",
                     "You can now talk to characters."
                 ],
-                x: util.inGrid(7),
-                y:util.inGrid(3),
+                x: util.inGrid(15),
+                y:util.inGrid(10),
                 behaviorLoop:[
                     {type: "stand", direction:"left", time:1000},
                     {type: "stand", direction:"right", time:2500},

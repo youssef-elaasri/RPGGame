@@ -117,7 +117,7 @@ window.OverworldMaps = {
                 name : "Heisenberg",
                 dialogues : [
                     "Psst...",
-                    "You're late to the class.",
+                    "You're late to class.",
                     "To reach the classroom you need to go down the  go on the right."
                 ],
                 x: util.inGrid(15),

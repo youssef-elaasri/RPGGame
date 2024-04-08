@@ -43,15 +43,10 @@ class NPC extends Person {
             console.log(this.challenge);
             if(this.challenge){
                 this.challenge();
-                this.currentDialogueIndex = this.currentDialogueIndex + 1;
-            } else {
-                window.Player.isPlayerControlled = true;
-                this.currentDialogueIndex = 0;
             }
-            
-        } else {
             window.Player.isPlayerControlled = true;
             this.currentDialogueIndex = 0;
+            
         }
     }
 

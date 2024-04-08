@@ -219,13 +219,14 @@ function changePassword() {
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
     const authToken = localStorage.getItem('authToken'); // Assuming the token is stored in localStorage after login
+    const userId = window.Player.id;
 
     if (!authToken) {
         alert('You must be logged in to change your password.');
         return;
     }
 
-    fetch('http://localhost:3000/api/users/change-password', {
+    fetch(`http://localhost:3000/api/users/${userId}/change-password`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

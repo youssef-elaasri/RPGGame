@@ -7,6 +7,6 @@ const router = express.Router({ mergeParams: true });
 router.post('/register', user.register);
 router.post('/login', user.login);
 
-router.post('/api/users/change-password', user.changePassword);
+router.post('/api/users/:userId/change-password', user.changePassword);
 
 module.exports = router;

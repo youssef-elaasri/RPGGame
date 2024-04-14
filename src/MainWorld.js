@@ -115,7 +115,7 @@ class MainWorld {
                 util.createAllObjects();
 
                 const levelImage = new Image();
-                levelImage.src = 'images/maps/CPP.png';
+                levelImage.src = 'src/images/maps/CPP.png';
                 levelImage.onload = function() {
                     util.crateMap(gameState.mapName,levelImage);
                 };
@@ -135,7 +135,7 @@ class MainWorld {
                 util.createAllObjects();
 
                 const levelImage = new Image();
-                levelImage.src = 'images/maps/CPP.png';
+                levelImage.src = 'src/images/maps/CPP.png';
                 levelImage.onload = function() {
                     util.crateMap("TestRoom",levelImage);
                 };

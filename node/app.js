@@ -1,75 +1,74 @@
 const express = require('express');
-const router = require('./routes/router')
+const cors = require('cors');
+const fs = require('fs');
+const Docker = require('./dockerManager');
+const path = require('path');
+
+// Initialize the express application
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cors()); // Allow all CORS requests
 
-const cors = require('cors');
-app.use(cors()); // This will allow all CORS requests
+// Importing router
+const router = require('./routes/router');
+app.use(router); // Use the router
 
-// Use the routes
-app.use(router);
+// Docker Manager
+const docker = new Docker({ image: 'app_image' });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Define routes
+function configureRoutes() {
+    app.get('/ping', (req, res) => {
+        res.status(200).send({ data: 'pong' });
+    });
 
-//
+    app.post('/python', (req, res) => {
+        if (!req.body.script || !req.body.level) {
+            return res.status(400).send('Script or level not specified');
+        }
 
-const Docker = require('./dockerManager');
-const fs = require('fs');
+        const filename = `${req.body.level}.py`;  // Save as "hello_world.py"
+        const filePath = path.join(__dirname, 'python_scripts', filename);
 
-// Middleware for parsing json. We love json <3
-app.use(express.json());
-app.use(cors());
+        try {
+            fs.writeFileSync(filePath, req.body.script, 'utf8');
+            console.log(`Script written to ${filename}`);
+        } catch (error) {
+            console.error('Error writing file:', error);
+            return res.status(500).send('Failed to write script');
+        }
 
-class App {
-    constructor(config){
-        app.listen(
-            config.port,
-            () => console.log(`app is alive on http://localhost:${config.port}`)
-        )
-        this.docker = new Docker({image : config.image});
-        this.configureRoutes();
-        this.docker.buildImage();
-
-    }
-
-    configureRoutes(){
-        this.ping();
-        this.scriptIntercept();
-        this.scriptGet();
-    }
-
-    ping(){
-        app.get('/ping', (req, res) => {
-            res.status(200).send({data:'pong'})
-        })
-    }
-
-    scriptIntercept(){
-        app.post('/python', (req, res) => {
-            const pythonScript = req.body.script;
-            fs.writeFileSync(`python_scripts/${req.body.level}_suggested.py`, pythonScript);
-            this.docker.runContainer(`${req.body.level}`)
+        docker.runContainer(req.body.level)
             .then(object => res.status(200).send(`${object.statusCode}`))
+            .catch(error => {
+                console.error('Docker error:', error);
+                res.status(500).send('Failed to run Docker container');
+            });
+    });
 
-        })
-    }
+    app.post('/python_script', (req, res) => {
+        if (!req.body.file) {
+            return res.status(400).send('No file specified');
+        }
 
-    scriptGet(){
-        app.post('/python_script', (req,res)=>{
-            let filePath = `python_scripts/${req.body.file}.py`
-            fs.readFile(filePath, 'utf8', (err,data) => {
-                if(err){
-                    console.error('Error reading file: ', err);
-                    return;
-                }
-                res.status(200).send(data)
-            })
-        })
-    }
+        const filePath = path.join(__dirname, 'python_scripts', `${req.body.file}.py`);
+
+        fs.readFile(filePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Error reading file:', err);
+                return err.code === 'ENOENT' ?
+                    res.status(404).send('File not found') :
+                    res.status(500).send('Error reading file');
+            }
+            res.status(200).send(data);
+        });
+    });
+
 }
 
-inpLegends = new App({
-    port: 8080,
-    image: 'app_image'
-});
+configureRoutes();
+docker.buildImage();
+
+// Starting the server
+const PORT = process.env.PORT || 8080; // Consolidated port configuration
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

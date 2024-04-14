@@ -119,7 +119,7 @@ module.exports = {
     },
     async changePassword(req, res) {
         const { currentPassword, newPassword } = req.body;
-        const username = req.login; // Assuming this is set from a previous middleware
+        const userId = req.params.userId;
 
         if (!currentPassword || !newPassword) {
             return res.status(400).json({ error: 'Both current and new passwords are required.' });
@@ -129,9 +129,9 @@ module.exports = {
             return res.status(400).json({ error: 'Weak new password!' });
         }
 
-        const query = 'SELECT password_hash FROM users WHERE username = ? LIMIT 1';
+        const query = 'SELECT password_hash FROM users WHERE user_id = ? LIMIT 1';
 
-        db.query(query, [username], (error, results) => {
+        db.query(query, [userId], (error, results) => {
             if (error) {
                 console.error('Database error during password change:', error);
                 return res.status(500).json({ error: 'Internal server error during password change.' });
@@ -159,8 +159,8 @@ module.exports = {
                     }
 
                     // Update user's password in the database
-                    const updateQuery = 'UPDATE users SET password_hash = ? WHERE username = ?';
-                    db.query(updateQuery, [hash, username], (error, results) => {
+                    const updateQuery = 'UPDATE users SET password_hash = ? WHERE user_id = ?';
+                    db.query(updateQuery, [hash, userId], (error, results) => {
                         if (error) {
                             console.error('Database error while updating password:', error);
                             return res.status(500).json({ error: 'Internal server error while updating password.' });

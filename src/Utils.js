@@ -79,209 +79,209 @@ const util = {
 
     createAllObjects() {
         window.dog = new GameObject({
-            src: "images/characters/dog.png",
+            src: "src/images/characters/dog.png",
         });
 
         window.shcoolFloor = new GameObject({
-            src : "images/sprites/shcoolFloor.png"
+            src : "src/images/sprites/shcoolFloor.png"
         })
 
         window.whiteSpace = new GameObject({
-            src : "images/sprites/whiteSpace.png",
+            src : "src/images/sprites/whiteSpace.png",
             isMounted : true,
         })
 
         window.leftDownShcoolwall = new GameObject({
-            src : "images/sprites/shcoolWall/leftDownShcoolwall.png",
+            src : "src/images/sprites/shcoolWall/leftDownShcoolwall.png",
             isMounted : true
         })
 
         window.rightDownShcoolWall = new GameObject({
-            src : "images/sprites/shcoolWall/rightDownShcoolWall.png",
+            src : "src/images/sprites/shcoolWall/rightDownShcoolWall.png",
             isMounted : true
         })
 
         window.downShcoolWall = new GameObject({
-            src : "images/sprites/shcoolWall/downShcoolWall.png",
+            src : "src/images/sprites/shcoolWall/downShcoolWall.png",
             isMounted : true
         })
 
         window.leftShcoolWall = new GameObject({
-            src : "images/sprites/shcoolWall/leftShcoolWall.png",
+            src : "src/images/sprites/shcoolWall/leftShcoolWall.png",
             isMounted : true
         })
 
         window.rightShcoolWall = new GameObject({
-            src : "images/sprites/shcoolWall/rightShcoolWall.png",
+            src : "src/images/sprites/shcoolWall/rightShcoolWall.png",
             isMounted : true
         })
 
         window.shcoolWall = new GameObject({
-            src : "images/sprites/shcoolWall/shcoolWall.png",
+            src : "src/images/sprites/shcoolWall/shcoolWall.png",
             isMounted : true
         })
 
         window.closet31 = new GameObject({
-            src : "images/sprites/closet/31.png",
+            src : "src/images/sprites/closet/31.png",
             isMounted : true
         })
 
         window.closet32 = new GameObject({
-            src : "images/sprites/closet/32.png",
+            src : "src/images/sprites/closet/32.png",
             isMounted : true
         })
 
         window.closet21 = new GameObject({
-            src : "images/sprites/closet/21.png",
+            src : "src/images/sprites/closet/21.png",
             isMounted : true
         })
 
         window.closet22 = new GameObject({
-            src : "images/sprites/closet/22.png",
+            src : "src/images/sprites/closet/22.png",
             isMounted : true
         })
 
         window.closet11 = new GameObject({
-            src : "images/sprites/closet/11.png",
+            src : "src/images/sprites/closet/11.png",
             isMounted : true
         })
 
         window.closet12 = new GameObject({
-            src : "images/sprites/closet/12.png",
+            src : "src/images/sprites/closet/12.png",
             isMounted : true
         })
 
         window.chalkboard11 = new GameObject({
-            src : "images/sprites/chalkboard/11.png",
+            src : "src/images/sprites/chalkboard/11.png",
             isMounted : true
         })
 
         window.chalkboard12 = new GameObject({
-            src : "images/sprites/chalkboard/12.png",
+            src : "src/images/sprites/chalkboard/12.png",
             isMounted : true
         })
 
         window.chalkboard13 = new GameObject({
-            src : "images/sprites/chalkboard/13.png",
+            src : "src/images/sprites/chalkboard/13.png",
             isMounted : true
         })
 
         window.chalkboard21 = new GameObject({
-            src : "images/sprites/chalkboard/21.png",
+            src : "src/images/sprites/chalkboard/21.png",
             isMounted : true
         })
 
         window.chalkboard22 = new GameObject({
-            src : "images/sprites/chalkboard/22.png",
+            src : "src/images/sprites/chalkboard/22.png",
             isMounted : true
         })
 
         window.chalkboard23 = new GameObject({
-            src : "images/sprites/chalkboard/23.png",
+            src : "src/images/sprites/chalkboard/23.png",
             isMounted : true
         })
 
         window.classRoomFloor = new GameObject({
-            src : "images/sprites/classRoomFloor.png",
+            src : "src/images/sprites/classRoomFloor.png",
         })
 
         window.leftTable = new GameObject({
-            src : "images/sprites/table/left.png",
+            src : "src/images/sprites/table/left.png",
             isMounted : true,
         })
 
         window.rightTable = new GameObject({
-            src : "images/sprites/table/right.png",
+            src : "src/images/sprites/table/right.png",
             isMounted : true,
         })
 
         window.chair1 = new GameObject({
-            src : "images/sprites/chair/chair1.png",
+            src : "src/images/sprites/chair/chair1.png",
             isMounted : true,
         })
 
         window.chair2 = new GameObject({
-            src : "images/sprites/chair/chair2.png",
+            src : "src/images/sprites/chair/chair2.png",
             isMounted : true,
         })
 
         window.door11 = new GameObject({
-            src : "images/sprites/door/11.png",
+            src : "src/images/sprites/door/11.png",
             isMounted : true,
         })
 
         window.door21 = new GameObject({
-            src : "images/sprites/door/21.png",
+            src : "src/images/sprites/door/21.png",
             isMounted : true,
         })
 
         window.door31 = new GameObject({
-            src : "images/sprites/door/31.png",
+            src : "src/images/sprites/door/31.png",
             isMounted : true,
         })
 
         window.painting = new GameObject({
-            src : "images/sprites/painting.png",
+            src : "src/images/sprites/painting.png",
             isMounted : true,
         })
 
         window.bookcase11 = new GameObject({
-            src : "images/sprites/bookcase/11.png",
+            src : "src/images/sprites/bookcase/11.png",
             isMounted : true,
         })
 
         window.bookcase12 = new GameObject({
-            src : "images/sprites/bookcase/12.png",
+            src : "src/images/sprites/bookcase/12.png",
             isMounted : true,
         })
 
         window.bookcase13 = new GameObject({
-            src : "images/sprites/bookcase/13.png",
+            src : "src/images/sprites/bookcase/13.png",
             isMounted : true,
         })
 
         window.bookcase21 = new GameObject({
-            src : "images/sprites/bookcase/21.png",
+            src : "src/images/sprites/bookcase/21.png",
             isMounted : true,
         })
 
         window.bookcase22 = new GameObject({
-            src : "images/sprites/bookcase/22.png",
+            src : "src/images/sprites/bookcase/22.png",
             isMounted : true,
         })
 
         window.bookcase23 = new GameObject({
-            src : "images/sprites/bookcase/23.png",
+            src : "src/images/sprites/bookcase/23.png",
             isMounted : true,
         })
 
         window.bookcase31 = new GameObject({
-            src : "images/sprites/bookcase/31.png",
+            src : "src/images/sprites/bookcase/31.png",
             isMounted : true,
         })
 
         window.bookcase32 = new GameObject({
-            src : "images/sprites/bookcase/32.png",
+            src : "src/images/sprites/bookcase/32.png",
             isMounted : true,
         })
 
         window.bookcase33 = new GameObject({
-            src : "images/sprites/bookcase/33.png",
+            src : "src/images/sprites/bookcase/33.png",
             isMounted : true,
         })
 
         window.stall = new GameObject({
-            src : "images/sprites/stall.png",
+            src : "src/images/sprites/stall.png",
             isMounted : true,
         })
 
         window.closedDoor1 = new GameObject({
-            src : "images/sprites/closedDoor/1.png",
+            src : "src/images/sprites/closedDoor/1.png",
             isMounted : true,
         })
 
         window.closedDoor2 = new GameObject({
-            src : "images/sprites/closedDoor/2.png",
+            src : "src/images/sprites/closedDoor/2.png",
             isMounted : true,
         })
     },

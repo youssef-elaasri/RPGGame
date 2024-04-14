@@ -88,7 +88,7 @@ class OverworldMap {
 window.OverworldMaps = {
     TestRoom: {
         name: "TestRoom",
-        lowerSrc: "images/maps/whitepic.png",
+        lowerSrc: "src/images/maps/whitepic.png",
         gameObjects: {
         },
         NPCs: {

@@ -7,8 +7,9 @@ class NPC extends Person {
         this.isInteractable = config.isInteractable || true; // Whether the player can interact with the NPC
         this.autoMovePattern = config.autoMovePattern || true; // Automated movement pattern!
         this.autoMoveIndex = 0; // Current step in the automated movement pattern
-
+        this.defaultDialogue = config.defaultDialogue || []
         this.challenge = config.challenge;
+        this.currentDialogue = [];
     }
 
     incrementDialogue() {
@@ -20,7 +21,7 @@ class NPC extends Person {
         const dialogueText = document.querySelector('.dialogue-text');
         dialogueText.textContent = '';
         dialogueContainer.classList.remove('hidden');
-        dialogueText.textContent = this.dialogues[this.currentDialogueIndex];
+        dialogueText.textContent = this.currentDialogue[this.currentDialogueIndex];
         window.dialogueIsShowing = true;
         window.Player.isPlayerControlled = false;
     }
@@ -33,12 +34,22 @@ class NPC extends Person {
         window.dialogueIsShowing = false;
     }
 
+    selectDialogue() {
+        for (const key in this.dialogues) {
+            if (key in window.Player.storyFlags) {
+                this.currentDialogue = this.dialogues[key];
+                return;
+            }
+        }
+        this.currentDialogue = this.defaultDialogue;
+    }
+
     interact() {
-        console.log(this.currentDialogueIndex);
-        if (this.currentDialogueIndex < this.dialogues.length) {
+        this.selectDialogue();
+        if (this.currentDialogueIndex < this.currentDialogue.length) {
             this.showDialogue();
             this.currentDialogueIndex = this.currentDialogueIndex + 1;
-        } else if (this.currentDialogueIndex === this.dialogues.length) {
+        } else if (this.currentDialogueIndex === this.currentDialogue.length) {
             this.hideDialogue();
             console.log(this.challenge);
             if(this.challenge){

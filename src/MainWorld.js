@@ -41,7 +41,7 @@ class MainWorld {
                     arrow : this.directionInput.direction,
                     map : window.currentMap,
                 });
-            })
+            }) 
 
             Object.values(window.currentMap.NPCs).forEach(object => {
                 object.update({

@@ -132,83 +132,21 @@ window.OverworldMaps = {
             }),
             Professor: new NPC({
                 name : "prof",
-                dialogues : [
+                src : "images/NPCS/professor.png",
+                dialogues : {
+                    "hello_world" : ["BRAVO"],
+                },
+                defaultDialogue : [
                     "HEY YOU!",
                     "Why are you always late to class?",
                     "You must solve this puzzle!"
                 ],
                 x: util.inGrid(45),
                 y:util.inGrid(23),
-                challenge: () => {
-                    fetch('http://localhost:8080/python_script', {
-                    method:'POST',
-                    headers:{
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({file: 'hello_world'})
-                })
-                .then(response => {
-                    if(!response.ok){
-                        throw new Error("Response not ok")
-                    }
-
-                    return response.text();
-                })
-                .then(data => {
-                    util.displayIDE(data, 'Professor')
-                })
-                .catch(error => {
-                    console.error('fetch operation failed: ', error);
-                })
-
-                let runHandler = e =>{
-                    fetch('http://localhost:8080/python', {
-                        method:'POST',
-                        headers:{
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            script: window.editor.getSession().getValue(),
-                            level: 'hello_world'
-                        })
-                    })
-                    .then(response => {
-                        if(!response.ok){
-                            throw new Error("Response not ok")
-                        }
-                        return response.text();
-                    })
-                    .then(data => {
-                        console.log();
-                        if(data === '1'){
-                            
-                            window.currentMap.NPCs[e.detail.doerId].dialogues = [
-                                "You've failed miserably.",
-                                "But since I'm feeling kind today, I'll let you try again."
-                            ];
-                        }
-                        else{
-                            window.currentMap.NPCs[e.detail.doerId].dialogues = [
-                                "Good job.",
-                            ];
-                            window.currentMap.NPCs[e.detail.doerId].challenge = null;
-                        }
-
-                        console.log(e.detail.doerId.dialogues);
-                        
-                        
-                    })
-                    .catch(error => {
-                        console.error('fetch operation failed: ', error);
-                    })
-
-                    document.removeEventListener('run', runHandler);
-                }
-
-                document.addEventListener("run", runHandler);
-
-                    
-                }
+                challenge: () => util.runChallenge({
+                    fileName : "hello_world",
+                    NPCname : "Professor",
+                }),
             }),
         },
         walls : {

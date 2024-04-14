@@ -1,6 +1,7 @@
 import unittest
 import random
 import string
+from defi1 import chiffrement_cesar
 
 def chiffrement_cesar_solution(texte, decalage):
     resultat = ""

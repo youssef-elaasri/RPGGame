@@ -1,5 +1,6 @@
 
 
+
 // Method used by the fullscreen icon
 function toggleFullscreen() {
     var elem = document.querySelector('.game-window');
@@ -533,6 +534,7 @@ const util = {
         window.editor.setTheme("ace/theme/monokai");
         window.editor.session.setMode("ace/mode/python");
         window.IDEdisplayed = true;
+        window.Player.isPlayerControlled = false;
     },
     deleteIDE () {
         const editorDiv = document.getElementById('editor');
@@ -544,6 +546,67 @@ const util = {
             // Removes the first (and assumed only) button container found
             buttonContainers[0].remove();
         }
+    },
+    runChallenge (config) {
+        fetch('http://localhost:8080/python_script', {
+        method:'POST',
+        headers:{
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({file: config.fileName})
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new Error("Response not ok")
+        }
+
+        return response.text();
+    })
+    .then(data => {
+        util.displayIDE(data, config.NPCname)
+    })
+    .catch(error => {
+        console.error('fetch operation failed: ', error);
+    })
+
+    let runHandler = e =>{
+        fetch('http://localhost:8080/python', {
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                script: window.editor.getSession().getValue(),
+                level: config.fileName
+            })
+        })
+        .then(response => {
+            if(!response.ok){
+                throw new Error("Response not ok")
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log();
+            if(data === '0'){
+                window.Player.storyFlags[config.fileName] = true;
+                window.currentMap.NPCs[e.detail.doerId].challenge = null;
+            }
+
+            console.log(e.detail.doerId.dialogues);
+            
+            
+        })
+        .catch(error => {
+            console.error('fetch operation failed: ', error);
+        })
+
+        document.removeEventListener('run', runHandler);
+    }
+
+    document.addEventListener("run", runHandler);
+
+        
     }
 }
 

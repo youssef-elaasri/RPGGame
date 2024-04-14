@@ -111,15 +111,23 @@ class MainWorld {
                     y: gameState.playerY, // Use the loaded Y position
                     id: userId
                 });
-                console.log("Here")
+
+                util.createAllObjects();
+
+                const levelImage = new Image();
+                levelImage.src = 'images/maps/CPP.png';
+                levelImage.onload = function() {
+                    util.crateMap(gameState.mapName,levelImage);
+                };
+
                 // Assuming the game state includes the name of the map to start
                 this.startMap(window.OverworldMaps[gameState.mapName]);
-                console.log("HHHere")
+
             } else {
                 // If no saved game state exists, start with default values
                 window.Player = new Person({
                     isPlayerControlled: true,
-                    x: util.inGrid(10),
+                    x: util.inGrid(17),
                     y: util.inGrid(10),
                     id: userId
                 });
@@ -129,11 +137,11 @@ class MainWorld {
                 const levelImage = new Image();
                 levelImage.src = 'images/maps/CPP.png';
                 levelImage.onload = function() {
-                    util.crateMap("CPP",levelImage);
+                    util.crateMap("TestRoom",levelImage);
                 };
 
                 // Start with a default map if no saved state is found
-                this.startMap(window.OverworldMaps.CPP);
+                this.startMap(window.OverworldMaps.TestRoom);
             }
 
             // Start capturing direction input

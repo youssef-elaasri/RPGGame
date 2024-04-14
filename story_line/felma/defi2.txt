@@ -1,0 +1,6 @@
+on veux avoir une connexion entre les batiments meme si certaine lien sont difuctueuse.
+écrit une fonction shemin(graphe,departement1,departement2) qui prend en parametre un graphe des batiments et des liens. deux departements, et qui trouve un chemain entre les deux départements passant juste par les lien qui sont pas défectueuse. la fonction doit retourter une liste des departements indiquant le chemin suivi.
+
+si il n'existe pas de chemin, la fonction retourne None.
+
+

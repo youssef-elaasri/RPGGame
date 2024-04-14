@@ -1,0 +1,12 @@
+Scénario
+L'intelligence artificielle a saboté le réseau électrique principal de CPP, entraînant une coupure d'électricité dans plusieurs bâtiments critiques. Le joueur doit agir rapidement pour rétablir l'alimentation électrique en priorisant les zones selon leur importance et en optimisant l'utilisation de l'énergie disponible, qui est limitée.
+
+Les joueurs sont confrontés à une situation où ils doivent répartir une quantité limitée d'énergie entre plusieurs bâtiments. Chaque bâtiment a un niveau d'importance et une consommation d'énergie associée. L'objectif est d'optimiser la distribution de l'énergie pour maximiser l'importance totale des bâtiments alimentés.
+
+Données :
+Quantité totale d'énergie disponible.
+Liste des bâtiments (liste de tuples) avec pour chacun :
+Consommation d'énergie nécessaire pour être alimenté.
+Niveau d'importance. 
+
+pour cette défis on va commencé par créer une fonction tri_batiments(batiments) qui return une liste trié des bâtiments par ordre décroissant du ratio importance/consommation

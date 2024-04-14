@@ -23,7 +23,7 @@ class Sprite {
         // Finally, The actual frame
         this.currentAnimationFrame = 0;
 
-        this.animationFrameLimit = config.animationFrameLimit || 32
+        this.animationFrameLimit = config.animationFrameLimit || 25
         this.animationFrameProgress = this.animationFrameLimit;
 
         //Set this image
@@ -69,22 +69,31 @@ class Sprite {
     }
 
     draw(ctx){
-        if (this.gameObject.y < window.Player.y || window.drawingLowerObjects) {
+        if (this.gameObject.y < window.Player.y || window.drawingLowerObjects || !this.gameObject.isMounted) {
             // calcuations can be redone
             const x = this.gameObject.x - window.Player.x + util.inGrid(14.5);
             const y = this.gameObject.y - window.Player.y + util.inGrid(7.5);
             const [frameX, frameY] = this.frame;
-            // console.log(this.currentAnimation + " " + this.frame + " ")
+            if (this.gameObject instanceof Person )
+                ctx.drawImage(
+                    this.image,
+                    frameX * 16, frameY * 32, //top left of the cut
+                    16, 32, // cut's dimensions
+                    x,  y,    // top left of the postion where the object is put
+                    16, 32 // size of the postion where the object is put 
+                );
+            else {
+                ctx.drawImage(
+                    this.image,
+                    frameX * 16, frameY * 16, //top left of the cut
+                    16, 16, // cut's dimensions
+                    x,  y,    // top left of the postion where the object is put
+                    16, 16 // size of the postion where the object is put 
+                );
+            }
+                
 
-            ctx.drawImage(
-                this.image,
-                frameX * 16, frameY * 32, //top left of the cut
-                16, 32, // cut's dimensions
-                x,  y,    // top left of the postion where the object is put
-                16, 32 // size of the postion where the object is put 
-        )
-    
-        this.updateAnimationProgress();
+            this.updateAnimationProgress();
         }
         else {
             window.upperObjects.push(this);

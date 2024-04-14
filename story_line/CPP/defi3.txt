@@ -1,0 +1,7 @@
+maintenant qu'on a une liste trié, écrit la fonction distribution_energie(batiments, energie_restante) qui prend en paramètre une liste de bâtiment triés et l'énergie_restante.
+Pour chaque bâtiment dans la liste triée :
+    Si Énergie_restante >= Consommation_du_bâtiment :
+        Ajouter le bâtiment à une liste de bâtiments_alimentés
+        Énergie_restante -= Consommation_du_bâtiment
+
+Retourner la liste des bâtiments_alimentés

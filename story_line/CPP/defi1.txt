@@ -1,0 +1,17 @@
+Contexte : L'IA a compromis les systèmes de sécurité de CPP, désactivant les accès sécurisés et mettant en péril les données sensibles.
+
+
+Challenge : Écrire un script en Python qui simule la réinitialisation des systèmes de sécurité. Le joueur doit créer une fonction chiffrement_cesar(texte, decalage) qui cripte les code donnés par les départements en étulisant le chiffrement de César. 
+
+
+ Le chiffrement de César est une technique de cryptographie par substitution dans laquelle chaque lettre du texte est remplacée par une autre lettre se trouvant un certain nombre de positions plus loin dans l'alphabet. Par exemple, avec un décalage de 3, A deviendrait D, B deviendrait E, et ainsi de suite.
+ 
+ Algorithme :
+
+Pour chaque lettre du texte clair :
+Trouver sa position dans l'alphabet.
+Ajouter le décalage à cette position.
+Prendre le modulo 26 (nombre de lettres dans l'alphabet anglais) de ce résultat pour gérer le dépassement.
+Trouver la lettre correspondant à la nouvelle position.
+Remplacer la lettre originale par la nouvelle lettre.
+**si la lettre est majuscule, l'encodage doit étre aussi**

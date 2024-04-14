@@ -43,6 +43,13 @@ class MainWorld {
                 });
             })
 
+            Object.values(window.currentMap.NPCs).forEach(object => {
+                object.update({
+                    arrow : this.directionInput.direction,
+                    map : window.currentMap,
+                });
+            })
+
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,
@@ -50,7 +57,7 @@ class MainWorld {
             });
 
             // initialize the gameObject position
-            util.setGameObjectsPosition(window.currentMap);
+            // util.setGameObjectsPosition(window.currentMap);
 
             window.upperObjects = [];
             window.drawingLowerObjects = false;
@@ -60,7 +67,7 @@ class MainWorld {
                 object.sprite.draw(this.ctx);
             })
 
-            window.Player.sprite.draw(this.ctx);
+            //window.Player.sprite.draw(this.ctx);
 
             // draw all the NPCs
             Object.values(window.currentMap.NPCs).forEach(object => {
@@ -88,6 +95,7 @@ class MainWorld {
     startMap(mapConfig) {
         window.currentMap = new OverworldMap(mapConfig);
         window.currentMap.overworld = this;
+        window.currentMap.mountObjects();
     }
 
     async init(userId) {
@@ -116,8 +124,16 @@ class MainWorld {
                     id: userId
                 });
 
+                util.createAllObjects();
+
+                const levelImage = new Image();
+                levelImage.src = 'images/maps/CPP.png';
+                levelImage.onload = function() {
+                    util.crateMap("CPP",levelImage);
+                };
+
                 // Start with a default map if no saved state is found
-                this.startMap(window.OverworldMaps.TestRoom);
+                this.startMap(window.OverworldMaps.CPP);
             }
 
             // Start capturing direction input

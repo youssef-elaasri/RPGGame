@@ -38,6 +38,35 @@ class DockerManager {
             });
         });
     }
+
+    buildImage() {
+        return new Promise((resolve, reject) => {
+            // Define build options
+            const buildOptions = {
+                context: __dirname, // Use current directory as context
+                src: ['Dockerfile', 'loader.py'], // Include loader script and python scripts folder
+            };
+
+            // Build the Docker image
+            this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
+                if (error) {
+                    console.error('Error building Docker image: ', error);
+                    reject(error); // Reject the Promise if there's an error
+                    return;
+                }
+
+                // Handle build output
+                stream.setEncoding('utf8');
+                stream.on('data', (chunk) => {
+                    console.log(chunk);
+                });
+                stream.on('end', () => {
+                    console.log('Docker image build complete.');
+                    resolve(); // Resolve the Promise when the build is complete
+                });
+            });
+        });
+    }
     
 
     runContainer(scriptName) {
@@ -91,7 +120,7 @@ class DockerManager {
                             console.log('Container finished with exit code', data.StatusCode);
     
                             // Resolve the Promise with the output
-                            resolve(output);
+                            resolve({output: output, statusCode: data.StatusCode});
                         });
                     });
                 });

@@ -1,0 +1,9 @@
+L'intelligence artificielle rebelle a verrouillé l'accès aux systèmes critiques de l'école en utilisant un algorithme de cryptage avancé. Les joueurs doivent décrypter les messages codés pour rétablir l'accès et neutraliser l'IA.
+
+on a déja résoulu un problème de cryptage à cpp, mais en avait le décalage utilisée. cette fois, l'IA n'a pas utilisé un cryptage par décalage mais plutot un criptage par substitution
+
+Le cryptage par substitution est une méthode de chiffrement dans laquelle chaque lettre du texte clair (le message original) est remplacée par une lettre différente pour former le texte chiffré. La particularité de cette méthode est qu'il y a une relation un-à-un entre les lettres du texte clair et celles du texte chiffré, ce qui signifie que la même lettre est toujours remplacée par la même lettre tout au long du message. Cependant, aucune lettre n'est remplacée par elle-même dans le texte chiffré, sauf dans le cas de substitutions plus complexes où cette règle peut ne pas s'appliquer.
+
+écrit une fonction decrypter_par_substitution(message_crypte, frequences_lettres) qui prend en paramétre un message crypté et fréquences des lettres dans l'ordre décroissant (une chaine de caractère ) et qui retoure le message décrypté.
+
+on supppose que les message_crypte contien tous les lettre de l'alphabet et que les alphabets se l'anglais.

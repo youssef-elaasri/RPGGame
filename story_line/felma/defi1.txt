@@ -1,0 +1,8 @@
+il faut trouvé une solution pour le probleme de connection entre les département.
+mais avant de trouvé une solution il faut arrivé à dentifier visuellement les points de défaillance dans un réseau simplifié.
+
+Le joueur reçoit un schéma simple d'un réseau (dictinnaire avec comme clés les noms des département et comme valeurs un tuple de deux listes, la première liste et la liste des departement qui ont un lien de communication pas défectueu, la deuxieme est la liste des departement qui ont un lien de communication défectueux )
+
+Le joueur doit sélectionner tous les liens défectueux. il doit écrire une fonction identifier_liens_defectueux(graphe) qui prend en paramétre un graphe et qui retourne une liste des lien défectueux sous la forme d'une liste de tuple. 
+
+fais attention, si il existe un lien entre imag et pagora par exemple, il faut avoir les deux tuple ("imag","pagora") et ("pagora","imag")

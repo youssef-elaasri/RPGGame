@@ -29,12 +29,14 @@ class App {
         )
         this.docker = new Docker({image : config.image});
         this.configureRoutes();
-    
+        this.docker.buildImage();
+
     }
 
     configureRoutes(){
         this.ping();
         this.scriptIntercept();
+        this.scriptGet();
     }
 
     ping(){
@@ -45,11 +47,24 @@ class App {
 
     scriptIntercept(){
         app.post('/python', (req, res) => {
-             const pythonScript = req.body.script;
-             fs.writeFileSync('python_scripts/script.py', pythonScript);
-             this.docker.runContainer('script')
-                 .then(output => res.status(200).send(output))
-            
+            const pythonScript = req.body.script;
+            fs.writeFileSync(`python_scripts/${req.body.level}_suggested.py`, pythonScript);
+            this.docker.runContainer(`${req.body.level}`)
+            .then(object => res.status(200).send(`${object.statusCode}`))
+
+        })
+    }
+
+    scriptGet(){
+        app.post('/python_script', (req,res)=>{
+            let filePath = `python_scripts/${req.body.file}.py`
+            fs.readFile(filePath, 'utf8', (err,data) => {
+                if(err){
+                    console.error('Error reading file: ', err);
+                    return;
+                }
+                res.status(200).send(data)
+            })
         })
     }
 }

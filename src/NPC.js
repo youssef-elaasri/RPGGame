@@ -5,8 +5,10 @@ class NPC extends Person {
         this.dialogues = config.dialogues || []; // Array of dialogue strings
         this.currentDialogueIndex = 0; // To track which dialogue to show
         this.isInteractable = config.isInteractable || true; // Whether the player can interact with the NPC
-        this.autoMovePattern = config.autoMovePattern || null; // Automated movement pattern!
+        this.autoMovePattern = config.autoMovePattern || true; // Automated movement pattern!
         this.autoMoveIndex = 0; // Current step in the automated movement pattern
+
+        this.challenge = config.challenge;
     }
 
     incrementDialogue() {
@@ -38,11 +40,13 @@ class NPC extends Person {
             this.currentDialogueIndex = this.currentDialogueIndex + 1;
         } else if (this.currentDialogueIndex === this.dialogues.length) {
             this.hideDialogue();
-            util.displayIDE();
-            this.currentDialogueIndex = this.currentDialogueIndex + 1;
-        } else {
+            console.log(this.challenge);
+            if(this.challenge){
+                this.challenge();
+            }
             window.Player.isPlayerControlled = true;
             this.currentDialogueIndex = 0;
+            
         }
     }
 

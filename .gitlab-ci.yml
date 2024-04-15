@@ -44,7 +44,7 @@ frontend_build:
   script:
     - mkdir -p public
     - mkdir -p public/images
-    - cp src/index.html public/index.html
+    - cp index.html public/index.html
     - cp src/styles.css public/styles.css
     - cp -r src/images/* public/images/
     - cp src/*.js public/ 

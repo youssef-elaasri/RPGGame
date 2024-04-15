@@ -71,7 +71,7 @@ function login() {
         })
         .catch((error) => {
             console.error(error);
-            //alert(error.message);
+            toggleErrorMessage(true, error || 'Login failed for an unknown reason')
         });
 }
 
@@ -110,9 +110,8 @@ function signup() {
             toggleAuthMode(true); // Assuming this function toggles your authentication mode/state
         })
         .catch((error) => {
-            // Handle error case, including when thrown from within the first .then() block
             console.error('Error:', error);
-            //alert(error.message); // Display the specific error message returned from the backend
+            toggleErrorMessage(true, error || 'Login failed for an unknown reason')
         });
 }
 

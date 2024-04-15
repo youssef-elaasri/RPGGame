@@ -9,6 +9,8 @@ def main():
     script_name = sys.argv[1]
     script_path = os.path.join("python_scripts", script_name + ".py")
 
+    os.system("ls python_scripts")
+
     if not os.path.exists(script_path):
         print(f"Error: Script '{script_name}' not found")
         sys.exit(1)

@@ -27,7 +27,7 @@ function configureRoutes() {
             return res.status(400).send('Script or level not specified');
         }
 
-        const filename = `${req.body.level}.py`;  // Save as "hello_world.py"
+        const filename = `${req.body.level}_suggested.py`;  // Save as "hello_world.py"
         const filePath = path.join(__dirname, 'python_scripts', filename);
 
         try {
@@ -38,7 +38,7 @@ function configureRoutes() {
             return res.status(500).send('Failed to write script');
         }
 
-        docker.runContainer(req.body.level)
+        docker.runContainer(`${req.body.level}`)
             .then(object => res.status(200).send(`${object.statusCode}`))
             .catch(error => {
                 console.error('Docker error:', error);

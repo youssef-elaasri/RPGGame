@@ -568,7 +568,7 @@ function executeTests(doerId) {
     window.Player.isPlayerControlled = true;
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;
-    util.deleteIDE();
+    util.closeIDE();
     //window.IDEdisplayed = false;
 
 }

@@ -14,14 +14,14 @@ class DockerManager {
                 context: __dirname,
                 src: ['Dockerfile', 'loader.py'], // Include loader script and python scripts folder
             };
-    
+
             this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
                 if (error) {
                     console.error('Error building Docker image: ', error);
                     reject(error); // Reject the Promise if there's an error
                     return;
                 }
-    
+
                 // Handle build output
                 stream.setEncoding('utf8');
                 stream.on('data', (chunk) => {
@@ -29,7 +29,7 @@ class DockerManager {
                 });
                 stream.on('end', () => {
                     console.log('Docker image build complete.');
-    
+
                     // Once image is built, create and run the container
                     this.runContainer(scriptName)
                         .then(output => resolve(output)) // Resolve the Promise with the output
@@ -73,7 +73,7 @@ class DockerManager {
         return new Promise((resolve, reject) => {
             const containerOptions = {
                 Image: this.image,
-                Cmd: [`${scriptName}.py`],
+                Cmd: [`${scriptName}`],
                 AttachStdout: true,
                 AttachStderr: true,
                 Volumes: {

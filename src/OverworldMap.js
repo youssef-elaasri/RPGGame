@@ -65,7 +65,7 @@ class OverworldMap {
 
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
-        for (let npc of Object.values(this.NPCs)) { // fixme : 30 can be adjusted !!!!
+        for (let npc of Object.values(this.NPCs)) { // Fixme : 30 can be adjusted !!!!
             if (Math.abs(npc.x - window.Player.x) <= 16 && Math.abs(npc.y - window.Player.y) <= 16) {
                 return npc;
             }
@@ -88,7 +88,7 @@ class OverworldMap {
 window.OverworldMaps = {
     TestRoom: {
         name: "TestRoom",
-        lowerSrc: "images/maps/whitepic.png",
+        lowerSrc: "src/images/maps/whitepic.png",
         gameObjects: {
         },
         NPCs: {
@@ -135,7 +135,7 @@ window.OverworldMaps = {
             }),
             Professor: new NPC({
                 name : "prof",
-                src : "images/NPCS/professor.png",
+                src : "src/images/NPCS/professor.png",
                 dialogues : {
                     "hello_world" : ["BRAVO"],
                 },

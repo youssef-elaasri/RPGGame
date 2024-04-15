@@ -2,15 +2,17 @@ class OverworldMap {
     
     constructor(config) {
         this.overworld = null;
+        this.name = config.name || "";
+        this.gameObjects = config.gameObjects || [];
 
         this.gameObjects = config.gameObjects || {};
         this.NPCs = config.NPCs || [];
-        
+
         this.walls = config.walls || {};
         this.changeMap = config.changeMap || {};
-        
+
         //this.gameObjectsPosition = {}
-        
+
         this.startPosition = config.startPosition || [0,0];
         this.lowerImage = new Image();
         this.lowerImage.src = config.lowerSrc;
@@ -58,7 +60,7 @@ class OverworldMap {
             npc.id = key;
             npc.mount(this)
         })
-    
+
     }
 
     findNearbyNPC() {
@@ -84,7 +86,8 @@ class OverworldMap {
 
 
 window.OverworldMaps = {
-    CPP: {
+    TestRoom: {
+        name: "TestRoom",
         lowerSrc: "images/maps/whitepic.png",
         gameObjects: {
         },
@@ -158,6 +161,7 @@ window.OverworldMaps = {
     },
 
     kitchen : {
+        name: "Kitchen",
         lowerSrc : "images/maps/kitchen.png",
         changeMap : {
             [util.asGridCoord(3,8)] : ["CPP", [util.inGrid(4),util.inGrid(0)]],

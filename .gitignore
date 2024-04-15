@@ -1,2 +1,5 @@
 .idea/
 node_modules/
+
+# The db file contains local database username and password
+node/db.js

@@ -1,7 +1,8 @@
 stages:
   - lint
   - test
-  - build
+  - build_backend
+  - build_frontend
 
 eslint:
   stage: lint
@@ -26,8 +27,20 @@ stylelint:
     - npm install csslint-cli
     - npx csslint-cli src/*.css
 
-pages:
-  stage: build
+backend_build:
+  stage: build_backend
+  image: node:latest
+  script:
+    - cd node
+    - npm install
+    - npm run build 
+  artifacts:
+    paths:
+      - ./dist 
+
+frontend_build:
+  stage: build_frontend
+  image: node:latest
   script:
     - mkdir -p public
     - mkdir -p public/images
@@ -38,3 +51,4 @@ pages:
   artifacts:
     paths:
       - public
+

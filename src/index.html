@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <title>INP Legends</title>
 </head>
 <body>
@@ -20,22 +21,95 @@
                 <p class="dialogue-text"></p>
             </div>
         </div>
-    <!-- FullScreen Icon -->
-    <span class="fullscreenBtn" onclick="toggleFullscreen()">
-        <i class="material-icons fs-icon">fullscreen</i>
-    </span>
-</div>
+        <span id="closeBtn" class="closeBtn hidden" onclick="util.closeIDE()">
+                <i class="material-icons">close</i>
+        </span>
+        <!-- Profile Panel -->
+        <div id="profilePanel" class="modal hidden">
+            <div class="modal-content">
+                <h2>Player Profile</h2>
+                <div id="playerInfo">
+                    <p><strong>Username:</strong> <span id="playerUsername"></span></p>
+                    <p><strong>Email:</strong> <span id="playerEmail"></span></p>
+                    <p><strong>Completed Stages:</strong> <span id="completedStages"></span></p>
+                </div>
+                <!-- Trigger to Show Change Password Form -->
+                <p id="changePasswordTrigger" class="change-password-trigger">Change password?</p>
+
+                <!-- Change Password Form, initially hidden -->
+                <form id="changePasswordForm" class="hidden">
+                    <div id="changePasswordErrorMessage" class="hidden"></div>
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password:</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password:</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <button class="btn game-btn" type="button" onclick="changePassword()">Change Password</button>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="control-icons">
+            <span id="logoutBtn" class="logoutBtn hidden" onclick="logout()">
+                <i class="fa fa-sign-out"></i>
+            </span>
+            <span id="profileBtn" class="profileBtn hidden" onclick="toggleProfilePanel()">
+                <i class="material-icons">account_circle</i>
+            </span>
+            <span id ="saveBtn" class="saveBtn hidden" onclick="saveGame()">
+                <i class="material-icons save-icon">save</i>
+            </span>
+            <span id="fullscreenBtn" class="fullscreenBtn hidden" onclick="util.toggleFullscreen()">
+                <i class="material-icons fs-icon">fullscreen</i>
+            </span>
+        </div>
+    </div>
+
+    <!-- Authentication Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter the Legends</h2> <!-- Modal Title -->
+            <form id="authForm">
+                <div id="errorMessage" class="hidden"></div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group hidden" id="emailGroup">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="form-actions">
+                    <button class="btn game-btn" id="loginBtn" type="button">Login</button>
+                    <button class="btn game-btn hidden" id="signupBtn" type="button">Sign Up</button>
+                </div>
+            </form>
+            <p id="authToggleText"></p>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script type="text/javascript" src="Utils.js"></script>
-    <script type="text/javascript" src="DirectionInput.js"></script>
-    <script type="text/javascript" src="GameObject.js"></script>
-    <script type="text/javascript" src="Person.js"></script>
-    <script type="text/javascript" src="NPC.js"></script>
-    <script type="text/javascript" src="Sprite.js"></script>
-    <script type="text/javascript" src="OverworldMap.js"></script>
-    <script type="text/javascript" src="OverworldEvent.js"></script>
-    <script type="text/javascript" src="MainWorld.js"></script>
-    <script type="text/javascript" src="init.js"></script>
+    <script type="text/javascript" src="./authentication.js"></script>
+    <script type="text/javascript" src="./playerProfile.js"></script>
+    <script type="text/javascript" src="./Utils.js"></script>
+    <script type="text/javascript" src="./DirectionInput.js"></script>
+    <script type="text/javascript" src="./GameObject.js"></script>
+    <script type="text/javascript" src="./Person.js"></script>
+    <script type="text/javascript" src="./NPC.js"></script>
+    <script type="text/javascript" src="./Sprite.js"></script>
+    <script type="text/javascript" src="./OverworldMap.js"></script>
+    <script type="text/javascript" src="./OverworldEvent.js"></script>
+    <script type="text/javascript" src="./MainWorld.js"></script>
+    <script type="text/javascript" src="./init.js"></script>
     <!--- editor's scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="lib/ace.js"></script>

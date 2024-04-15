@@ -65,7 +65,9 @@ class MainWorld {
             //Draw game object
             Object.values(window.currentMap.gameObjects).forEach(object => {
                 object.sprite.draw(this.ctx);
-            });
+            })
+
+            //window.Player.sprite.draw(this.ctx);
 
             // draw all the NPCs
             Object.values(window.currentMap.NPCs).forEach(object => {
@@ -96,29 +98,62 @@ class MainWorld {
         window.currentMap.mountObjects();
     }
 
-    init() {
-        /* The Player */
-        window.Player = new Person({
-            isPlayerControlled : true,
-            x: util.inGrid(27),
-            y:util.inGrid(13)
-        });
+    async init(userId) {
+        try {
+            // Load the saved game state for the given user
+            const gameState = await loadGame(userId);
 
-        util.createAllObjects();
+            if (gameState) {
+                // If a saved game state exists, use it to initialize the player and map
+                window.Player = new Person({
+                    isPlayerControlled: true,
+                    x: gameState.playerX, // Use the loaded X position
+                    y: gameState.playerY, // Use the loaded Y position
+                    id: userId
+                });
 
-        const levelImage = new Image();
-        levelImage.src = 'images/maps/CPP.png';
-        levelImage.onload = function() {
-            util.crateMap("CPP",levelImage);
-          };
+                util.createAllObjects();
 
+                const levelImage = new Image();
+                levelImage.src = 'images/maps/CPP.png';
+                levelImage.onload = function() {
+                    util.crateMap(gameState.mapName,levelImage);
+                };
 
+                // Assuming the game state includes the name of the map to start
+                this.startMap(window.OverworldMaps[gameState.mapName]);
 
-        this.startMap(window.OverworldMaps.CPP);
-        this.directionInput = new DirectionInput();
+            } else {
+                // If no saved game state exists, start with default values
+                window.Player = new Person({
+                    isPlayerControlled: true,
+                    x: util.inGrid(17),
+                    y: util.inGrid(10),
+                    id: userId
+                });
 
-        this.startGameLoop();
-        
+                util.createAllObjects();
+
+                const levelImage = new Image();
+                levelImage.src = 'images/maps/CPP.png';
+                levelImage.onload = function() {
+                    util.crateMap("TestRoom",levelImage);
+                };
+
+                // Start with a default map if no saved state is found
+                this.startMap(window.OverworldMaps.TestRoom);
+            }
+
+            // Start capturing direction input
+            this.directionInput = new DirectionInput();
+
+            // Start the game loop
+            this.startGameLoop();
+        } catch (error) {
+            console.error('Failed to initialize game:', error);
+            // Handle initialization failure (e.g., show an error message to the user)
+        }
     }
+
 
 }

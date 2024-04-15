@@ -10,6 +10,7 @@ class Person extends GameObject {
             "right": ["x", 1],
         }
         this.storyFlags = {};
+        this.id = config.id || -1;
     }
 
     update(state){
@@ -19,7 +20,7 @@ class Person extends GameObject {
         else {
 
 
-            // case : the charcter can move and have an arrow pressed
+            // case : the character can move and have an arrow pressed
             if (this.isPlayerControlled && state.arrow &&!state.map.isCutscenePlaying) {
                 this.startBehavior(state, {
                     type : "walk",
@@ -72,7 +73,6 @@ class Person extends GameObject {
     }
 
     updateSprite() {
-
         if (this.remainingMovement > 0) {
             this.sprite.setAnimation("walk-" + this.direction);
             return;

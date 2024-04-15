@@ -1,10 +1,21 @@
-const Docker = require('./dockerManager')
 const express = require('express');
-const fs = require('fs')
-const cors = require('cors')
-
-
+const router = require('./routes/router')
 const app = express();
+app.use(express.json()); // Middleware to parse JSON bodies
+
+const cors = require('cors');
+app.use(cors()); // This will allow all CORS requests
+
+// Use the routes
+app.use(router);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+//
+
+const Docker = require('./dockerManager');
+const fs = require('fs');
 
 // Middleware for parsing json. We love json <3
 app.use(express.json());
@@ -19,7 +30,7 @@ class App {
         this.docker = new Docker({image : config.image});
         this.configureRoutes();
         this.docker.buildImage();
-    
+
     }
 
     configureRoutes(){
@@ -38,9 +49,10 @@ class App {
         app.post('/python', (req, res) => {
             const pythonScript = req.body.script;
             fs.writeFileSync(`python_scripts/${req.body.level}_suggested.py`, pythonScript);
+            console.log("Running docker...");
             this.docker.runContainer(`${req.body.level}`)
             .then(object => res.status(200).send(`${object.statusCode}`))
-            
+
         })
     }
 

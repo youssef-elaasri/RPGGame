@@ -1,21 +1,23 @@
-
-
-
-// Method used by the fullscreen icon
-function toggleFullscreen() {
-    var elem = document.querySelector('.game-window');
-    if (!document.fullscreenElement) {
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        }
-    } else {
-        if (document.exitFullscreen) {
-            document.exitFullscreen();
-        }
-    }
-}
-
 const util = {
+    toggleFullscreen() {
+        let elem = document.querySelector('.game-window');
+        if (!document.fullscreenElement) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    },
+    gameInit(userId) {
+        const mainWorld = new MainWorld({
+                element: document.querySelector(".game-container")
+            }
+        );
+        mainWorld.init(userId);
+    },
     inGrid(n) {
         return n*16;    
     },
@@ -93,7 +95,7 @@ const util = {
             src : "images/sprites/shcoolWall/leftDownShcoolwall.png",
             isMounted : true
         })
-        
+
         window.rightDownShcoolWall = new GameObject({
             src : "images/sprites/shcoolWall/rightDownShcoolWall.png",
             isMounted : true
@@ -318,7 +320,7 @@ const util = {
               const green = data[index + 1];
               const blue = data[index + 2];
               const alpha = data[index + 3];
-            
+
             if (red === 0 && green === 0 && blue === 0) {
                 this.addObject(mapName,window.whiteSpace,"whiteSpace" + nameIndex, x,y);
                 nameIndex++;
@@ -495,6 +497,8 @@ const util = {
         }
     },
     displayIDE(exercice, doerId) {
+        document.getElementById('closeBtn').classList.remove("hidden");
+        toggleButtons();
         // add the div of the editor and the run button
         const gameWindow = document.getElementById('gameWindow');
 
@@ -508,7 +512,7 @@ const util = {
 
 
         //add the exercice as a comment in the IDE
-        if(exercice) 
+        if(exercice)
             editorDiv.innerHTML += exercice;
 
         // Create the 'button-container' div
@@ -537,6 +541,7 @@ const util = {
         window.Player.isPlayerControlled = false;
     },
     deleteIDE () {
+        toggleButtons();
         const editorDiv = document.getElementById('editor');
         if (editorDiv) {
             editorDiv.remove();
@@ -546,6 +551,7 @@ const util = {
             // Removes the first (and assumed only) button container found
             buttonContainers[0].remove();
         }
+        window.IDEdisplayed = false;
     },
     runChallenge (config) {
         fetch('http://localhost:8080/python_script', {
@@ -591,11 +597,7 @@ const util = {
             if(data === '0'){
                 window.Player.storyFlags[config.fileName] = true;
                 window.currentMap.NPCs[e.detail.doerId].challenge = null;
-            }
-
-            console.log(e.detail.doerId.dialogues);
-            
-            
+            }            
         })
         .catch(error => {
             console.error('fetch operation failed: ', error);
@@ -607,16 +609,25 @@ const util = {
     document.addEventListener("run", runHandler);
 
         
+        window.Player.isPlayerControlled = true;
+        window.IDEdisplayed = false;
+    },
+    closeIDE () {
+        document.getElementById('closeBtn').classList.add("hidden");
+        this.deleteIDE();
+    },
+    togglePlayerControlled(){
+        window.Player.isPlayerControlled = !window.Player.isPlayerControlled;
     }
 }
 
 function executeTests(doerId) {
-    
+
     util.emitEvent('run',{doerId: doerId})
     window.Player.isPlayerControlled = true;
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;
     util.deleteIDE();
-    window.IDEdisplayed = false;
+    //window.IDEdisplayed = false;
 
 }

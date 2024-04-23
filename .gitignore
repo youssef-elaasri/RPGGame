@@ -5,7 +5,7 @@
 node_modules/
 
 # Local database configuration
-node/db.js
+/node/db.js
 
 # Python bytecode
-node/python_scripts/__pycache__/
+/node/python_scripts/__pycache__/

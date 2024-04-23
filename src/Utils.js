@@ -614,6 +614,7 @@ const util = {
     },
     closeIDE () {
         document.getElementById('closeBtn').classList.add("hidden");
+        window.Player.isPlayerControlled = true;
         this.deleteIDE();
     },
     togglePlayerControlled(){
@@ -624,7 +625,6 @@ const util = {
 function executeTests(doerId) {
 
     util.emitEvent('run',{doerId: doerId})
-    window.Player.isPlayerControlled = true;
     window.currentNPC.currentDialogueIndex = 0;
     window.currentNPC = null;
     util.closeIDE();

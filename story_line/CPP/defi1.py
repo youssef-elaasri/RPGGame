@@ -1,4 +1,3 @@
-import sys
 
 
 def chiffrement_cesar(texte, decalage):

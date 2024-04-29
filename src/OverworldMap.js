@@ -175,7 +175,7 @@ window.OverworldMaps = {
                 name : "achraf",
                 src : "src/images/NPCS/achraf.png",
                 dialogues : {
-
+                    
                 },
                 defaultDialogue : [
                     "..."

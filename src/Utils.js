@@ -561,6 +561,8 @@ const util = {
                 }
             }
         }
+        if(window.Player.storyFlags[config.fileName])
+            return;
         fetch('http://localhost:8080/python_script', {
         method:'POST',
         headers:{

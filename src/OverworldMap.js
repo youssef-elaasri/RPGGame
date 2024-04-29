@@ -118,7 +118,7 @@ window.OverworldMaps = {
             }), */
             securityChief: new NPC({
                 name : "securityChief",
-                src : "images/NPCS/securityChief.png",
+                src : "src/images/NPCS/securityChief.png",
                 dialogues : {
                     "chiffrement_cesar" : ["Impressive work!", 
                                             "You've resecured our systems and learned a valuable skill in the process. Your ability to handle such a crisis is commendable.",
@@ -142,10 +142,10 @@ window.OverworldMaps = {
             }),
             facilityManager: new NPC({
                 name : "facilityManager",
-                src : "images/NPCS/facilityManager.png",
+                src : "src/images/NPCS/facilityManager.png",
                 dialogues : {
                     "tri_batiments" : ["Excellent work! Now, let's allocate the energy accordingly and bring back power where it's needed most.",
-                                        "to do that you must talk with Achraf, you will find it in the left classroom.",
+                                        "to do that you must talk with Achraf, you will find him in the left classroom.",
                                         "he is a bit stupid, so just try to be nice with him"
                 ],
                     "chiffrement_cesar" : ["We're in a dire situation. ",
@@ -171,6 +171,19 @@ window.OverworldMaps = {
                     flags : ["chiffrement_cesar"]
                 }),
             }),
+            achraf : new NPC ({
+                name : "achraf",
+                src : "src/images/NPCS/achraf.png",
+                dialogues : {
+
+                },
+                defaultDialogue : [
+                    "..."
+                ],
+                x: util.inGrid(10),
+                y:util.inGrid(23),
+
+            })
         },
         walls : {
         },

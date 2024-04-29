@@ -168,6 +168,7 @@ async function saveGame() {
                 mapName: window.currentMap.name,
                 player_x: window.Player.x,
                 player_y: window.Player.y,
+                completedStages: Object.keys(window.Player.storyFlags),
             }),
         });
 

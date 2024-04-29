@@ -110,16 +110,17 @@ class MainWorld {
                     return acc;
                 }, {});
 
-
+                console.log(flags);
                 // If a saved game state exists, use it to initialize the player and map
                 window.Player = new Person({
                     isPlayerControlled: true,
                     x: gameState.playerX, // Use the loaded X position
                     y: gameState.playerY, // Use the loaded Y position
                     id: userId,
-                    flags: flags,
+                    storyFlags: flags,
                 });
 
+                console.log(window.Player.storyFlags)
                 util.createAllObjects();
 
                 const levelImage = new Image();

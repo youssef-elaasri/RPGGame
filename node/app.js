@@ -14,11 +14,12 @@ const router = require('./routes/router');
 app.use(router); // Use the router
 
 // Docker Manager
-const docker = new Docker({ image: 'app_image' });
+const docker = new Docker({ image: 'app_image'});
 
 // Define routes
 function configureRoutes() {
     app.get('/ping', (req, res) => {
+        docker.createVolume("dockerodeVolume", 5);
         res.status(200).send({ data: 'pong' });
     });
 
@@ -68,7 +69,7 @@ function configureRoutes() {
 
 configureRoutes();
 docker.buildImage();
-
+docker.createVolume("mySecretVolume", 5);
 // Starting the server
 const PORT = process.env.PORT || 8080; // Consolidated port configuration
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

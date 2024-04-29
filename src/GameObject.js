@@ -10,7 +10,7 @@ class GameObject {
         // Sprite object
         this.sprite = new Sprite({
             gameObject : this,
-            src: config.src ||"images/characters/hero.png" // If the user is lazy and doesn't give an image put the image of Alex by default... bcs we love Alex
+            src: config.src ||"src/images/characters/hero.png" // If the user is lazy and doesn't give an image put the image of Alex by default... bcs we love Alex
         })
         this.behaviorLoop = config.behaviorLoop || [];
         this.behaviorLoopIndex = 0;

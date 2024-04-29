@@ -8,10 +8,10 @@
 
 def return_hello_world():
     '''Don't forget that the function should return "Hello, World!" '''
-    
+
     # Don't make any careless mistakes. I'll be watching your every move.
-    greeting = "Hello, World!"
-    
+    greeting = ""
+
     # Once you've crafted the greeting, return it from the function. I won't tolerate any sloppiness.
     return greeting
 

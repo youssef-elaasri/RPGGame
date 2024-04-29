@@ -1,5 +1,11 @@
+# IDE and Editor Folders
 .idea/
+
+# Node modules
 node_modules/
 
-# The db file contains local database username and password
-node/db.js
+# Local database configuration
+/node/db.js
+
+# Python bytecode
+/node/python_scripts/__pycache__/

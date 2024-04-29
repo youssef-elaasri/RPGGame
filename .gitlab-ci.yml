@@ -27,16 +27,16 @@ stylelint:
     - npm install csslint-cli
     - npx csslint-cli src/*.css
 
-backend_build:
-  stage: build_backend
-  image: node:latest
-  script:
-    - cd node
-    - npm install
-    - npm run build 
-  artifacts:
-    paths:
-      - ./dist 
+#backend_build:
+#  stage: build_backend
+#  image: node:latest
+#  script:
+#    - cd node
+#    - npm install
+#    - npm run build
+#  artifacts:
+#    paths:
+#      - ./dist
 
 frontend_build:
   stage: build_frontend
@@ -44,7 +44,7 @@ frontend_build:
   script:
     - mkdir -p public
     - mkdir -p public/images
-    - cp src/index.html public/index.html
+    - cp index.html public/index.html
     - cp src/styles.css public/styles.css
     - cp -r src/images/* public/images/
     - cp src/*.js public/ 

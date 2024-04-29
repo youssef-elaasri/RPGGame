@@ -35,7 +35,7 @@ function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:3000/login', {
+    fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function login() {
         })
         .catch((error) => {
             console.error(error);
-            //alert(error.message);
+            toggleErrorMessage(true, error || 'Login failed for an unknown reason')
         });
 }
 
@@ -81,7 +81,7 @@ function signup() {
     const email = document.getElementById('email').value; // Make sure this ID matches your input
     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:3000/register', { // Adjust this URL based on your actual API endpoint
+    fetch('http://localhost:8080/register', { // Adjust this URL based on your actual API endpoint
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -110,9 +110,8 @@ function signup() {
             toggleAuthMode(true); // Assuming this function toggles your authentication mode/state
         })
         .catch((error) => {
-            // Handle error case, including when thrown from within the first .then() block
             console.error('Error:', error);
-            //alert(error.message); // Display the specific error message returned from the backend
+            toggleErrorMessage(true, error || 'Login failed for an unknown reason')
         });
 }
 
@@ -159,7 +158,7 @@ async function saveGame() {
     const userId = window.Player.id;
     const token = localStorage.getItem('authToken');
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/save`, {
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/save`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -192,7 +191,7 @@ async function loadGame(userId) {
     // todo : Manage the case where a save point doesn't exist in the db
     const token = localStorage.getItem('authToken');
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/load`, {
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/load`, {
             method: 'GET',
             headers: {
                 'x-access-token': `${token}`
@@ -226,7 +225,7 @@ function changePassword() {
         return;
     }
 
-    fetch(`http://localhost:3000/api/users/${userId}/change-password`, {
+    fetch(`http://localhost:8080/api/users/${userId}/change-password`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

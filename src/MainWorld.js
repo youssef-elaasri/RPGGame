@@ -104,14 +104,23 @@ class MainWorld {
             const gameState = await loadGame(userId);
 
             if (gameState) {
+                // Convert loaded stages to a dictionary with true as value
+                const flags = gameState.completedStages.reduce((acc, flag) => {
+                    acc[flag] = true;
+                    return acc;
+                }, {});
+
+                console.log(flags);
                 // If a saved game state exists, use it to initialize the player and map
                 window.Player = new Person({
                     isPlayerControlled: true,
                     x: gameState.playerX, // Use the loaded X position
                     y: gameState.playerY, // Use the loaded Y position
-                    id: userId
+                    id: userId,
+                    storyFlags: flags,
                 });
 
+                console.log(window.Player.storyFlags)
                 util.createAllObjects();
 
                 const levelImage = new Image();

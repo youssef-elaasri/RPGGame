@@ -29,25 +29,10 @@ INSERT INTO maps (map_name) VALUES ('TestRoom');
 INSERT INTO maps (map_name) VALUES ('kitchen');
 
 
--- Create the completed stages table
-CREATE TABLE completed_stages (
-                      user_id INT,
-                      map_id INT,
-                      PRIMARY KEY (user_id, map_id),
-                      FOREIGN KEY (user_id) REFERENCES users(user_id),
-                      FOREIGN KEY (map_id) REFERENCES maps(map_id),
-                      completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 -- Create the savings table
-CREATE TABLE saved_games (
+CREATE TABLE completed_stages (
                      user_id INT,
-                     map_id INT,
-                     player_x INT,
-                     player_y INT,
-                     FOREIGN KEY (user_id) REFERENCES users(user_id),
-                     FOREIGN KEY (map_id) REFERENCES maps(map_id),
-                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                     primary key(user_id, created_at)
+                     flag VARCHAR(50),
+                     primary key(user_id, flag)
 );
 

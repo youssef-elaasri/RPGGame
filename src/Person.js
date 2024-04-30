@@ -9,7 +9,7 @@ class Person extends GameObject {
             "left": ["x", -1],
             "right": ["x", 1],
         }
-        this.storyFlags = {};
+        this.storyFlags = config.storyFlags || {};
         this.id = config.id || -1;
     }
 

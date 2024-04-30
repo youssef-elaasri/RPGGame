@@ -554,6 +554,15 @@ const util = {
         window.IDEdisplayed = false;
     },
     runChallenge (config) {
+        if (config.flags) {
+            for (let flag in config.flags) {
+                if (!window.Player.storyFlags[config.flags[flag]]) {
+                    return
+                }
+            }
+        }
+        if(window.Player.storyFlags[config.fileName])
+            return;
         fetch('http://localhost:8080/python_script', {
         method:'POST',
         headers:{

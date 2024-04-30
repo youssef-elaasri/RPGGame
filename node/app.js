@@ -39,7 +39,7 @@ function configureRoutes() {
             return res.status(500).send('Failed to write script');
         }
 
-        docker.runContainer(`${req.body.level}`)
+        docker.runContainer(`${req.body.level}`, 'python_scripts', 'game_volume')
             .then(object => res.status(200).send(`${object.statusCode}`))
             .catch(error => {
                 console.error('Docker error:', error);
@@ -69,7 +69,7 @@ function configureRoutes() {
 
 configureRoutes();
 docker.buildImage();
-docker.createVolume("mySecretVolume", 5);
+docker.createVolume("game_volume", 1048576);
 // Starting the server
 const PORT = process.env.PORT || 8080; // Consolidated port configuration
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

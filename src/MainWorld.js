@@ -28,6 +28,11 @@ class MainWorld {
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
+            // Draw Lower layer
+            window.currentMap.drawLowerImage(this.ctx);
+
+            // update map
+
             window.currentMap.updateMap();
 
             // Update game objects
@@ -118,7 +123,6 @@ class MainWorld {
             util.createAllObjects();
 
             const levelImage = new Image();
-            // FIXME : Change image to savePoint map
             levelImage.src = 'src/images/maps/CPP.png';
             levelImage.onload = function() {
                 util.crateMap(gameState.mapName,levelImage);
@@ -127,6 +131,11 @@ class MainWorld {
             // Assuming the game state includes the name of the map to start
             this.startMap(window.OverworldMaps[gameState.mapName]);
 
+            // Start capturing direction input
+            this.directionInput = new DirectionInput();
+
+            // Start the game loop
+            this.startGameLoop();
         } catch (error) {
             console.error('Failed to initialize game:', error);
             // Handle initialization failure (e.g., show an error message to the user)

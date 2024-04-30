@@ -28,11 +28,6 @@ class MainWorld {
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            // Draw Lower layer
-            window.currentMap.drawLowerImage(this.ctx);
-
-            // update map
-
             window.currentMap.updateMap();
 
             // Update game objects

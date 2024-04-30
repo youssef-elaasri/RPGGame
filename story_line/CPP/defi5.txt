@@ -1,2 +1,0 @@
-Écrivez une fonction findfriends(graphe, utilisateur) qui prend le nom d'un utilisateur et retourne la liste de ses amis.
-si l'utilisateur n'existe pas dans le graphe, le fonction retourne une liste vide.

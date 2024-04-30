@@ -5,39 +5,9 @@ const path = require('path');
 class DockerManager {
     constructor(config) {
         this.docker = new Docker();
-        this.image = config.image || "test_image";
+        this.image = config.image || "image_name";
     }
 
-    buildImageAndRunContainer(scriptName) {
-        return new Promise((resolve, reject) => {
-            const buildOptions = {
-                context: __dirname,
-                src: ['Dockerfile', 'loader.py'], // Include loader script and python scripts folder
-            };
-
-            this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
-                if (error) {
-                    console.error('Error building Docker image: ', error);
-                    reject(error); // Reject the Promise if there's an error
-                    return;
-                }
-
-                // Handle build output
-                stream.setEncoding('utf8');
-                stream.on('data', (chunk) => {
-                    console.log(chunk);
-                });
-                stream.on('end', () => {
-                    console.log('Docker image build complete.');
-
-                    // Once image is built, create and run the container
-                    this.runContainer(scriptName)
-                        .then(output => resolve(output)) // Resolve the Promise with the output
-                        .catch(error => reject(error)); // Reject the Promise if there's an error
-                });
-            });
-        });
-    }
 
     buildImage() {
         return new Promise((resolve, reject) => {
@@ -67,20 +37,48 @@ class DockerManager {
             });
         });
     }
+
+    /**
+     * Creates a Docker volume with the specified name and size.
+     * @param {string} volumeName - The name of the volume to create.
+     * @param {int} size - The size of the volume in GB.
+     * @returns {Promise<Object>} A promise that resolves with the created volume object if successful, or rejects with an error if an error occurs during volume creation.
+     */
+    createVolume(volumeName, size) {
+        return new Promise((resolve, reject) => {
+            const volumeOptions = {
+                Name: volumeName,
+                Driver: 'local',
+                DriverOpts: {
+                    'type': 'tmpfs',
+                    'device': 'tmpfs',
+                    'o': `size=${size}`
+                }
+            };
+            this.docker.createVolume(volumeOptions, (error, volume) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                
+                resolve(volume);
+            });
+        });
+    }
     
 
-    runContainer(scriptName) {
+    runContainer(scriptName, path, volumeName) {
         return new Promise((resolve, reject) => {
             const containerOptions = {
                 Image: this.image,
                 Cmd: [`${scriptName}`],
                 AttachStdout: true,
                 AttachStderr: true,
-                Volumes: {
-                    './python_scripts': {}
-                },
                 HostConfig:{
-                    Binds:  [`${process.cwd()}/python_scripts:/app/python_scripts`]
+                    Binds:  [
+                        `${process.cwd()}/${path}:/app/python_scripts`,
+                        `${volumeName}:/app`
+                    ]
                 }
             };
     
@@ -89,7 +87,7 @@ class DockerManager {
                     reject(error);
                     return;
                 }
-    
+
                 container.attach({ stream: true, stdout: true, stderr: true }, (err, attach) => {
                     if (err) {
                         reject(err);

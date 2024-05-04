@@ -19,9 +19,13 @@ class DirectionInput {
     init() {
         console.log("here")
         document.addEventListener("keydown",e => {
-            const dir = this.map[e.code];
-            if (dir && this.heldDirection.indexOf(dir) === -1) {
-                this.heldDirection.unshift(dir);
+            if (document.activeElement === document.getElementById('chatInput')) {
+                 // Do nothing if the chat input is focused
+            } else {
+                const dir = this.map[e.code];
+                if (dir && this.heldDirection.indexOf(dir) === -1) {
+                    this.heldDirection.unshift(dir);
+                }
             }
         });
 
@@ -32,14 +36,22 @@ class DirectionInput {
                 this.heldDirection.splice(index,1);
             }
         });
+        // // Ignore game key handling if the chat input is focused
+        if (document.activeElement === document.getElementById('chatInput')) {
+            return; // Do nothing if the chat input is focused
+        }
 
         document.addEventListener('keydown', e => {
             if (e.key === ' ' && window.IDEdisplayed !== true) {
-                e.preventDefault(); // Prevent any default action to ensure smooth behavior
-                const nearbyNPC = window.currentMap.findNearbyNPC();
-                if (nearbyNPC) {
-                    window.currentNPC = nearbyNPC;
-                    nearbyNPC.interact();
+                if (document.activeElement === document.getElementById('chatInput')) {
+                    // Do nothing if the chat input is focused
+                } else {
+                    e.preventDefault(); // Prevent any default action to ensure smooth behavior
+                    const nearbyNPC = window.currentMap.findNearbyNPC();
+                    if (nearbyNPC) {
+                        window.currentNPC = nearbyNPC;
+                        nearbyNPC.interact();
+                    }
                 }
             }
         });

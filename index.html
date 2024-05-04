@@ -15,8 +15,19 @@
         <strong>INP Legends</strong> <a href="#" class="about-us">About Us</a>
     </nav>
     <div class="game-window" id="gameWindow">
+        <!-- Chat Bar -->
+        <div class="chat-bar hidden"  id="chatBar">
+            <h3>Chat</h3>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-container">
+                <input type="text" placeholder="Type message..." id="chatInput" class="chat-input"/>
+                <button onclick="sendMessage()" class="send-btn"><i class="fa fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- Game Container -->
         <div class="game-container" id="gameContainer">
-            <canvas class="game-canvas" id="gameCanvas" width="480" height="240"></canvas>
+            <canvas class="game-canvas" id="gameCanvas" width="580" height="320"></canvas>
             <div class="dialogue-container hidden">
                 <p class="dialogue-text"></p>
             </div>
@@ -98,7 +109,11 @@
     </div>
 
     <!-- Scripts -->
+    <!-- FIXME : CHECK FOR INTEGRITY FOR LINE BELOW  -->
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+    <script type="text/javascript" src="src/socket.js"></script>
     <script type="text/javascript" src="src/authentication.js"></script>
+    <script type="text/javascript" src="src/chatManager.js"></script>
     <script type="text/javascript" src="src/playerProfile.js"></script>
     <script type="text/javascript" src="src/Utils.js"></script>
     <script type="text/javascript" src="src/DirectionInput.js"></script>

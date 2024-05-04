@@ -11,6 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Toggle the display style
         form.classList.toggle('hidden');
     });
+
+    // Attach event listener for Enter key in the chat input
+    document.getElementById('chatInput').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            sendMessage();
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+
 });
 
 

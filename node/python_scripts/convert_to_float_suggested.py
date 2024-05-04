@@ -8,13 +8,3 @@ def convert_to_float(strings):
     Returns:
     list: New list with each string converted to float or None if conversion fails.
     """
-    result = []
-    for item in strings:
-        try:
-            # Attempt to convert string to float
-            result.append(float(item))
-        except ValueError:
-            # Append None if conversion fails
-            result.append(None)
-    
-    return result

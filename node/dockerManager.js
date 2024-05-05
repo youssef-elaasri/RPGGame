@@ -28,7 +28,7 @@ class DockerManager {
                 // Handle build output
                 stream.setEncoding('utf8');
                 stream.on('data', (chunk) => {
-                    console.log(chunk);
+                    // console.log(chunk);
                 });
                 stream.on('end', () => {
                     console.log('Docker image build complete.');

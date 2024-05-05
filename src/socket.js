@@ -7,6 +7,7 @@ function initializeSocket() {
         console.log('Connected to the server!');
         // Send initial player data to the server
         const initialPlayerData = {
+            playerId: window.Player.id,
             x: window.Player.x,
             y: window.Player.y,
             direction: window.Player.direction,
@@ -45,7 +46,7 @@ function initializeSocket() {
 
     socket.on('playerDisconnected', function(data) {
         console.log("Player disconnected:", data.id);
-        delete window.currentMap.players[data.id];
+        delete window.currentMap.players.delete(data.id);
     });
 
 

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jws = require('jws');
 const SECRET_KEY = "9Pc1HZsfUH4Y6bx8+8bIudMm7r8J3y7jQx40yCFtZVg=";
 const db = require('../db');
+const { playerIds } = require('../multiplayer/socket');
 
 function validPassword (password) {
     return /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/.test(password)
@@ -67,6 +68,12 @@ module.exports = {
                 }
 
                 const user = users[0];
+
+                // Check if the account is already connected elsewhere
+                const isAlreadyConnected = Object.values(playerIds).some(p => p.playerId === user.user_id);
+                if (isAlreadyConnected) {
+                    return res.status(409).json({error: 'User already connected'});
+                }
 
                 // Compare password
                 const match = await bcrypt.compare(password, user.password_hash);

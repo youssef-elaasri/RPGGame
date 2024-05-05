@@ -1,7 +1,8 @@
 // This will help store connected users
-const players = {};
+const players = {}; // This will be sent to all connected users
+const playerIds = {}; // Store logged users ids only in the backend for security reasons
 
-module.exports = function (io) {
+function setupSocket (io) {
     io.on('connection', (socket) => {
         console.log('A user connected');
 
@@ -15,6 +16,7 @@ module.exports = function (io) {
                 direction: playerData.direction,
                 map: playerData.map,
             };
+            playerIds[socket.id] = {playerId: playerData.playerId}
             // Send existing players to the newly connected client
             socket.emit('existingPlayers', players);
             // Broadcast new player data to other clients
@@ -50,6 +52,7 @@ module.exports = function (io) {
             console.log('A user disconnected');
             // Remove player from server storage
             delete players[socket.id];
+            delete playerIds[socket.id];
             // Notify other clients
             socket.broadcast.emit('playerDisconnected', { id: socket.id });
         });
@@ -62,4 +65,10 @@ module.exports = function (io) {
     });
 
     return io;
+};
+
+module.exports = {
+    setupSocket,
+    players,
+    playerIds
 };

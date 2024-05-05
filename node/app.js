@@ -21,8 +21,9 @@ const io = socketIo(server, {
     }
 });
 
-// Pass the initialized 'io' to the module
-require('./socket')(io);  // Link Socket.IO configuration
+// Set up the socket for multiplayer mode
+const { setupSocket } = require('./multiplayer/socket');
+setupSocket(io);
 
 const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

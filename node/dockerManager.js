@@ -108,7 +108,7 @@ class DockerManager {
                 HostConfig:{
                     Binds:  [
                         `${process.cwd()}/${path}:/app/python_scripts`,
-                        `${volumeName}:/app`
+                        `${volumeName}:/app/`
                     ]
                 }
             };

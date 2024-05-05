@@ -68,7 +68,6 @@ function login() {
                 hideModal();
                 toggleButtons();
                 toggleChat();
-                initializeSocket();
                 util.gameInit(data.userId);
             } else {
                 // Handle any situation where login is successful but no token is returned

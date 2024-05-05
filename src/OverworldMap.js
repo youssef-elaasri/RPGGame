@@ -5,8 +5,8 @@ class OverworldMap {
         this.name = config.name || "";
         this.gameObjects = config.gameObjects || [];
 
-        this.gameObjects = config.gameObjects || {};
         this.NPCs = config.NPCs || [];
+        this.players = new Map();
 
         this.walls = config.walls || {};
         this.changeMap = config.changeMap || {};
@@ -82,6 +82,16 @@ class OverworldMap {
         }
     }
 
+    addPlayer(data) {
+        console.log(data.x)
+        this.players.set(data.id ,
+                        new Person({
+                            isMounted : true,
+                            x: data.x,
+                            y: data.y,
+                            direction: data.y}));
+    }
+
 }
 
 
@@ -97,7 +107,7 @@ window.OverworldMaps = {
                 src : "src/images/NPCS/adventurer.png",
                 dialogues : {
                     "convert_to_float" : [
-                        "Analysis of the output initiated...", 
+                        "Analysis of the output initiated...",
                         "Processing complete.",
                         "The function has successfully restored data integrity for our experimental results.",
                         "You have neutralized one of the AI’s disruptive tactics.",
@@ -108,7 +118,7 @@ window.OverworldMaps = {
                 defaultDialogue : [
                     "Greetings, User! My programming has detected anomalies in data processing modules due to sabotage by the rogue AI.",
                     "I require human intelligence to correct these errors.",
-                    "The AI has jumbled the numerical outputs of our experiments, intermixing valid numerical strings with gibberish.", 
+                    "The AI has jumbled the numerical outputs of our experiments, intermixing valid numerical strings with gibberish.",
                     "We need to filter and convert these readings to utilize them in restoring system functionalities.",
                     "In cases of failed conversion, replace it with None.",
                     "This will allow my systems to identify and disregard corrupt data while maintaining array integrity for further analysis.",

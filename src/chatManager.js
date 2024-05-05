@@ -10,7 +10,6 @@ function sendMessage() {
             sender: window.Player.id
         };
         socket.emit('sendMessage', data);
-
     }
 }
 

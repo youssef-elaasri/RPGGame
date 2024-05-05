@@ -2,16 +2,52 @@ let socket;
 function initializeSocket() {
     // Connect to the server
     socket = io('http://localhost:8080');
+
     socket.on('connect', () => {
         console.log('Connected to the server!');
-        // Emit events or handle data
+        // Send initial player data to the server
+        const initialPlayerData = {
+            x: window.Player.x,
+            y: window.Player.y,
+            direction: window.Player.direction,
+            map: window.currentMap.name
+        };
+        socket.emit('registerNewPlayer', initialPlayerData);
+
+        // Set up a timer to send position updates every second
+        setInterval(sendPlayerPosition, 20);
     });
 
-    socket.on('player_moved', function(data){
-        console.log('Player moved', data);
-        // Update the game world based on this data
-        sendMove(window.Player.x, window.Player.y)
+    socket.on('playerMoved', function(data) {
+        const player = window.currentMap.players.get(data.id);
+        if (player) {
+            // Update the player's position and other properties
+            player.x = data.x;
+            player.y = data.y;
+            player.direction = data.direction;
+            player.map = data.map;
+        }
     });
+
+    // Get list of connected users upon login
+    socket.on('existingPlayers', function(players) {
+        Object.values(players).forEach(player => {
+            console.log(player)
+            if (player.id !== socket.id) { // Avoid adding itself
+                window.currentMap.addPlayer(player);
+            }
+        });
+    });
+
+    socket.on('newPlayer', function(player) {
+        window.currentMap.addPlayer(player);
+    });
+
+    socket.on('playerDisconnected', function(data) {
+        console.log("Player disconnected:", data.id);
+        delete window.currentMap.players[data.id];
+    });
+
 
     socket.on('newMessage', function(data) {
         console.log("Message sent by :" + data.sender);
@@ -19,8 +55,12 @@ function initializeSocket() {
     });
 }
 
-
-// You can emit events like this:
-function sendMove(x, y) {
-    socket.emit('player_move', { x: x, y: y });
+function sendPlayerPosition() {
+    const positionData = {
+        x: window.Player.x,
+        y: window.Player.y,
+        direction: window.Player.direction,
+        map: window.currentMap.name
+    };
+    socket.emit('updatePosition', positionData);
 }

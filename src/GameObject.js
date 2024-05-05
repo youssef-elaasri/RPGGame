@@ -3,8 +3,8 @@ class GameObject {
         this.id = null;
         this.isMounted = config.isMounted || false;
         // Object position (in px)
-        this.x = config.x || 0;
-        this.y = config.y || 0;
+        this.x = config.x ||  util.inGrid(14);
+        this.y = config.y || util.inGrid(14);
         // Direction of object
         this.direction = config.direction || "down";
         // Sprite object

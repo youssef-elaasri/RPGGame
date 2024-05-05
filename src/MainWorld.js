@@ -74,6 +74,12 @@ class MainWorld {
                 object.sprite.draw(this.ctx);
             })
 
+            // draw all the players
+            window.currentMap.players.forEach((value, key) => {
+                value.sprite.draw(this.ctx);
+            });
+
+
             window.drawingLowerObjects = true;
             // draw the hero
             window.Player.sprite.draw(this.ctx);
@@ -133,6 +139,9 @@ class MainWorld {
 
             // Start capturing direction input
             this.directionInput = new DirectionInput();
+
+            // Initialize socket for multiplayer stuff
+            initializeSocket();
 
             // Start the game loop
             this.startGameLoop();

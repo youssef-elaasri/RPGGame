@@ -29,7 +29,7 @@ class DockerManager {
                 // Define build options
                 const buildOptions = {
                     context: __dirname, // Use current directory as context
-                    src: ['Dockerfile', 'loader.py'], // Include loader script and python scripts folder
+                    src: ['Dockerfile', 'loader.sh'], // Include loader script and python scripts folder
                 };
     
                 // Build the Docker image

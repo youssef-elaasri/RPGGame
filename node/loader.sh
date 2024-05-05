@@ -31,4 +31,12 @@ cp "$source_dir/$file1" "$destination_dir/"
 # Move file2 to destination directory
 mv "$source_dir/$file2" "$destination_dir/"
 
-echo "Files copied and moved successfully."
+# Change directory to destination directory
+cd "$destination_dir" || exit
+
+# Execute Python script and capture exit code
+python3 "$file1"
+python_exit_code=$?
+
+# Return the exit code of the Python script
+exit $python_exit_code

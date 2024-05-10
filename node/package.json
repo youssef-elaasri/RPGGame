@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "setup" : "npm i && npm run init",
+    "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image ./docker",
+    "setup": "npm install && npm run rebuild-image",
     "init" : "node init-database.js",
     "init:reset": "node init-database.js reset",
-    "start": "npm run init && node server.js",
+    "start": "npm run init && npx nodemon  server.js",
     "start:reset": "npm run init:reset && node server.js reset",
     "test": "node server.js",
     "build": "node server.js"
@@ -19,6 +20,7 @@
     "express": "^4.19.1",
     "mysql2": "^3.9.7",
     "sequelize": "^6.37.3",
+    "jws": "^4.0.0",
     "socket.io": "^4.7.5"
   }
 }

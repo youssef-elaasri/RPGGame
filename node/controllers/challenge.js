@@ -4,8 +4,7 @@ const path = require('path');
 const Docker = require('../docker/dockerManager'); // Assume Docker-related functions are in this module
 const docker = new Docker({ image: 'app_image'});
 
-docker.buildImage();
-docker.createVolume("mySecretVolume", 1024);
+docker.createVolume("mySecretVolume", 1048576); //10MB
 
 
 module.exports = {
@@ -25,7 +24,7 @@ module.exports = {
             return res.status(500).send('Failed to write script');
         }
 
-        docker.runContainer(`${req.body.level}`,  'python_scripts')
+        docker.runContainer(`${req.body.level}`,  'python_scripts', 'mySecretVolume')
             .then(object => res.status(200).send(`${object.statusCode}`))
             .catch(error => {
                 console.error('Docker error:', error);

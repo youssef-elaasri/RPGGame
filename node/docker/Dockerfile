@@ -2,9 +2,12 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-COPY loader.py /app/loader.py
-#COPY ./python_scripts/ /app/python_scripts/
+# Copy loader.sh into the /app directory in the container
+COPY loader.sh /app/loader.sh
 
+RUN adduser --disabled-password --gecos "" appuser
+USER appuser
 
 # Set the default entrypoint to the loader script
-ENTRYPOINT ["python", "loader.py"]
+ENTRYPOINT ["./loader.sh"]
+

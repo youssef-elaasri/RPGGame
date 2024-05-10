@@ -1,29 +1,16 @@
 const express = require('express');
 const cors = require('cors');
-const http = require('http');
-const socketIo = require('socket.io');
 const app = express();
 
-app.use(express.json()); // Middleware to parse JSON bodies
-app.use(cors()); // Allow all CORS requests
+// Middleware to parse JSON bodies
+app.use(express.json());
 
+// Allow all CORS requests
+app.use(cors());
+
+// Import and use router from the routes directory
 const router = require('./routes/router');
 app.use(router);
 
-const server = http.createServer(app);
-
-// Properly configure Socket.IO
-const io = socketIo(server, {
-    cors: {
-        origin: "*",  // Allow any origin
-        methods: ["GET", "POST"],  // Allow GET and POST methods
-        credentials: true  // Allow cookies and headers to be sent
-    }
-});
-
-// Set up the socket for multiplayer mode
-const { setupSocket } = require('./multiplayer/socket');
-setupSocket(io);
-
-const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Export the configured app to be used by server.js
+module.exports = app;

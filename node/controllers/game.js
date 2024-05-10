@@ -1,79 +1,92 @@
-const db = require("../db");
-
+const { Op } = require('sequelize');
+const User = require('../models/user');
+const SavePoint = require('../models/savePoint');
+const Map = require('../models/map');
+const CompletedStage = require('../models/completedStage');
 
 module.exports = {
     async loadGame(req, res) {
         const userId = req.params.userId;
-        console.log("Loading Game for player : " + userId)
+        console.log("Loading Game for player:", userId);
 
-        // Query the database to get the user's last map and position
-        const queryGame = "SELECT m.map_name, s.player_x, s.player_y FROM saved_games s INNER JOIN maps m ON m.map_id = s.map_id WHERE s.user_id = ? ORDER BY s.created_at DESC LIMIT 1;";
-
-        // Query to get the user's completed stages
-        const queryStages = "SELECT flag FROM completed_stages WHERE user_id = ?;";
-
-        db.query(queryGame, [userId], (error, results) => {
-            if (error) {
-                console.error('Error retrieving user last game:', error);
-                return res.status(500).json({error: 'Internal server error'});
-            }
-
-            if (results.length === 0) {
-                return res.status(404).json({error: 'User or last game not found'});
-            }
-
-            const {map_name, player_x, player_y} = results[0];
-
-            // Query for completed stages
-            db.query(queryStages, [userId], (stageError, stageResults) => {
-                if (stageError) {
-                    console.error('Error retrieving completed stages:', stageError);
-                    // Continue sending the response even if stage data fails to load
-                }
-                const completedStages = stageResults ? stageResults.map(stage => stage.flag) : [];
-
-                console.log(completedStages)
-                // Send the last map, position, and completed stages as the response
-                res.json({mapName: map_name, playerX: player_x, playerY: player_y, completedStages});
+        try {
+            const user = await User.findByPk(userId, {
+                include: [{
+                    model: SavePoint,
+                    as: 'savePoints',
+                    include: [{ model: Map, as: 'map' }],
+                    order: [['created_at', 'DESC']],
+                    limit: 1,
+                }],
             });
-        });
+
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            if (!user.savePoints || user.savePoints.length === 0) {
+                return res.status(404).json({ error: 'No save point found for the user' });
+            }
+
+            const lastSavePoint = user.savePoints[0];
+
+            const map = lastSavePoint.map;
+
+            const completedStages = await CompletedStage.findAll({
+                where: { userId },
+                attributes: ['flag'],
+            });
+
+            res.json({
+                mapName: map.map_name,
+                playerX: lastSavePoint.player_x,
+                playerY: lastSavePoint.player_y,
+                completedStages: completedStages.map(stage => stage.flag),
+            });
+        } catch (error) {
+            console.error('Error retrieving user last game:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     },
+
+
     async saveGame(req, res) {
         const userId = req.params.userId;
-        const {mapName, player_x, player_y, completedStages} = req.body;
-        console.log("Saving Game for player : " + userId)
+        const { mapName, player_x, player_y, completedStages } = req.body;
+        console.log("Saving Game for player:", userId);
+
         // Basic validation to ensure required parameters are provided
         if (!mapName || player_x == null || player_y == null) {
-            return res.status(400).json({error: 'Missing required fields: mapName, player_x, player_y'});
+            return res.status(400).json({ error: 'Missing required fields: mapName, player_x, player_y' });
         }
 
-        const queryGame =
-            'INSERT INTO saved_games (user_id, map_id, player_x, player_y) '
-            + 'VALUES (?, (SELECT map_id FROM maps WHERE map_name = ? LIMIT 1), ?, ?);';
-
-        db.query(queryGame, [userId, mapName, player_x, player_y], (error, results) => {
-            if (error) {
-                console.error('Error saving game:', error);
-                return res.status(500).json({error: 'Internal server error or map not found'});
+        try {
+            // Ensure that mapName matches case and query parameter in the database
+            const map = await Map.findOne({ where: { map_name: mapName } });
+            if (!map) {
+                return res.status(404).json({ error: 'Map not found' });
             }
 
-            if (results.affectedRows === 0) {
-                return res.status(404).json({error: 'Map not found or saving point not created'});
-            }
+            // Create a new save point using consistent field naming as defined in your Sequelize model
+            const savePoint = await SavePoint.create({
+                userId: parseInt(userId), // Make sure userId is correctly typed as an integer
+                mapId: map.id, // Use camelCase as likely defined in your Sequelize model
+                player_x: player_x,
+                player_y: player_y
+            });
 
+            // Handle completed stages if provided
             if (completedStages && completedStages.length > 0) {
-                // Handle multiple stages
-                completedStages.forEach(stage => {
-                    const queryStage = 'INSERT INTO completed_stages (user_id, flag) VALUES (?, ?) ON DUPLICATE KEY UPDATE flag=flag;';
-                    db.query(queryStage, [userId, stage], (stageError) => {
-                        if (stageError) {
-                            console.error('Error saving completed stage:', stageError);
-                        }
-                    });
+                const stageData = completedStages.map(flag => ({ userId: parseInt(userId), flag }));
+                await CompletedStage.bulkCreate(stageData, {
+                    updateOnDuplicate: ['flag']
                 });
             }
 
-            res.status(201).json({message: 'Saving point created successfully', saveId: results.insertId});
-        });
+            res.status(201).json({ message: 'Save point created successfully', saveId: savePoint.id });
+        } catch (error) {
+            console.error('Error saving game:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
-}
+};

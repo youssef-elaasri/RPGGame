@@ -50,6 +50,13 @@ class MainWorld {
                 });
             })
 
+            window.currentMap.players.forEach((value, key) => {
+                value.update({
+                    arrow : value.direction,
+                    map : window.currentMap,
+                });
+            });
+
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,
@@ -73,6 +80,12 @@ class MainWorld {
             Object.values(window.currentMap.NPCs).forEach(object => {
                 object.sprite.draw(this.ctx);
             })
+
+            // draw all the players
+            window.currentMap.players.forEach((value, key) => {
+                value.sprite.draw(this.ctx);
+            });
+
 
             window.drawingLowerObjects = true;
             // draw the hero
@@ -103,58 +116,39 @@ class MainWorld {
             // Load the saved game state for the given user
             const gameState = await loadGame(userId);
 
-            if (gameState) {
-                // Convert loaded stages to a dictionary with true as value
-                const flags = gameState.completedStages.reduce((acc, flag) => {
-                    acc[flag] = true;
-                    return acc;
-                }, {});
+            // Convert loaded stages to a dictionary with true as value
+            const flags = gameState.completedStages.reduce((acc, flag) => {
+                acc[flag] = true;
+                return acc;
+            }, {});
 
-                console.log(flags);
-                // If a saved game state exists, use it to initialize the player and map
-                window.Player = new Person({
-                    isPlayerControlled: true,
-                    x: gameState.playerX, // Use the loaded X position
-                    y: gameState.playerY, // Use the loaded Y position
-                    id: userId,
-                    storyFlags: flags,
-                });
+            console.log(flags);
+            // If a saved game state exists, use it to initialize the player and map
+            window.Player = new Person({
+                isPlayerControlled: true,
+                x: gameState.playerX, // Use the loaded X position
+                y: gameState.playerY, // Use the loaded Y position
+                id: userId,
+                storyFlags: flags,
+            });
 
-                console.log(window.Player.storyFlags)
-                util.createAllObjects();
+            console.log(window.Player.storyFlags)
+            util.createAllObjects();
 
-                const levelImage = new Image();
-                levelImage.src = 'src/images/maps/CPP.png';
-                levelImage.onload = function() {
-                    util.crateMap(gameState.mapName,levelImage);
-                };
+            const levelImage = new Image();
+            levelImage.src = 'src/images/maps/CPP.png';
+            levelImage.onload = function() {
+                util.crateMap(gameState.mapName,levelImage);
+            };
 
-                // Assuming the game state includes the name of the map to start
-                this.startMap(window.OverworldMaps[gameState.mapName]);
-
-            } else {
-                // If no saved game state exists, start with default values
-                window.Player = new Person({
-                    isPlayerControlled: true,
-                    x: util.inGrid(17),
-                    y: util.inGrid(10),
-                    id: userId
-                });
-
-                util.createAllObjects();
-
-                const levelImage = new Image();
-                levelImage.src = 'src/images/maps/CPP.png';
-                levelImage.onload = function() {
-                    util.crateMap("TestRoom",levelImage);
-                };
-
-                // Start with a default map if no saved state is found
-                this.startMap(window.OverworldMaps.TestRoom);
-            }
+            // Assuming the game state includes the name of the map to start
+            this.startMap(window.OverworldMaps[gameState.mapName]);
 
             // Start capturing direction input
             this.directionInput = new DirectionInput();
+
+            // Initialize socket for multiplayer stuff
+            initializeSocket();
 
             // Start the game loop
             this.startGameLoop();

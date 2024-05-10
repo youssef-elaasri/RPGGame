@@ -1,6 +1,7 @@
 import unittest
 from utils import tri_batiments
 import random
+from distribution_energie_suggested import distribution_energie
 
 def distribution_energie_solution(batiments,energie_restante):
     batiments_alumentes = []

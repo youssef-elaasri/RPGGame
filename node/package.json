@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "scripts": {
     "start": "npx nodemon app.js",
+    "start:reset": "node app.js reset",
     "test": "node app.js",
     "build": "node app.js",
-    "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image .",
+    "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image ./docker",
     "setup": "npm install && npm run rebuild-image"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.1",
     "mysql": "^2.18.1",
-    "jws": "^4.0.0"
+    "jws": "^4.0.0",
+    "socket.io": "^4.7.5"
   }
 }

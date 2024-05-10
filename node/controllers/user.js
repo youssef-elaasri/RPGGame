@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jws = require('jws');
 const SECRET_KEY = "9Pc1HZsfUH4Y6bx8+8bIudMm7r8J3y7jQx40yCFtZVg=";
 const db = require('../db');
+const { playerIds } = require('../multiplayer/socket');
 
 function validPassword (password) {
     return /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/.test(password)
@@ -24,17 +25,27 @@ module.exports = {
                 return res.status(500).json({error: err});
             }
             // Insert user into database
-            const query = 'INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)';
-            db.query(query, [username, hash, email], (error, results) => {
+            const registerQuery = 'INSERT INTO users (username, password_hash, email) VALUES (?, ?, ?)';
+            db.query(registerQuery, [username, hash, email], async (error, results) => {
                 if (error) {
                     if (error.code === 'ER_DUP_ENTRY') {
-                        return res.status(409).json({ error: 'Username or email already exists.' });
+                        return res.status(409).json({error: 'Username or email already exists.'});
                     } else {
                         console.error('Database error:', error);
-                        return res.status(500).json({ error: 'Internal server error.' });
+                        return res.status(500).json({error: 'Internal server error.'});
                     }
                 }
-                res.status(201).json({message: 'User registered successfully'});
+                const userId = results.insertId;
+                try {
+                // Create default save point
+                await db.query('INSERT INTO saved_games (user_id, map_id, player_x, player_y) VALUES (?, (SELECT map_id FROM maps WHERE map_name = ? LIMIT 1), ?, ?)',
+                    [userId, "testroom", 272, 160]);
+                res.status(201).json({message: 'User registered successfully and default game state set'});
+
+                } catch (err) {
+                    console.error('Error setting default game state:', err);
+                    res.status(500).json({error: 'Failed to set default game state.'});
+                }
             });
         });
     },
@@ -57,6 +68,12 @@ module.exports = {
                 }
 
                 const user = users[0];
+
+                // Check if the account is already connected elsewhere
+                const isAlreadyConnected = Object.values(playerIds).some(p => p.playerId === user.user_id);
+                if (isAlreadyConnected) {
+                    return res.status(409).json({error: 'User already connected'});
+                }
 
                 // Compare password
                 const match = await bcrypt.compare(password, user.password_hash);

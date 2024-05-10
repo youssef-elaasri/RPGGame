@@ -5,8 +5,8 @@ class OverworldMap {
         this.name = config.name || "";
         this.gameObjects = config.gameObjects || [];
 
-        this.gameObjects = config.gameObjects || {};
         this.NPCs = config.NPCs || [];
+        this.players = new Map();
 
         this.walls = config.walls || {};
         this.changeMap = config.changeMap || {};
@@ -82,6 +82,15 @@ class OverworldMap {
         }
     }
 
+    addPlayer(data) {
+        this.players.set(data.id ,
+                        new Person({
+                            isMounted : true,
+                            x: data.x,
+                            y: data.y,
+                            direction: data.direction}));
+    }
+
 }
 
 
@@ -92,30 +101,6 @@ window.OverworldMaps = {
         gameObjects: {
         },
         NPCs: {
-            /* ElProfesor: new NPC({
-                name : "El Profesor",
-                dialogues : ["Hello!", "Welcome to INP Legends."],
-                x: util.inGrid(9),
-                y:util.inGrid(3),
-                behaviorLoop: [
-                    { type: "walk", direction: "right"},
-                    { type: "walk", direction: "right"},
-                    { type: "stand", direction:"right", time: 1000},
-                    { type: "walk", direction:"right"},
-                    { type: "walk", direction: "right"},
-                    { type: "stand", direction:"right", time: 1000},
-                    { type: "stand", direction:"left", time: 2000},
-                    { type: "walk", direction:"left"},
-                    { type: "walk", direction:"left"},
-                    { type: "stand", direction:"left", time: 800},
-                    { type: "walk", direction:"left"},
-                    { type: "walk", direction:"left"},
-                    { type: "stand", direction:"left", time: 800},
-                    { type: "stand", direction:"right", time: 3000},
-
-
-                ]
-            }), */
             securityChief: new NPC({
                 name : "securityChief",
                 src : "src/images/NPCS/securityChief.png",
@@ -175,13 +160,34 @@ window.OverworldMaps = {
                 name : "achraf",
                 src : "src/images/NPCS/achraf.png",
                 dialogues : {
-                    
+                    "distribution_energie" : ["Perfect, that’s exactly what we needed.",
+                    "You've really pulled through for us.",
+                    "With the schools back up, we can start to rebuild what we lost."],
+                    "tri_batiments" : ["Ah, just in time. We're in a tight spot here.",
+                    "The AI's sabotage left us with a limited supply of energy and a long list of buildings that need power, especially our schools.", 
+                    "Your task will be crucial.",
+                    "You need to program the energy distribution system to maximize the number of buildings receiving power with the energy we have left.",
+                    "Here’s what you need to do.",
+                    "We have a list of buildings sorted by their energy needs.", 
+                    "Your job is to write a function called distribution_energie.",
+                    "It takes two parameters: a list of buildings and the remaining energy.",
+                    "For each building, if we have enough energy left to meet its consumption, we power it up and subtract its energy need from our total reserves.", 
+                    "You need to return a list of the buildings that got powered.",
+                    "This is where you'll work.", 
+                    "The function skeleton is already set up.", 
+                    "Just fill in the logic according to the plan I described. Let's get those schools running again."
+                ]
                 },
                 defaultDialogue : [
                     "..."
                 ],
                 x: util.inGrid(10),
                 y:util.inGrid(23),
+                challenge: () => util.runChallenge({
+                    fileName : "distribution_energie",
+                    NPCname : "Achraf",
+                    flags : ["tri_batiments"]
+                }),
 
             })
         },

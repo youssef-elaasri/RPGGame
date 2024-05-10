@@ -30,6 +30,10 @@ function toggleButtons() {
     document.getElementById('profileBtn').classList.toggle("hidden");
 }
 
+function toggleChat() {
+    document.getElementById('chatBar').classList.toggle("hidden");
+}
+
 // Login function
 function login() {
     const username = document.getElementById('username').value;
@@ -63,6 +67,7 @@ function login() {
                 toggleErrorMessage(false, "");
                 hideModal();
                 toggleButtons();
+                toggleChat();
                 util.gameInit(data.userId);
             } else {
                 // Handle any situation where login is successful but no token is returned

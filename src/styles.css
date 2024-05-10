@@ -1,9 +1,15 @@
+/* ------------------------------------------------------------------------------------------------ */
+/* GENERAL STYLING */
+/* ------------------------------------------------------------------------------------------------ */
 body, html {
     height: 100%;
-    margin: 0;
     overflow: hidden; /* Prevents scrolling on the webpage */
-    padding: 0;
 }
+
+
+/* ------------------------------------------------------------------------------------------------ */
+/* NAV STYLE */
+/* ------------------------------------------------------------------------------------------------ */
 
 /* About us button */
 .about-us {
@@ -24,54 +30,139 @@ nav {
     z-index: 10; /* Ensures the nav bar is always on top */
 }
 
+/* ------------------------------------------------------------------------------------------------ */
+/* GAME WINDOW STYLES */
+/* ------------------------------------------------------------------------------------------------ */
 .game-window {
-    align-items: center;
-    background: #fff; /* Game background, will be adjusted later */
     display: flex;
-    height: 100%;
-    justify-content: center;
-    padding-top: 48px; /* Adjusted to prevent nav from overlapping the game */
-    position: relative;
+    height: 100%; /* Subtract the height of the nav bar */
+    padding-top: 48px; /* Avoid overlap with the navigation bar */
+    width: 100%; /* Ensure it fills the width of the viewport */
 }
 
+/* CHAT STYLES */
+.chat-bar {
+    background-color: rgba(35, 35, 35, 0.95); /* Dark semi-transparent background */
+    border-right: 3px solid #8b4513; /* Stylized border to match game aesthetics */
+    padding: 5px;
+    box-sizing: border-box;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-bar h3 {
+    background-color: #333;
+    padding: 5px;
+    text-align: center;
+    border-bottom: solid #8b4513;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.chat-messages {
+    flex: 1; /* Take all available space */
+    overflow-y: auto; /* Enable scrolling */
+    font-size: 14px;
+}
+
+.chat-input-container {
+    display: flex;
+    align-items: center;  /* Vertically center the contents */
+    border-radius: 4px;  /* Rounded corners for the container */
+    margin-bottom: 0;
+
+}
+
+.chat-input {
+    flex-grow: 1;  /* Allows the input to take up available space */
+    border: none;  /* Removes the border for a cleaner look */
+    font-size: 12px;  /* Small font size for compact appearance */
+    color: #fff;  /* White text color */
+    background-color: #211e1e;  /* Slightly darker background for the input */
+    margin-right: 8px;  /* Small margin to separate from the send button */
+}
+
+.send-btn {
+    display: flex;
+    align-items: center;  /* Center the icon vertically */
+    justify-content: center;  /* Center the icon horizontally */
+    width: 30px;  /* Smaller width for a compact button */
+    height: 30px;  /* Square dimension */
+    background-color: #a92b2b;  /* Stylish blue background */
+    border: none;  /* No border for a seamless look */
+    padding: 0;  /* No padding */
+    cursor: pointer;  /* Pointer cursor on hover */
+    color: white;  /* White icon color */
+    margin-right: 6px;
+}
+
+.send-btn i {
+    font-size: 16px;  /* Appropriate icon size not too large */
+}
+
+.send-btn:hover {
+    background-color: #6b1010;  /* Slightly darker blue on hover for feedback */
+}
+
+.chat-input::placeholder {
+    color: #ddd;  /* Light grey placeholder for good contrast */
+}
+
+.chat-input:focus {
+    outline: none;  /* Removes the default focus outline */
+}
+
+
+/* GAME CONTAINER STYLE */
 .game-container {
+    flex-grow: 1; /* Allow the container to take up the remaining space */
+    display: flex; /* Facilitates the alignment of its children */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
     position: relative;
-    transform: scale(3);
+    overflow: hidden; /* Hide any overflow */
 }
 
 .game-canvas {
-    height: 240px;
-    position: relative;
-    width: 480px;
+    width: 100%; /* Adjust to fill the container */
+    height: 100%; /* Adjust height to maintain aspect ratio */
+    image-rendering: pixelated; /* Maintain pixel art style */
 }
 
 .game-container canvas{
     image-rendering: pixelated;
 }
 
-
+/* NPC DIALOGUE STYLE */
 .dialogue-container {
-    align-items: center;
-    background-color: lightgray;
-    bottom: 0;
-    box-sizing: border-box;
-    color: #000;
     display: flex;
-    font-family: 'Arial', sans-serif;
+    align-items: center;
     justify-content: center;
     position: absolute;
-    width: 100%;
+    bottom: 50px; /* Lower it to the bottom of the game container */
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+    color: #fff;
+    padding: 20px; /* Increased padding */
+    font-size: 16px; /* Larger font size for better readability */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+    z-index: 50; /* Ensure it's above game elements */
 }
 
 .dialogue-text {
-    color: #ffffff; /* Bright color for the text */
-    font-family: 'Press Start 2P', cursive;
-    font-size: small;
-    margin: 0;
-    max-width: 90%;
-    text-shadow: 2px 2px #000000; /* Shadow to make text stand out */
+    max-width: 90%; /* Limiting the text width for better readability */
+    text-align: center; /* Center the text within the dialogue container */
+    font-family: 'Press Start 2P', cursive; /* Stylistic choice for font */
+    text-shadow: 2px 2px #000000; /* Shadow for better visibility */
+    line-height: 1.5; /* Increase line height for readability */
+    margin: 0 auto; /* Centering the text block horizontally */
 }
 
+/* IDE STYLE */
 .editor {
     font-size: large;
     position: fixed; /* Utilise fixed pour le placer par rapport à la fenêtre du navigateur */
@@ -105,16 +196,29 @@ nav {
     display: none;
 }
 
-
+/* ------------------------------------------------------------------------------------------------ */
+/* MODAL STYLES */
+/* ------------------------------------------------------------------------------------------------ */
 .modal {
-    position: fixed; /* or absolute */
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    max-height: 100vh;
-    overflow-y: hidden; /* Allows scrolling inside the modal if needed, but keeps the modal itself fixed */
-    z-index: 1000; /* Ensure it's above other content */
-    width: 75%;
+    background-color: rgba(28, 22, 22, 0.95); /* Dark theme with transparency */
+    color: #FFF; /* Light text for contrast */
+    border: 4px solid #8b4513; /* Themed border color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Soft drop shadow for depth */
+    padding: 20px;
+    max-width: 600px; /* Max width for better control on large screens */
+    width: 90%; /* Responsive width */
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    padding: 20px;
+    text-align: center; /* Center align the text for aesthetics */
 }
 
 #errorMessage, #changePasswordErrorMessage{
@@ -122,14 +226,31 @@ nav {
     margin-bottom: 10px
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+.modal button {
+    background-color: #a92b2b; /* A vibrant color that stands out */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    cursor: pointer; /* Make it clear the button is interactive */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    border-radius: 5px; /* Rounded corners for the buttons */
 }
 
+.modal button:hover {
+    background-color: #650e0e; /* Darker shade on hover for feedback */
+}
+
+.change-password-trigger {
+    color: #FFA500; /* Make it vibrant and noticeable */
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 15px; /* Space from other elements */
+}
+
+
+/* ------------------------------------------------------------------------------------------------ */
+/* CONTROL ICONS, THESE ARE APPARENT WHEN LOGGED IN*/
 /* Container for control icons */
 .control-icons {
     position: absolute;

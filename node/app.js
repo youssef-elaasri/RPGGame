@@ -1,18 +1,29 @@
 const express = require('express');
 const cors = require('cors');
-
-
-// Initialize the express application
+const http = require('http');
+const socketIo = require('socket.io');
 const app = express();
+
 app.use(express.json()); // Middleware to parse JSON bodies
 app.use(cors()); // Allow all CORS requests
 
-// Importing router
 const router = require('./routes/router');
-app.use(router); // Use the router
+app.use(router);
 
-// Docker Manager
+const server = http.createServer(app);
 
-// Starting the server
-const PORT = process.env.PORT || 8080; // Consolidated port configuration
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Properly configure Socket.IO
+const io = socketIo(server, {
+    cors: {
+        origin: "*",  // Allow any origin
+        methods: ["GET", "POST"],  // Allow GET and POST methods
+        credentials: true  // Allow cookies and headers to be sent
+    }
+});
+
+// Set up the socket for multiplayer mode
+const { setupSocket } = require('./multiplayer/socket');
+setupSocket(io);
+
+const PORT = process.env.PORT || 8080;
+server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

@@ -6,5 +6,5 @@ WORKDIR /app
 COPY loader.sh /app/loader.sh
 
 # Set the default entrypoint to the loader script
-ENTRYPOINT ["./loader.sh"]
+#ENTRYPOINT ["./loader.sh"]
 

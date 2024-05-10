@@ -4,7 +4,6 @@ const path = require('path');
 const Docker = require('../dockerManager'); // Assume Docker-related functions are in this module
 const docker = new Docker({ image: 'app_image'});
 
-docker.buildImage();
 docker.createVolume("mySecretVolume", 1048576); //10MB
 
 

@@ -4,7 +4,9 @@
   "scripts": {
     "start": "npx nodemon app.js",
     "test": "node app.js",
-    "build": "node app.js"
+    "build": "node app.js",
+    "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image .",
+    "setup": "npm install && npm run rebuild-image"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

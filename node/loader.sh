@@ -27,9 +27,19 @@ fi
 
 # Copy file1 to destination directory
 cp "$source_dir/$file1" "$destination_dir/"
+cp_exit_code=$?
+if [ $cp_exit_code -ne 0 ]; then
+    echo "Error: Failed to copy $file1 to $destination_dir."
+    exit 1
+fi
 
 # Move file2 to destination directory
 mv "$source_dir/$file2" "$destination_dir/"
+mv_exit_code=$?
+if [ $mv_exit_code -ne 0 ]; then
+    echo "Error: Failed to move $file2 to $destination_dir."
+    exit 1
+fi
 
 # Change directory to destination directory
 cd "$destination_dir" || exit

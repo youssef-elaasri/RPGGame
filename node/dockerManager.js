@@ -147,10 +147,17 @@ class DockerManager {
                                 return;
                             }
     
-                            console.log('Container finished with exit code', data.StatusCode);
+                        console.log('Container finished with exit code', data.StatusCode);
+
+                        // Remove the container after it's done
+                        container.remove((error, data) => {
+                            if (error) {
+                                console.error('Error removing container:', error);
+                            }
+                        });
     
-                            // Resolve the Promise with the output
-                            resolve({output: output, statusCode: data.StatusCode});
+                        // Resolve the Promise with the output
+                        resolve({output: output, statusCode: data.StatusCode});
                         });
                     });
                 });

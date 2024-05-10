@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image ./docker",
-    "setup": "npm install && npm run rebuild-image",
+    "setup": "npm install && npm run init:reset && npm run rebuild-image",
     "init" : "node init-database.js",
     "init:reset": "node init-database.js reset",
     "start": "npm run init && npx nodemon  server.js",

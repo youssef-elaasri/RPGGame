@@ -83,13 +83,12 @@ class OverworldMap {
     }
 
     addPlayer(data) {
-        console.log(data.x)
         this.players.set(data.id ,
                         new Person({
                             isMounted : true,
                             x: data.x,
                             y: data.y,
-                            direction: data.y}));
+                            direction: data.direction}));
     }
 
 }

@@ -50,6 +50,13 @@ class MainWorld {
                 });
             })
 
+            window.currentMap.players.forEach((value, key) => {
+                value.update({
+                    arrow : value.direction,
+                    map : window.currentMap,
+                });
+            });
+
             // Update player
             window.Player.update({
                 arrow : this.directionInput.direction,

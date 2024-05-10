@@ -5,12 +5,13 @@ const path = require('path');
 class DockerManager {
     constructor(config) {
         this.docker = new Docker();
-        this.image = config.image || "image_name";
+        this.image = config.image || "image_name:latest";
     }
 
 
     buildImage() {
         return new Promise((resolve, reject) => {
+            console.log("The image name is: ",this.image);
             // Check if the image already exists
             this.docker.listImages({ filters: { reference: [this.image] } }, (err, images) => {
                 if (err) {
@@ -29,10 +30,10 @@ class DockerManager {
                 // Define build options
                 const buildOptions = {
                     context: __dirname, // Use current directory as context
-                    src: ['Dockerfile', 'loader.sh'], // Include loader script and python scripts folder
+                    src: ['Dockerfile'], // Include loader script and python scripts folder
                 };
     
-                // Build the Docker image
+                // Build the Docker image 
                 this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
                     if (error) {
                         console.error('Error building Docker image: ', error);
@@ -102,13 +103,13 @@ class DockerManager {
         return new Promise((resolve, reject) => {
             const containerOptions = {
                 Image: this.image,
-                Cmd: [`${scriptName}`],
+                Cmd: [`${scriptName}_tester.py`, `${scriptName}_suggested.py`],
                 AttachStdout: true,
                 AttachStderr: true,
                 HostConfig:{
                     Binds:  [
                         `${process.cwd()}/${path}:/app/python_scripts`,
-                        `${volumeName}:/app/`
+                        `${volumeName}:/app/data`
                     ]
                 }
             };

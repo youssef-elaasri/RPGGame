@@ -118,6 +118,7 @@ class MainWorld {
 
             // Convert loaded stages to a dictionary with true as value
             const flags = gameState.completedStages.reduce((acc, flag) => {
+                addCompletedStage(flag)
                 acc[flag] = true;
                 return acc;
             }, {});

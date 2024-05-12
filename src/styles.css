@@ -258,6 +258,21 @@ nav {
     font-family: 'Press Start 2P', cursive;
 }
 
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    color: #ccc; /* Light grey for readability */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 5px;
+    border: solid #555;
+    background-color: #222;
+    color: #ddd;
+}
 
 /* ------------------------------------------------------------------------------------------------ */
 /* CONTROL ICONS, THESE ARE APPARENT WHEN LOGGED IN*/

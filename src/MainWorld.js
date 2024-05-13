@@ -118,7 +118,6 @@ class MainWorld {
                 return acc;
             }, {});
 
-            console.log(flags);
             // If a saved game state exists, use it to initialize the player and map
             window.Player = new Person({
                 isPlayerControlled: true,
@@ -130,10 +129,10 @@ class MainWorld {
 
             util.createAllObjects();
 
-            util.prepareMAP("TestRoom",'src/images/maps/CPP.png' );
-            util.prepareMAP("kitchen",'src/images/maps/E3.png' );
+            util.prepareMAP("CPP",'src/images/maps/CPP.png' );
+            util.prepareMAP("lobby",'src/images/maps/E3.png' );
 
-            
+            console.log(window.OverworldMaps[gameState.mapName]);
             this.startMap(window.OverworldMaps[gameState.mapName]);
 
             // Start capturing direction input

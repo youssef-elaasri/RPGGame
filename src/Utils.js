@@ -313,7 +313,6 @@ const util = {
               const red = data[index];
               const green = data[index + 1];
               const blue = data[index + 2];
-              const alpha = data[index + 3];
 
             if (red === 0 && green === 0 && blue === 0) {
                 this.addObject(mapName,window.whiteSpace,"whiteSpace" + nameIndex, x,y);
@@ -488,6 +487,8 @@ const util = {
             else if (red === 178 && green === 178 && blue === 178) {
                 this.addObject(mapName,window.E3Floor,"E3Floor" + nameIndex, x,y);
                 nameIndex++;
+            } else {
+                console.log("hehe");
             }
 
           }

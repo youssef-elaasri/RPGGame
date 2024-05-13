@@ -1,8 +1,9 @@
 import unittest
 import random
 import string
-
 from convert_to_float_suggested import convert_to_float
+import timeout_decorator
+
 
 def convert_to_float_solution(strings):
     """
@@ -26,6 +27,8 @@ def convert_to_float_solution(strings):
     return result
 
 class TestConvertToFloat(unittest.TestCase) :
+    
+    @timeout_decorator.timeout(10)
     def test_1(self):
         for _ in range(1,100):
             l = []

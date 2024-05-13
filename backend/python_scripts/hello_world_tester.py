@@ -1,6 +1,9 @@
 import sys
 import hello_world_suggested
+import timeout_decorator
 
+
+@timeout_decorator.timeout(10)
 def test_return_hello_world():
     result = hello_world_suggested.return_hello_world()
     expected_result = "Hello, World!"

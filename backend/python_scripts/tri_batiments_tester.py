@@ -2,6 +2,7 @@
 import unittest
 import random
 from tri_batiments_suggested import tri_batiments
+import timeout_decorator
 
 
 def tri_batiments_solution(batiments):
@@ -9,7 +10,8 @@ def tri_batiments_solution(batiments):
 
 
 class TestDefi2(unittest.TestCase):
-
+    
+    @timeout_decorator.timeout(10)
     def test_tri_batiments(self):
         for _ in range(100):
             length = random.randint(1,100)

@@ -5,6 +5,9 @@ WORKDIR /app
 # Copy loader.sh into the /app directory in the container
 COPY loader.sh /app/loader.sh
 
+RUN pip install timeout-decorator
+
+
 RUN adduser --disabled-password --gecos "" appuser
 USER appuser
 

@@ -2,6 +2,8 @@ import unittest
 import random
 import string
 from chiffrement_cesar_suggested import chiffrement_cesar
+import timeout_decorator
+
 
 def chiffrement_cesar_solution(texte, decalage):
     resultat = ""
@@ -18,6 +20,7 @@ def chiffrement_cesar_solution(texte, decalage):
 
 class TestDefi1(unittest.TestCase):
 
+    @timeout_decorator.timeout(10)
     def test_chiffrement_cesar(self):
         for _ in range(100):
             longueure = random.randint(1,100)

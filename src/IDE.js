@@ -107,7 +107,8 @@ const IDE = {
                     if (data === '0') {
                         window.Player.storyFlags[config.fileName] = true;
                         window.currentMap.NPCs[e.detail.doerId].challenge = null;
-                        addCompletedStage(config.fileName)
+                        addCompletedStage(config.fileName);
+                        saveGame();
                     }
                 })
                 .catch(error => {

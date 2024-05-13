@@ -121,8 +121,7 @@ module.exports = {
             // Create or update lobby save
             const [lobbySave, created] = await LobbySave.findOrCreate({
                 where: {
-                    userId: userId,
-                    mapId: mapId
+                    userId: userId
                 },
             });
 

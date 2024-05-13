@@ -260,7 +260,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["E3",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
@@ -272,7 +272,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["felma",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
@@ -284,7 +284,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["papet",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
@@ -296,7 +296,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["GI",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
@@ -308,7 +308,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["polytech",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
@@ -320,7 +320,7 @@ window.OverworldMaps = {
         NPCs : {},
         walls: {},
         changeMap : {
-            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(4,0)] : ["IAE",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
         }
     },

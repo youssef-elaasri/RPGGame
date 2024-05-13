@@ -33,7 +33,6 @@ function initializeSocket() {
     // Get list of connected users upon login
     socket.on('existingPlayers', function(players) {
         Object.values(players).forEach(player => {
-            console.log(player)
             if (player.id !== socket.id) { // Avoid adding itself
                 window.currentMap.addPlayer(player);
             }
@@ -53,6 +52,16 @@ function initializeSocket() {
     socket.on('newMessage', function(data) {
         console.log("Message sent by :" + data.sender);
         displayMessage(data.message, data.sender);
+    });
+
+    // Handle server shutdown or disconnect
+    socket.on('disconnect', function(reason) {
+        console.log('Disconnected from server, reason:', reason);
+        // Delay before reloading
+        console.log("Reloading page in 5 seconds...");
+        setTimeout(() => {
+            window.location.reload();
+        }, 5000); // Reload after 5 seconds delay
     });
 }
 

@@ -3,6 +3,7 @@ class Person extends GameObject {
         super(config);
         this.remainingMovement = 0; // In pixels 
         this.isPlayerControlled = config.isPlayerControlled || false;
+        this.isWaitingExecution = config.isWaitingExecution || false; // to stop player from interacting with NPCs until the code they sent is executed
         this.directions = {
             "up": ["y", -1],
             "down": ["y", 1],

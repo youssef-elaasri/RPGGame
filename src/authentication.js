@@ -153,7 +153,6 @@ async function logout() {
     if (confirmLogout) {
         // Clear stored JWT token or user data
         localStorage.removeItem('authToken');
-        // todo : Optionally clear other user-specific data stored in localStorage or sessionStorage
         window.location.reload();
     }
 }
@@ -194,7 +193,6 @@ async function saveGame() {
 }
 
 async function loadGame(userId) {
-    // todo : Manage the case where a save point doesn't exist in the db
     const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:8080/api/users/${userId}/load`, {

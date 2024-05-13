@@ -2,6 +2,8 @@ import unittest
 from utils import tri_batiments
 import random
 from distribution_energie_suggested import distribution_energie
+import timeout_decorator
+
 
 def distribution_energie_solution(batiments,energie_restante):
     batiments_alumentes = []
@@ -15,7 +17,7 @@ def distribution_energie_solution(batiments,energie_restante):
 
 class TestDefi3(unittest.TestCase):
 
-
+    @timeout_decorator.timeout(10)
     def test_distribution_energie(self):
         for _ in range(100):
             energie_restante = random.randint(0,1000)

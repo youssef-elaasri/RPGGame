@@ -13,18 +13,7 @@ module.exports = {
             return res.status(400).send('Script or level not specified');
         }
 
-        const filename = `${req.body.level}_suggested.py`;
-        const filePath = path.join(__dirname, '..', 'python_scripts', filename);
-
-        try {
-            fs.writeFileSync(filePath, req.body.script, 'utf8');
-            console.log(`Script written to ${filename}`);
-        } catch (error) {
-            console.error('Error writing file:', error);
-            return res.status(500).send('Failed to write script');
-        }
-
-        docker.runContainer(`${req.body.level}`,  'python_scripts', 'mySecretVolume')
+        docker.runContainer(`${req.body.level}`,  'python_scripts', req.body.script ,'mySecretVolume')
             .then(object => res.status(200).send(`${object.statusCode}`))
             .catch(error => {
                 console.error('Docker error:', error);

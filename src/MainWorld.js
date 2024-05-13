@@ -26,6 +26,7 @@ class MainWorld {
     startGameLoop() {
 
         const step = () => {
+
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
@@ -136,9 +137,15 @@ class MainWorld {
             util.createAllObjects();
 
             util.prepareMAP("CPP",'src/images/maps/CPP.png' );
-            util.prepareMAP("lobby",'src/images/maps/E3.png' );
+            util.prepareMAP("lobby",'src/images/maps/lobby.png' );
+            util.prepareMAP("E3",'src/images/maps/E3.png' );
+            util.prepareMAP("felma",'src/images/maps/felma.png' );
+            util.prepareMAP("papet",'src/images/maps/papet.png' );
+            util.prepareMAP("GI",'src/images/maps/GI.png' );
+            util.prepareMAP("polytech",'src/images/maps/polytech.png' );
+            util.prepareMAP("IAE",'src/images/maps/IAE.png' );
+            util.prepareMAP("imag",'src/images/maps/imag.png' );
 
-            console.log(window.OverworldMaps[gameState.mapName]);
             this.startMap(window.OverworldMaps[gameState.mapName]);
 
             // Start capturing direction input

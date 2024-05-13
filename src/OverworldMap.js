@@ -188,6 +188,9 @@ window.OverworldMaps = {
         },
         changeMap : {
             [util.asGridCoord(14,7)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(27,48)] : ["E3",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(28,48)] : ["E3",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(29,48)] : ["E3",[util.inGrid(4),util.inGrid(1)]],
         },
     },
 
@@ -201,5 +204,87 @@ window.OverworldMaps = {
             [util.asGridCoord(12,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
             [util.asGridCoord(13,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
         },
-    }
+    },
+    E3 : {
+        name : "E3",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["felma",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["felma",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    felma : {
+        name : "felma",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    papet : {
+        name : "papet",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    GI : {
+        name : "GI",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    polytech : {
+        name : "polytech",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    IAE : {
+        name : "IAE",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(7,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
+            [util.asGridCoord(8,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
+        }
+    },
+    imag : {
+        name : "imag",
+        gameObjects : {},
+        NPCs : {},
+        walls: {},
+        changeMap : {
+            [util.asGridCoord(4,0)] : ["CPP",[util.inGrid(28),util.inGrid(47)]],
+            [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
+        }
+    },
 }

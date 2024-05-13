@@ -1,15 +1,8 @@
-const express = require('express');
-const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
-const app = express();
+const app = require('./app'); // Import the configured Express app
 
-app.use(express.json()); // Middleware to parse JSON bodies
-app.use(cors()); // Allow all CORS requests
-
-const router = require('./routes/router');
-app.use(router);
-
+// Create an HTTP server from the Express app
 const server = http.createServer(app);
 
 // Properly configure Socket.IO
@@ -25,5 +18,8 @@ const io = socketIo(server, {
 const { setupSocket } = require('./multiplayer/socket');
 setupSocket(io);
 
+// Read the PORT from environment variables or use 8080 as a fallback
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+server.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+});

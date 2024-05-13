@@ -9,46 +9,68 @@ class DockerManager {
     }
 
 
-    buildImage() {
+    brunContainer(scriptName, path, volumeName) {
         return new Promise((resolve, reject) => {
-            console.log("The image name is: ",this.image);
-            // Check if the image already exists
-            this.docker.listImages({ filters: { reference: [this.image] } }, (err, images) => {
-                if (err) {
-                    console.error('Error listing Docker images: ', err);
-                    reject(err);
+            const containerOptions = {
+                Image: this.image,
+                Cmd: [`${scriptName}_tester.py`, `${scriptName}_suggested.py`],
+                AttachStdout: true,
+                AttachStderr: true,
+                User: "appuser", // Add a non-root user
+                ReadonlyRootfs: true, // Make the container's root filesystem read-only
+                HostConfig: {
+                    Binds: [
+                        `${process.cwd()}/../${path}:/app/python_scripts:ro`, // Mount python_scripts volume as read-only
+                        `${volumeName}:/app/exec:rw` // Mount exec volume as read-write
+                    ]
+                }
+            };
+    
+            this.docker.createContainer(containerOptions, (error, container) => {
+                if (error) {
+                    reject(error);
                     return;
                 }
     
-                // If the image exists, resolve the promise without building
-                if (images.length > 0) {
-                    console.log(`Image ${this.image} already exists.`);
-                    resolve();
-                    return;
-                }
-    
-                // Define build options
-                const buildOptions = {
-                    context: __dirname, // Use current directory as context
-                    src: ['Dockerfile'], // Include loader script and python scripts folder
-                };
-    
-                // Build the Docker image 
-                this.docker.buildImage(buildOptions, { t: this.image }, (error, stream) => {
-                    if (error) {
-                        console.error('Error building Docker image: ', error);
-                        reject(error); // Reject the Promise if there's an error
+                container.attach({ stream: true, stdout: true, stderr: true }, (err, attach) => {
+                    if (err) {
+                        reject(err);
                         return;
                     }
     
-                    // Handle build output
-                    stream.setEncoding('utf8');
-                    stream.on('data', (chunk) => {
-                        console.log(chunk);
-                    });
-                    stream.on('end', () => {
-                        console.log('Docker image build complete.');
-                        resolve(); // Resolve the Promise when the build is complete
+                    container.start((error) => {
+                        if (error) {
+                            reject(error);
+                            return;
+                        }
+    
+                        let output = '';
+    
+                        // Collect output from stdout
+                        container.modem.demuxStream(attach, process.stdout, process.stderr);
+    
+                        attach.on('data', (chunk) => {
+                            output += chunk.toString();
+                        });
+    
+                        container.wait((error, data) => {
+                            if (error) {
+                                reject(error);
+                                return;
+                            }
+    
+                            console.log('Container finished with exit code', data.StatusCode);
+    
+                            // Remove the container after it's done
+                            container.remove((error, data) => {
+                                if (error) {
+                                    console.error('Error removing container:', error);
+                                }
+                            });
+    
+                            // Resolve the Promise with the output
+                            resolve({ output: output, statusCode: data.StatusCode });
+                        });
                     });
                 });
             });

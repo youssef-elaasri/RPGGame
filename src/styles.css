@@ -35,8 +35,8 @@ nav {
 /* ------------------------------------------------------------------------------------------------ */
 .game-window {
     display: flex;
-    height: 100%; /* Subtract the height of the nav bar */
-    padding-top: 48px; /* Avoid overlap with the navigation bar */
+    height: 100%;
+    padding-top: 48px;
     width: 100%; /* Ensure it fills the width of the viewport */
 }
 
@@ -89,13 +89,13 @@ nav {
     display: flex;
     align-items: center;  /* Center the icon vertically */
     justify-content: center;  /* Center the icon horizontally */
-    width: 30px;  /* Smaller width for a compact button */
-    height: 30px;  /* Square dimension */
-    background-color: #a92b2b;  /* Stylish blue background */
-    border: none;  /* No border for a seamless look */
-    padding: 0;  /* No padding */
+    width: 30px;
+    height: 30px;
+    background-color: #a92b2b;
+    border: none;
+    padding: 0;
     cursor: pointer;  /* Pointer cursor on hover */
-    color: white;  /* White icon color */
+    color: white;
     margin-right: 6px;
 }
 
@@ -166,21 +166,21 @@ nav {
 .editor {
     font-size: large;
     position: fixed; /* Utilise fixed pour le placer par rapport à la fenêtre du navigateur */
-    top: 50%; /* Centre verticalement */
-    left: 50%; /* Centre horizontalement */
+    top: 52%; /* Centre verticalement */
+    left: 59%; /* Centre horizontalement */
     transform: translate(-50%, -50%); /* Ajuste le centrage */
     width: 80vw; /* Largeur basée sur la largeur de la fenêtre du navigateur */
-    height: 80vh; /* Hauteur basée sur la hauteur de la fenêtre du navigateur */
+    height: 90vh; /* Hauteur basée sur la hauteur de la fenêtre du navigateur */
     z-index: 30; /* Assure qu'il est au-dessus des autres éléments */
     border: 1px solid #ccc; /* Bordure de l'éditeur */
 }
 
 .closeBtn {
     position: absolute;
-    right: 20px;
+    right: 30px;
     top: 70px;
-    z-index: 20;
-    color: black;
+    z-index: 1000;
+    color: #ffffff;
     font-size: 30px;
     cursor: pointer;
 }
@@ -188,8 +188,9 @@ nav {
 .button-container {
     position: absolute;
     bottom: 40px;
-    right: 20px;
+    right: 40px;
     z-index: 31; /* Assure qu'il est visible au-dessus de l'éditeur */
+    color: #6b1010;
 }
 
 .hidden {
@@ -214,11 +215,14 @@ nav {
     width: 90%; /* Responsive width */
     z-index: 1000;
     box-sizing: border-box;
+    font-family: 'Press Start 2P', cursive;
+
 }
 
 .modal-content {
+    position: relative;
     padding: 20px;
-    text-align: center; /* Center align the text for aesthetics */
+    text-align: left;
 }
 
 #errorMessage, #changePasswordErrorMessage{
@@ -248,9 +252,31 @@ nav {
     margin-top: 15px; /* Space from other elements */
 }
 
+.modal-content h2 {
+    text-align: center;
+    color: #a81818; /* Gold color to stand out */
+    font-family: 'Press Start 2P', cursive;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    color: #ccc; /* Light grey for readability */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 5px;
+    border: solid #555;
+    background-color: #222;
+    color: #ddd;
+}
 
 /* ------------------------------------------------------------------------------------------------ */
 /* CONTROL ICONS, THESE ARE APPARENT WHEN LOGGED IN*/
+/* ------------------------------------------------------------------------------------------------ */
 /* Container for control icons */
 .control-icons {
     position: absolute;
@@ -291,22 +317,110 @@ nav {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Adds a subtle glow effect */
 }
 
+/* ------------------------------------------------------------------------------------------------ */
+/* PROFILE PANEL STYLES */
+/* ------------------------------------------------------------------------------------------------ */
+/* Profile Panel Styling */
+#profilePanel {
+    position: fixed;
+    left: 50%;
+    top: 10%;
+    background-color: rgba(0, 0, 0, 0.85); /* Dark background with a bit of transparency for game-like feel */
+    border: 2px solid #8b4513; /* Border color matching your theme */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.75); /* Deep shadow for 3D effect */
+    color: #fff; /* Text color */
+    font-family: 'Press Start 2P', cursive; /* Pixel art font for retro gaming look */
+    padding: 20px;
+    width: 600px; /* Fixed width */
+}
+
+/* Close Button Styling within the Profile Panel */
+.panel-close-btn {
+    position: absolute;
+    width: 10px;
+    top: 15px;
+    right: 30px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1050;
+}
+
+
+.panel-close-btn:hover {
+    color: #ff0000; /* Bright red on hover for interaction feedback */
+}
+
+/* Profile Content Styles */
+.panel-header h2 {
+    font-family: 'Press Start 2P', cursive; /* Pixel art font for retro gaming look */
+    text-align: center;
+    color: #ffffff; /* Gold color to stand out */
+    margin-bottom: 15px;
+}
+
+#playerInfo p {
+    font-size: 14px;
+    padding: 5px 0;
+}
+
+/* Change Password Section Styles */
 .change-password-trigger {
-    color: blue; /* Example color to indicate clickability */
-    cursor: pointer; /* Change mouse cursor to indicate it's clickable */
-    text-decoration: underline; /* Underline to look more like a link */
+    display: block;
+    color: #4b0082; /* Indigo to signify action */
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px; /* Spacing for better structure */
+    text-decoration: underline;
 }
 
-
-/* Styling the username and email specifically */
-#playerUsername, #playerEmail {
-    padding-left: 10px;
-    color: #121215; /* A blue color for the text */
-    font-weight: bold; /* Make the text bold */
+.change-password-trigger:hover {
+    color: #0000ff; /* Bright blue for hover effect */
 }
 
-/* Alternatively, if you add a class to the spans, e.g., class="profile-text", you can target them like this: */
-.profile-text {
-    color: #007BFF; /* A blue color for the text */
-    font-weight: bold; /* Make the text bold */
+/* Change Password Form Styling */
+#changePasswordForm {
+    background-color: #333333; /* Darker background for form area */
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px; /* Space from the trigger link */
+}
+
+.panel-form-group {
+    margin-bottom: 10px;
+}
+
+.panel-form-group label {
+    color: #ccc; /* Light grey for readability */
+    font-size: 12px;
+}
+
+.panel-form-group input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #555;
+    background-color: #222;
+    color: #ddd;
+}
+
+.btn.game-btn {
+    width: 100%;
+    background-color: #a81818;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn.game-btn:hover {
+    background-color: #650e0e;
+}
+
+.panel-content{
+    color: #a81818;
 }

@@ -113,7 +113,7 @@ window.OverworldMaps = {
                 "You'll need to make sure the shift wraps around the end of the alphabet and keeps the letter casing the same."],
                 x: util.inGrid(15),
                 y:util.inGrid(10),
-                challenge : () => util.runChallenge({
+                challenge : () => IDE.runChallenge({
                     fileName : "chiffrement_cesar",
                     NPCname: "securityChief"
                 })
@@ -143,7 +143,7 @@ window.OverworldMaps = {
                 ],
                 x: util.inGrid(45),
                 y:util.inGrid(23),
-                challenge: () => util.runChallenge({
+                challenge: () => IDE.runChallenge({
                     fileName : "tri_batiments",
                     NPCname : "facilityManager",
                     flags : ["chiffrement_cesar"]
@@ -176,7 +176,7 @@ window.OverworldMaps = {
                 ],
                 x: util.inGrid(10),
                 y:util.inGrid(23),
-                challenge: () => util.runChallenge({
+                challenge: () => IDE.runChallenge({
                     fileName : "distribution_energie",
                     NPCname : "Achraf",
                     flags : ["tri_batiments"]

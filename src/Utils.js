@@ -284,6 +284,10 @@ const util = {
             src : "src/images/sprites/closedDoor/2.png",
             isMounted : true,
         })
+
+        window.E3Floor = new GameObject({
+            src : "src/images/sprites/E3Floor.png",
+        })
     },
 
     addObject(mapName,object, objectName, x, y) {
@@ -491,6 +495,10 @@ const util = {
                 this.addObject(mapName,window.stall,"stall" + nameIndex, x,y);
                 nameIndex++;
             }
+            else if (red === 178 && green === 178 && blue === 178) {
+                this.addObject(mapName,window.E3Floor,"E3Floor" + nameIndex, x,y);
+                nameIndex++;
+            }
 
           }
 
@@ -602,7 +610,6 @@ const util = {
             return response.text();
         })
         .then(data => {
-            console.log();
             if(data === '0'){
                 window.Player.storyFlags[config.fileName] = true;
                 window.currentMap.NPCs[e.detail.doerId].challenge = null;
@@ -628,6 +635,13 @@ const util = {
     },
     togglePlayerControlled(){
         window.Player.isPlayerControlled = !window.Player.isPlayerControlled;
+    },
+    prepareMAP(mapName, src) {
+        const levelImage = new Image();
+        levelImage.src = src;
+        levelImage.onload = function() {
+        util.crateMap(mapName,levelImage);
+    };
     }
 }
 

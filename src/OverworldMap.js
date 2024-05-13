@@ -3,7 +3,7 @@ class OverworldMap {
     constructor(config) {
         this.overworld = null;
         this.name = config.name || "";
-        this.gameObjects = config.gameObjects || [];
+        this.gameObjects = config.gameObjects || {};
 
         this.NPCs = config.NPCs || [];
         this.players = new Map();
@@ -15,7 +15,7 @@ class OverworldMap {
 
         this.startPosition = config.startPosition || [0,0];
         this.lowerImage = new Image();
-        this.lowerImage.src = config.lowerSrc;
+        // this.lowerImage.src = config.lowerSrc;
 
         this.isCutScenePlaying = false;
 
@@ -49,12 +49,6 @@ class OverworldMap {
     }
 
     mountObjects(){
-        // TODO: determine what objects should be mounted
-        Object.keys(this.gameObjects).forEach(key =>{
-            let gameObject = this.gameObjects[key];
-            gameObject.id = key;
-            gameObject.mount(this)
-        })
         Object.keys(this.NPCs).forEach(key =>{
             let npc = this.NPCs[key];
             npc.id = key;
@@ -97,7 +91,6 @@ class OverworldMap {
 window.OverworldMaps = {
     TestRoom: {
         name: "TestRoom",
-        lowerSrc: "src/images/maps/whitepic.png",
         gameObjects: {
         },
         NPCs: {
@@ -194,17 +187,20 @@ window.OverworldMaps = {
         walls : {
         },
         changeMap : {
-            [util.asGridCoord(4,-1)] : ["kitchen",[util.inGrid(3),util.inGrid(7)]],
-            [util.asGridCoord(5,-1)] : ["kitchen",[util.inGrid(4),util.inGrid(7)]],
+            [util.asGridCoord(14,7)] : ["kitchen",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(16,10)] : ["kitchen",[util.inGrid(13),util.inGrid(21)]],
         },
     },
 
     kitchen : {
         name: "Kitchen",
-        lowerSrc : "images/maps/kitchen.png",
+        gameObjects: {
+        },
+        walls : {
+        },
         changeMap : {
-            [util.asGridCoord(3,8)] : ["CPP", [util.inGrid(4),util.inGrid(0)]],
-            [util.asGridCoord(4,8)] : ["CPP", [util.inGrid(5),util.inGrid(0)]],
+            [util.asGridCoord(12,22)] : ["TestRoom",[util.inGrid(14),util.inGrid(8)]],
+            [util.asGridCoord(13,22)] : ["TestRoom",[util.inGrid(14),util.inGrid(8)]],
         },
     }
 }

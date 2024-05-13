@@ -24,12 +24,13 @@ class MainWorld {
     }
     
     startGameLoop() {
+
         const step = () => {
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // Draw Lower layer
-            window.currentMap.drawLowerImage(this.ctx);
+            // window.currentMap.drawLowerImage(this.ctx);
 
             // update map
 
@@ -132,16 +133,12 @@ class MainWorld {
                 storyFlags: flags,
             });
 
-            console.log(window.Player.storyFlags)
             util.createAllObjects();
 
-            const levelImage = new Image();
-            levelImage.src = 'src/images/maps/CPP.png';
-            levelImage.onload = function() {
-                util.crateMap(gameState.mapName,levelImage);
-            };
+            util.prepareMAP("TestRoom",'src/images/maps/CPP.png' );
+            util.prepareMAP("kitchen",'src/images/maps/E3.png' );
 
-            // Assuming the game state includes the name of the map to start
+            
             this.startMap(window.OverworldMaps[gameState.mapName]);
 
             // Start capturing direction input

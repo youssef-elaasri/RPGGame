@@ -73,6 +73,7 @@ class OverworldMap {
             this.overworld.startMap(window.OverworldMaps[newMap[0]]);
             window.Player.x = newMap[1][0];
             window.Player.y = newMap[1][1];
+            socket.emit('changeMap', newMap[0]);
         }
     }
 

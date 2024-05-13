@@ -26,25 +26,28 @@ function initializeSocket() {
             player.x = data.x;
             player.y = data.y;
             player.direction = data.direction;
-            player.map = data.map;
+        } else {
+            if (data.id !== socket.id) { // Avoid adding itself
+                window.currentMap.addPlayer(data);
+            }
         }
     });
 
     // Get list of connected users upon login
     socket.on('existingPlayers', function(players) {
+        // Add only players who are in the same map
         Object.values(players).forEach(player => {
-            if (player.id !== socket.id) { // Avoid adding itself
-                window.currentMap.addPlayer(player);
-            }
+            window.currentMap.addPlayer(player);
         });
     });
 
     socket.on('newPlayer', function(player) {
+        console.log(player)
         window.currentMap.addPlayer(player);
     });
 
+    // Remove player when he changes map or disconnects
     socket.on('playerDisconnected', function(data) {
-        console.log("Player disconnected:", data.id);
         delete window.currentMap.players.delete(data.id);
     });
 
@@ -70,7 +73,6 @@ function sendPlayerPosition() {
         x: window.Player.x,
         y: window.Player.y,
         direction: window.Player.direction,
-        map: window.currentMap.name
     };
     socket.emit('updatePosition', positionData);
 }

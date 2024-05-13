@@ -29,28 +29,22 @@ class MainWorld {
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
-            // Draw Lower layer
-            // window.currentMap.drawLowerImage(this.ctx);
-
             // update map
-
             window.currentMap.updateMap();
 
-            // Update game objects
+            // Update game objects, NPCs and players
             Object.values(window.currentMap.gameObjects).forEach(object => {
                 object.update({
                     arrow : this.directionInput.direction,
                     map : window.currentMap,
                 });
-            }) 
-
+            })
             Object.values(window.currentMap.NPCs).forEach(object => {
                 object.update({
                     arrow : this.directionInput.direction,
                     map : window.currentMap,
                 });
             })
-
             window.currentMap.players.forEach((value, key) => {
                 value.update({
                     arrow : value.direction,
@@ -124,7 +118,6 @@ class MainWorld {
                 return acc;
             }, {});
 
-            console.log(flags);
             // If a saved game state exists, use it to initialize the player and map
             window.Player = new Person({
                 isPlayerControlled: true,
@@ -136,10 +129,10 @@ class MainWorld {
 
             util.createAllObjects();
 
-            util.prepareMAP("TestRoom",'src/images/maps/CPP.png' );
-            util.prepareMAP("kitchen",'src/images/maps/E3.png' );
+            util.prepareMAP("CPP",'src/images/maps/CPP.png' );
+            util.prepareMAP("lobby",'src/images/maps/E3.png' );
 
-            
+            console.log(window.OverworldMaps[gameState.mapName]);
             this.startMap(window.OverworldMaps[gameState.mapName]);
 
             // Start capturing direction input

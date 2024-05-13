@@ -1,14 +1,15 @@
 #!/bin/bash
 
-# Check if two arguments are provided
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <file1> <file2>"
+# Check if three arguments are provided
+if [ "$#" -ne 3 ]; then
+    echo "Usage: $0 <file1> <file2> <content>"
     exit 1
 fi
 
 # Assign arguments to variables
 file1="$1"
 file2="$2"
+content="$3"
 
 # Source and destination directories
 source_dir="./python_scripts/"
@@ -20,11 +21,6 @@ if [ ! -f "$source_dir/$file1" ]; then
     exit 1
 fi
 
-if [ ! -f "$source_dir/$file2" ]; then
-    echo "Error: $file2 does not exist in $source_dir."
-    exit 1
-fi
-
 # Copy file1 to destination directory
 cp "$source_dir/$file1" "$destination_dir/"
 cp_exit_code=$?
@@ -33,11 +29,11 @@ if [ $cp_exit_code -ne 0 ]; then
     exit 1
 fi
 
-# Move file2 to destination directory
-mv "$source_dir/$file2" "$destination_dir/"
-mv_exit_code=$?
-if [ $mv_exit_code -ne 0 ]; then
-    echo "Error: Failed to move $file2 to $destination_dir."
+# Create new file in destination directory with content
+echo "$content" > "$destination_dir/$file2"
+create_exit_code=$?
+if [ $create_exit_code -ne 0 ]; then
+    echo "Error: Failed to create $file2 in $destination_dir."
     exit 1
 fi
 

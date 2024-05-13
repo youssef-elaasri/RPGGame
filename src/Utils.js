@@ -496,6 +496,13 @@ const util = {
     },
     togglePlayerControlled(){
         window.Player.isPlayerControlled = !window.Player.isPlayerControlled;
+    },
+    prepareMAP(mapName, src) {
+        const levelImage = new Image();
+        levelImage.src = src;
+        levelImage.onload = function() {
+            util.crateMap(mapName,levelImage);
+        }
     }
 }
 

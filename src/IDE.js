@@ -85,8 +85,8 @@ const IDE = {
                 console.error('fetch operation failed: ', error);
             })
 
-        let runHandler = e => {
-            fetch('http://localhost:8080/python', {
+        async function runHandler (e) {
+            await fetch('http://localhost:8080/python', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -113,7 +113,8 @@ const IDE = {
                 .catch(error => {
                     console.error('fetch operation failed: ', error);
                 })
-
+            window.Player.isWaitingExecution = false;
+            window.Player.isPlayerControlled = true;
             document.removeEventListener('run', runHandler);
         }
 
@@ -131,9 +132,11 @@ const IDE = {
         this.deleteIDE();
     },
     executeTests(doerId) {
+        this.closeIDE();
+        window.Player.isWaitingExecution = true;
+        window.Player.isPlayerControlled = false;
         util.emitEvent('run', {doerId: doerId})
         window.currentNPC.currentDialogueIndex = 0;
         window.currentNPC = null;
-        this.closeIDE();
     }
 }

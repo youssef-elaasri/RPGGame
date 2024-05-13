@@ -45,7 +45,7 @@ class DirectionInput {
             if (e.key === ' ' && window.IDEdisplayed !== true) {
                 if (document.activeElement === document.getElementById('chatInput')) {
                     // Do nothing if the chat input is focused
-                } else {
+                } else if (window.Player.isWaitingExecution === false) {
                     e.preventDefault(); // Prevent any default action to ensure smooth behavior
                     const nearbyNPC = window.currentMap.findNearbyNPC();
                     if (nearbyNPC) {

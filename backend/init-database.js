@@ -31,8 +31,15 @@ async function resetDatabase() {
 
             // Populate the database
             const maps = await Map.bulkCreate([
-                { map_name: 'TestRoom' },
-                { map_name: 'kitchen' },
+                { map_name: 'CPP' },
+                { map_name: 'lobby' },
+                { map_name: 'E3' },
+                { map_name: 'felma' },
+                { map_name: 'papet' },
+                { map_name: 'imag' },
+                { map_name: 'GI' },
+                { map_name: 'polytech' },
+                { map_name: 'IAE' },
             ]);
             console.log('- Added all MAPS');
 

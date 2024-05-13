@@ -89,8 +89,8 @@ class OverworldMap {
 
 
 window.OverworldMaps = {
-    TestRoom: {
-        name: "TestRoom",
+    CPP: {
+        name: "CPP",
         gameObjects: {
         },
         NPCs: {
@@ -187,19 +187,19 @@ window.OverworldMaps = {
         walls : {
         },
         changeMap : {
-            [util.asGridCoord(14,7)] : ["kitchen",[util.inGrid(13),util.inGrid(21)]],
+            [util.asGridCoord(14,7)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
         },
     },
 
-    kitchen : {
-        name: "Kitchen",
+    lobby : {
+        name: "lobby",
         gameObjects: {
         },
         walls : {
         },
         changeMap : {
-            [util.asGridCoord(12,22)] : ["TestRoom",[util.inGrid(14),util.inGrid(8)]],
-            [util.asGridCoord(13,22)] : ["TestRoom",[util.inGrid(14),util.inGrid(8)]],
+            [util.asGridCoord(12,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
+            [util.asGridCoord(13,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
         },
     }
 }

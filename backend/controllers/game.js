@@ -129,7 +129,7 @@ module.exports = {
             if (!created) {
                 await lobbySave.update({ userId, mapId });
             }
-
+            console.log(lobbySave);
             return res.status(201).json({ message: 'Lobby saved successfully', lobbySave });
         } catch (error) {
             console.error('Failed to save lobby:', error);

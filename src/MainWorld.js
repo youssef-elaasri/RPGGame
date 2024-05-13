@@ -25,13 +25,13 @@ class MainWorld {
     
     startGameLoop() {
 
-        const step = () => {
+        const step = async () => {
 
             // This clears the canva each time so there are no unwanted frames left
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
             // update map
-            window.currentMap.updateMap();
+            await window.currentMap.updateMap();
 
             // Update game objects, NPCs and players
             Object.values(window.currentMap.gameObjects).forEach(object => {

@@ -183,7 +183,7 @@ async function saveGame() {
         }
 
         const result = await response.json();
-        console.log('Game state saved successfully:', result);
+        //console.log('Game state saved successfully:', result);
         return result;
     } catch (error) {
         console.error('Error saving game state:', error);
@@ -208,7 +208,7 @@ async function loadGame(userId) {
         }
 
         const gameState = await response.json();
-        console.log('Game state loaded successfully:', gameState);
+        //console.log('Game state loaded successfully:', gameState);
 
         return gameState;
     } catch (error) {
@@ -266,7 +266,7 @@ async function loadLobby() {
         }
 
         const lobbyState = await response.json();
-        console.log('Lobby state loaded successfully:', lobbyState);
+        //console.log('Lobby state loaded successfully:', lobbyState);
 
         return lobbyState;
     } catch (error) {

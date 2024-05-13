@@ -18,6 +18,7 @@ class OverworldMap {
         // this.lowerImage.src = config.lowerSrc;
 
         this.isCutScenePlaying = false;
+        this.lobbyDoor = config.lobbyDoor;
 
     }
 
@@ -67,24 +68,46 @@ class OverworldMap {
         return null;
     }
 
-    updateMap() {
-        const newMap = this.changeMap[`${window.Player.x},${window.Player.y}`]
-        if (newMap) {
-            if (newMap[0] === "lobby") {
-                // If we enter the lobby, save the last map the player was in
-                saveLobby(window.currentMap.name)
-                    .then(/* nothing */)
-            } else if (window.currentMap.name === 'lobby') {
-                loadLobby()
-                    .then(res => {
-                        console.log(res);
-                    })
+
+    async updateMap() {
+        const newMap = this.changeMap[`${window.Player.x},${window.Player.y}`];
+    
+        if (!newMap) return;
+    
+        const mapName = newMap[0];
+        const newCoordinates = newMap[1];
+    
+        // Function to update player position and change map
+        const updateMapAndPlayerPosition = (mapKey, x, y) => {
+            this.overworld.startMap(window.OverworldMaps[mapKey]);
+            window.Player.x = x;
+            window.Player.y = y;
+        };
+    
+        if (mapName === "lobby") {
+            try {
+                // Save last map when entering the lobby
+                await saveLobby(window.currentMap.name);
+                updateMapAndPlayerPosition(mapName, newCoordinates[0], newCoordinates[1]);
+                saveGame()
+                .then(socket.emit('changeMap', mapName))
+            } catch (error) {
+                console.error('Failed to save lobby:', error);
             }
-            this.overworld.startMap(window.OverworldMaps[newMap[0]]);
-            window.Player.x = newMap[1][0];
-            window.Player.y = newMap[1][1];
-            saveGame().
-                then(socket.emit('changeMap', newMap[0]))
+        } else if (window.currentMap.name === 'lobby') {
+            try {
+                const res = await loadLobby();
+                console.log(res);
+                updateMapAndPlayerPosition(res, window.OverworldMaps[res].lobbyDoor[0], window.OverworldMaps[res].lobbyDoor[1]);
+                saveGame()
+                .then(socket.emit('changeMap', res))
+            } catch (error) {
+                console.error('Failed to load lobby:', error);
+            }
+        } else {
+            updateMapAndPlayerPosition(mapName, newCoordinates[0], newCoordinates[1]);
+            saveGame()
+                .then(socket.emit('changeMap', mapName))
         }
     }
 
@@ -204,6 +227,7 @@ window.OverworldMaps = {
             [util.asGridCoord(28,48)] : ["E3",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(29,48)] : ["E3",[util.inGrid(4),util.inGrid(1)]],
         },
+        lobbyDoor : [util.inGrid(14),util.inGrid(8)]
     },
 
     lobby : {
@@ -213,8 +237,8 @@ window.OverworldMaps = {
         walls : {
         },
         changeMap : {
-            [util.asGridCoord(12,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
-            [util.asGridCoord(13,22)] : ["CPP",[util.inGrid(14),util.inGrid(8)]],
+            [util.asGridCoord(12,22)] : [null, null],
+            [util.asGridCoord(13,22)] : [null, null],
         },
     },
     E3 : {
@@ -227,7 +251,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["felma",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["felma",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     felma : {
         name : "felma",

@@ -2,6 +2,7 @@ const User = require('./models/user.js');
 const Map = require('./models/map.js');
 const SavePoint = require('./models/savePoint.js');
 const CompletedStages = require('./models/completedStage.js')
+const LobbySave = require('./models/lobbySave.js')
 const bcrypt = require('bcrypt');
 const db = require('./models/database.js');
 

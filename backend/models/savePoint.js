@@ -11,10 +11,6 @@ const SavePoint = sequelize.define('SavePoint', {
     },
     player_x: DataTypes.INTEGER,
     player_y: DataTypes.INTEGER,
-    created_at: {
-        type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
-    },
     userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -35,14 +31,14 @@ const SavePoint = sequelize.define('SavePoint', {
     timestamps: false
 });
 
-User.hasMany(SavePoint, {
+User.hasOne(SavePoint, {
     foreignKey: 'userId',
-    as: 'savePoints'
+    as: 'savePoint'
 });
 
-Map.hasMany(SavePoint, {
+Map.hasOne(SavePoint, {
     foreignKey: 'mapId',
-    as: 'savePoints'
+    as: 'savePoint'
 });
 
 

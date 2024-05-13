@@ -70,10 +70,21 @@ class OverworldMap {
     updateMap() {
         const newMap = this.changeMap[`${window.Player.x},${window.Player.y}`]
         if (newMap) {
+            if (newMap[0] === "lobby") {
+                // If we enter the lobby, save the last map the player was in
+                saveLobby(window.currentMap.name)
+                    .then(/* nothing */)
+            } else if (window.currentMap.name === 'lobby') {
+                loadLobby()
+                    .then(res => {
+                        console.log(res);
+                    })
+            }
             this.overworld.startMap(window.OverworldMaps[newMap[0]]);
             window.Player.x = newMap[1][0];
             window.Player.y = newMap[1][1];
-            socket.emit('changeMap', newMap[0]);
+            saveGame().
+                then(socket.emit('changeMap', newMap[0]))
         }
     }
 

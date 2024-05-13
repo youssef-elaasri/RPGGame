@@ -7,7 +7,8 @@ const router = express.Router({ mergeParams: true }); // mergeParams is useful t
 router.get('/load', game.loadGame);
 router.post('/save', game.saveGame);
 
-// Route for saving a completed stage
-// router.post('/stage/complete', )
+
+router.get('/loadLobby', game.lobbyLoad);
+router.post('/saveLobby', game.lobbySave);
 
 module.exports = router;

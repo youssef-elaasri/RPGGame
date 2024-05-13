@@ -188,7 +188,6 @@ window.OverworldMaps = {
         },
         changeMap : {
             [util.asGridCoord(14,7)] : ["kitchen",[util.inGrid(13),util.inGrid(21)]],
-            [util.asGridCoord(16,10)] : ["kitchen",[util.inGrid(13),util.inGrid(21)]],
         },
     },
 

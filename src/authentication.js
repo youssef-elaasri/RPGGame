@@ -184,7 +184,6 @@ async function saveGame() {
 
         const result = await response.json();
         console.log('Game state saved successfully:', result);
-        alert('Game saved successfully');
         return result;
     } catch (error) {
         console.error('Error saving game state:', error);
@@ -217,6 +216,66 @@ async function loadGame(userId) {
         return null;
     }
 }
+
+async function saveLobby(mapName) {
+    // Obtain the current game state
+    const userId = window.Player.id;
+    const token = localStorage.getItem('authToken');
+    try {
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/saveLobby`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': `${token}`,
+            },
+            body: JSON.stringify({
+                mapName: mapName,
+            }),
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            console.error('Error saving game state:', error);
+            return null;
+        }
+
+        const result = await response.json();
+        console.log('Saved previous map successfully:', result);
+        return result;
+    } catch (error) {
+        console.error('Error saving game state:', error);
+        return null;
+    }
+}
+
+
+async function loadLobby() {
+    const userId = window.Player.id;
+    const token = localStorage.getItem('authToken');
+    try {
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/loadLobby`, {
+            method: 'GET',
+            headers: {
+                'x-access-token': `${token}`
+            }
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            console.error('Error loading lobby state:', error);
+            return null;
+        }
+
+        const lobbyState = await response.json();
+        console.log('Lobby state loaded successfully:', lobbyState);
+
+        return lobbyState;
+    } catch (error) {
+        console.error('Error loading lobby state:', error);
+        return null;
+    }
+}
+
+
 
 function changePassword() {
     const currentPassword = document.getElementById('currentPassword').value;

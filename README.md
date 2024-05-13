@@ -1,4 +1,59 @@
 # Projet-filé-RPG-2D
+## Authors
+- [Dehbi Yakoub](https://github.com/dehbiy)
+- [Elaasri Youssef](https://github.com/youssef-elaasri)
+- [Benabdellah Achraf](https://github.com/benabach)
+
+## Description
+
+
+# Table des matières
+
+# Utilisation
+
+
+# Architecture
+
+## Frontend
+
+### HTML
+
+### CSS
+
+### Classes JS
+
+### Images
+
+### Testes
+
+## Backend
+
+### Technologies Utilisées
+- Node.js: 
+- Express.js:
+- Dockerode:
+- Sequelize:
+  
+### Docker
+
+### Python Scripts
+
+### Models
+
+### Controllers
+
+### Multiplayer
+
+### Securitée
+
+### Testes
+
+
+# Bugs
+
+# Difficultées
+
+# Prospection pour l'avenir
 
 
 ```plantuml

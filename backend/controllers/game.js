@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const User = require('../models/user');
 const SavePoint = require('../models/savePoint');
+const LobbySave = require('../models/lobbySave');
 const Map = require('../models/map');
 const CompletedStage = require('../models/completedStage');
 
@@ -13,10 +14,8 @@ module.exports = {
             const user = await User.findByPk(userId, {
                 include: [{
                     model: SavePoint,
-                    as: 'savePoints',
+                    as: 'savePoint',
                     include: [{ model: Map, as: 'map' }],
-                    order: [['created_at', 'DESC']],
-                    limit: 1,
                 }],
             });
 
@@ -24,11 +23,11 @@ module.exports = {
                 return res.status(404).json({ error: 'User not found' });
             }
 
-            if (!user.savePoints || user.savePoints.length === 0) {
+            if (!user.savePoint) {
                 return res.status(404).json({ error: 'No save point found for the user' });
             }
 
-            const lastSavePoint = user.savePoints[0];
+            const lastSavePoint = user.savePoint;
 
             const map = lastSavePoint.map;
 
@@ -67,13 +66,31 @@ module.exports = {
                 return res.status(404).json({ error: 'Map not found' });
             }
 
-            // Create a new save point using consistent field naming as defined in your Sequelize model
-            const savePoint = await SavePoint.create({
-                userId: parseInt(userId), // Make sure userId is correctly typed as an integer
-                mapId: map.id, // Use camelCase as likely defined in your Sequelize model
-                player_x: player_x,
-                player_y: player_y
+            // Check if a save point already exists for this user and map
+            const existingSavePoint = await SavePoint.findOne({
+                where: {
+                    userId: userId
+                }
             });
+
+            let savePoint;
+            if (existingSavePoint) {
+                // Update the existing save point
+                await existingSavePoint.update({
+                    player_x: player_x,
+                    player_y: player_y,
+                    mapId: map.id
+                });
+                savePoint = existingSavePoint;
+            } else {
+                // Create a new save point if one does not exist
+                savePoint = await SavePoint.create({
+                    userId: userId,
+                    mapId: map.id,
+                    player_x: player_x,
+                    player_y: player_y
+                });
+            }
 
             // Handle completed stages if provided
             if (completedStages && completedStages.length > 0) {
@@ -88,5 +105,60 @@ module.exports = {
             console.error('Error saving game:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
-    }
+    },
+    async lobbySave (req, res) {
+        const { userId } = req.params;
+        const { mapName } = req.body;
+        try {
+            const map = await Map.findOne({ where: { map_name: mapName } });
+
+            if (!map) {
+                return res.status(404).json({ error: 'Map not found' });
+            }
+
+            const mapId = map.id
+
+            // Create or update lobby save
+            const [lobbySave, created] = await LobbySave.findOrCreate({
+                where: {
+                    userId: userId,
+                    mapId: mapId
+                },
+            });
+
+            if (!created) {
+                await lobbySave.update({ userId, mapId });
+            }
+
+            return res.status(201).json({ message: 'Lobby saved successfully', lobbySave });
+        } catch (error) {
+            console.error('Failed to save lobby:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+    },
+    async lobbyLoad (req, res) {
+        const { userId } = req.params;
+
+        if (!userId) {
+            return res.status(400).json({ error: 'Missing userId' });
+        }
+
+        try {
+            const lobbySave = await LobbySave.findOne({
+                where: { userId },
+                include: [
+                    { model: User, as: 'user' }, // Ensure 'as' matches the alias in the association
+                    { model: Map, as: 'map' }
+                ]
+            });
+
+            if (!lobbySave) {
+                return res.status(404).json({ error: 'Lobby save not found' });
+            }
+            return res.json(lobbySave.map.map_name);
+        } catch (error) {
+            console.error('Failed to retrieve lobby save:', error);
+            return res.status(500).json({ error: 'Internal server error' });
+        }
+    },
 };

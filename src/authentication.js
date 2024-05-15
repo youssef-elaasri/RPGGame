@@ -266,7 +266,7 @@ async function loadLobby() {
         }
 
         const lobbyState = await response.json();
-        //console.log('Lobby state loaded successfully:', lobbyState);
+        console.log('Lobby state loaded successfully:', lobbyState);
 
         return lobbyState;
     } catch (error) {

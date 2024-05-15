@@ -36,9 +36,9 @@ User.hasOne(SavePoint, {
     as: 'savePoint'
 });
 
-Map.hasOne(SavePoint, {
+Map.hasMany(SavePoint, {
     foreignKey: 'mapId',
-    as: 'savePoint'
+    as: 'savePoints'
 });
 
 

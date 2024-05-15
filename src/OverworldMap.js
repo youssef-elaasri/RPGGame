@@ -60,7 +60,7 @@ class OverworldMap {
 
     findNearbyNPC() {
         // Iterate through NPCs to find one within interaction range of the player
-        for (let npc of Object.values(this.NPCs)) { // Fixme : 30 can be adjusted !!!!
+        for (let npc of Object.values(this.NPCs)) { // Fixme : 16 can be adjusted !!!!
             if (Math.abs(npc.x - window.Player.x) <= 16 && Math.abs(npc.y - window.Player.y) <= 16) {
                 return npc;
             }
@@ -68,46 +68,64 @@ class OverworldMap {
         return null;
     }
 
+    // Handles the entry in the lobby : saves the map name before entering, enters, saves the game and then emits a socket message
+    async handleLobbyEntry (mapName, newCoordinates, updateMapAndPlayerPosition, saveAndEmit) {
+        try {
+            console.log(window.currentMap);
+            await saveLobby(window.currentMap.name);
+            updateMapAndPlayerPosition(mapName, newCoordinates[0], newCoordinates[1]);
+            await saveAndEmit(mapName);
+        } catch (error) {
+            console.error('Failed to save lobby:', error);
+            throw error;
+        }
+    };
 
+
+    // Handles a lobby exit : loads the map where the player will enter, enters, saves the game and then emits a socket message
+    async handleLobbyExit  (updateMapAndPlayerPosition, saveAndEmit) {
+        try {
+            const res = await loadLobby();
+            console.log(res);
+            updateMapAndPlayerPosition(res, window.OverworldMaps[res].lobbyDoor[0], window.OverworldMaps[res].lobbyDoor[1]);
+            await saveAndEmit(res);
+        } catch (error) {
+            console.error('Failed to load lobby:', error);
+            throw error;
+        }
+    };
+
+    // Checks if the next step of the player should trigger changing the map. If so, the function handles different cases
     async updateMap() {
         const newMap = this.changeMap[`${window.Player.x},${window.Player.y}`];
-    
+
         if (!newMap) return;
-    
-        const mapName = newMap[0];
-        const newCoordinates = newMap[1];
-    
-        // Function to update player position and change map
+
+        const [mapName, newCoordinates] = newMap;
+
         const updateMapAndPlayerPosition = (mapKey, x, y) => {
             this.overworld.startMap(window.OverworldMaps[mapKey]);
             window.Player.x = x;
             window.Player.y = y;
         };
-    
-        if (mapName === "lobby") {
-            try {
-                // Save last map when entering the lobby
-                await saveLobby(window.currentMap.name);
+
+        // Function to save the game and emit a message after entering a new map
+        const saveAndEmit = async (mapName) => {
+            await saveGame();
+            socket.emit('changeMap', mapName);
+        };
+
+        try {
+            if (mapName === "lobby") {
+                await this.handleLobbyEntry(mapName, newCoordinates, updateMapAndPlayerPosition, saveAndEmit);
+            } else if (window.currentMap.name === 'lobby') {
+                await this.handleLobbyExit(updateMapAndPlayerPosition, saveAndEmit);
+            } else {
                 updateMapAndPlayerPosition(mapName, newCoordinates[0], newCoordinates[1]);
-                saveGame()
-                .then(socket.emit('changeMap', mapName))
-            } catch (error) {
-                console.error('Failed to save lobby:', error);
+                await saveAndEmit(mapName);
             }
-        } else if (window.currentMap.name === 'lobby') {
-            try {
-                const res = await loadLobby();
-                console.log(res);
-                updateMapAndPlayerPosition(res, window.OverworldMaps[res].lobbyDoor[0], window.OverworldMaps[res].lobbyDoor[1]);
-                saveGame()
-                .then(socket.emit('changeMap', res))
-            } catch (error) {
-                console.error('Failed to load lobby:', error);
-            }
-        } else {
-            updateMapAndPlayerPosition(mapName, newCoordinates[0], newCoordinates[1]);
-            saveGame()
-                .then(socket.emit('changeMap', mapName))
+        } catch (error) {
+            console.error('Failed to update map:', error);
         }
     }
 

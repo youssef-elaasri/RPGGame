@@ -66,7 +66,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Map not found' });
             }
 
-            // Check if a save point already exists for this user and map
+            // Check if a save point already exists for this user
             const existingSavePoint = await SavePoint.findOne({
                 where: {
                     userId: userId
@@ -118,17 +118,33 @@ module.exports = {
 
             const mapId = map.id
 
-            // Create or update lobby save
-            const [lobbySave, created] = await LobbySave.findOrCreate({
+            if (!mapId) {
+                return res.status(500).json({ error: 'Internal error : Map Id not found' });
+            }
+
+            // Check if a save point already exists for this user
+            const existingSavePoint = await LobbySave.findOne({
                 where: {
                     userId: userId
                 },
             });
 
-            if (!created) {
-                await lobbySave.update({ userId, mapId });
-            }
-            console.log(lobbySave);
+            let lobbySave;
+
+            if (existingSavePoint) {
+                // Update the existing save point
+                await existingSavePoint.update({
+                    mapId: map.id
+                });
+                lobbySave = existingSavePoint;
+            } else {
+                // Create a new save point if one does not exist
+                lobbySave = await LobbySave.create({
+                    userId: userId,
+                    mapId: map.id,
+                });
+        }
+
             return res.status(201).json({ message: 'Lobby saved successfully', lobbySave });
         } catch (error) {
             console.error('Failed to save lobby:', error);
@@ -143,18 +159,19 @@ module.exports = {
         }
 
         try {
-            const lobbySave = await LobbySave.findOne({
-                where: { userId },
-                include: [
-                    { model: User, as: 'user' }, // Ensure 'as' matches the alias in the association
-                    { model: Map, as: 'map' }
-                ]
+            const user = await User.findByPk(userId, {
+                include: [{
+                    model: LobbySave,
+                    as: 'lobbySave',
+                    include: [{ model: Map, as: 'map' }],
+                }],
             });
 
-            if (!lobbySave) {
+            if (!user.lobbySave) {
                 return res.status(404).json({ error: 'Lobby save not found' });
             }
-            return res.json(lobbySave.map.map_name);
+            console.log(user.lobbySave)
+            return res.json(user.lobbySave.map.map_name);
         } catch (error) {
             console.error('Failed to retrieve lobby save:', error);
             return res.status(500).json({ error: 'Internal server error' });

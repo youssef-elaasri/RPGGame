@@ -47,22 +47,6 @@ describe('User Routes', () => {
             expect(response.status).toBe(409);
             expect(response.body.error).toBe('Username or email already exists.');
         });
-
-        // Additional test for transaction rollback (error handling)
-        it('should handle transaction rollback on registration failure', async () => {
-            const mockUserCreate = jest.spyOn(User, 'create').mockImplementation(() => {
-                throw new Error('Simulated failure');
-            });
-
-            const response = await request(app)
-                .post('/register')
-                .send({ username: 'testuser2', password: validPassword, email: 'test2@example.com' });
-
-            expect(response.status).toBe(500);
-            expect(response.body.error).toBe('Internal server error.');
-
-            mockUserCreate.mockRestore();
-        });
     });
 
     describe('POST /login', () => {

@@ -104,6 +104,88 @@ end note
 - Socket.IO:
 ### Docker
 
+**DockerManager** est essentiel pour l'exécution des fichiers Python et des tests Unit. Comme son nom l'indique, DockerManager est basé sur Docker et permet d'avoir un environnement isolé sur la machine pour exécuter des programmes.
+
+<!-- diagramme de classes -->
+```plantuml
+@startuml
+class dockerManager {
+  + docker: Docker
+  + imageName: String
+
+  + createVolume(String volumeName, Size size): void
+  +runContainer(): void
+
+}
+note right of dockerManager::createVolume
+Creates a new volume in Docker.
+This volume is used to store files
+that are executed inside the container.
+The volume created is of type tmpfs
+and has a size limit.
+end note
+
+note right of dockerManager::runContainer
+Runs a Docker container based on the
+specified image.
+In the current project, the image is precreated; app_image.
+The container will execute the loader.sh script.
+end note
+@enduml
+
+```
+<!-- Digramme de sequence -->
+
+```plantuml
+
+@startuml
+actor User
+participant dockerManager
+participant Dockerode
+participant Container
+participant FileSystem
+
+User -> dockerManager: runContainer()
+dockerManager -> Dockerode: create container
+Dockerode -> Container: create container
+Dockerode --> dockerManager: container created
+
+dockerManager -> Dockerode: Attach python_scripts volume
+Dockerode -> Container: Attach /app/python_scripts/ volume
+Dockerode --> dockerManager: volume attached
+
+dockerManager -> Dockerode: Attach exec volume
+Dockerode -> Container: Attach /app/exec/ volume
+Dockerode --> dockerManager: volume attached
+
+
+
+dockerManager -> Dockerode: start container
+Dockerode --> dockerManager: container started
+
+Dockerode -> Container: run loader.sh
+
+Container -> FileSystem: copy <file>_tester.py to exec
+FileSystem --> Container: file copied
+
+Container -> FileSystem: create <file>_suggested with <content>
+FileSystem --> Container: file created
+
+Container -> Container: run python3 file1
+Container -> Dockerode: return exit code
+
+Dockerode --> dockerManager: script executed
+dockerManager -> Dockerode: delete container
+Dockerode -> Container: delelte
+
+Dockerode --> dockerManager: container deleted
+
+@enduml
+
+```
+
+
+
 ### Python Scripts
 <!-- Explication de la gestion des scripts python -->
 

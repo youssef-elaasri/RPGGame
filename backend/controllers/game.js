@@ -170,7 +170,6 @@ module.exports = {
             if (!user.lobbySave) {
                 return res.status(404).json({ error: 'Lobby save not found' });
             }
-            console.log(user.lobbySave)
             return res.json(user.lobbySave.map.map_name);
         } catch (error) {
             console.error('Failed to retrieve lobby save:', error);

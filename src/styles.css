@@ -18,7 +18,7 @@ body, html {
 }
 
 nav {
-    background: url('images/topBar_bg.png') no-repeat center center;
+    background: url('../backend/images/topBar_bg.png') no-repeat center center;
     background-size: cover;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     color: #fff;

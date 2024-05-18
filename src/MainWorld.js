@@ -130,15 +130,15 @@ class MainWorld {
 
             util.createAllObjects();
 
-            util.prepareMAP("CPP",'src/images/maps/CPP.png' );
-            util.prepareMAP("lobby",'src/images/maps/lobby.png' );
-            util.prepareMAP("E3",'src/images/maps/E3.png' );
-            util.prepareMAP("felma",'src/images/maps/felma.png' );
-            util.prepareMAP("papet",'src/images/maps/papet.png' );
-            util.prepareMAP("GI",'src/images/maps/GI.png' );
-            util.prepareMAP("polytech",'src/images/maps/polytech.png' );
-            util.prepareMAP("IAE",'src/images/maps/IAE.png' );
-            util.prepareMAP("imag",'src/images/maps/imag.png' );
+            util.prepareMAP("CPP",backend + '/images/maps/CPP.png' );
+            util.prepareMAP("lobby",backend + '/images/maps/lobby.png' );
+            util.prepareMAP("E3",backend + '/images/maps/E3.png' );
+            util.prepareMAP("felma",backend + '/images/maps/felma.png' );
+            util.prepareMAP("papet",backend + '/images/maps/papet.png' );
+            util.prepareMAP("GI",backend + '/images/maps/GI.png' );
+            util.prepareMAP("polytech",backend + '/images/maps/polytech.png' );
+            util.prepareMAP("IAE",backend + '/images/maps/IAE.png' );
+            util.prepareMAP("imag",backend + '/images/maps/imag.png' );
 
             this.startMap(window.OverworldMaps[gameState.mapName]);
 

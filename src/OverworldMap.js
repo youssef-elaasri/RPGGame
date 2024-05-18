@@ -79,7 +79,7 @@ class OverworldMap {
             console.error('Failed to save lobby:', error);
             throw error;
         }
-    };
+    }
 
 
     // Handles a lobby exit : loads the map where the player will enter, enters, saves the game and then emits a socket message
@@ -93,7 +93,7 @@ class OverworldMap {
             console.error('Failed to load lobby:', error);
             throw error;
         }
-    };
+    }
 
     // Checks if the next step of the player should trigger changing the map. If so, the function handles different cases
     async updateMap() {

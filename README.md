@@ -303,12 +303,21 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
 
 ## Backend
 <!-- Description du backend -->
+
+### Node Scripts
+- rebuild-image: permet de créer une image **app_image** si elle n'existe pas.
+- init:reset: permet d'initier la base de données et la repeupler.
+- setup: C'est le premier script qu'il faut lancer en back. Il permet de créer l'image et la base de données pour faire fonctionner le back.
+- start: permet de lancer la serveur backend avec **nodemon**
+- test: comme son nom l'indique, elle permet de tester back avec jest et d'avoir le coverage.
+
 ### Technologies Utilisées
 - Node.js : est l'environnement d'exécution principal de notre application côté serveur.
 - Express.js : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.
 - Dockerode : est utilisé dans dockerManager.js pour interagir avec l'API Docker. Il permet de gérer les conteneurs Docker qui exécutent les défis Python soumis par les joueurs, assurant ainsi une isolation et une évaluation sécurisée du code.
 - Sequelize : est utilisé pour interagir avec notre base de données MySQL. Nous avons choisi d'intégrer Sequelize à notre projet pour faciliter le déploiement.
 - Socket.IO : gère les événements de jeu en direct, comme les déplacements des joueurs et les discussions en temps réel.
+
 ### Docker
 
 **DockerManager** est essentiel pour l'exécution des fichiers Python et des tests Unit. Comme son nom l'indique, DockerManager est basé sur Docker et permet d'avoir un environnement isolé sur la machine pour exécuter des programmes.
@@ -502,10 +511,6 @@ createVolume(volumeName, size){
 }
 ```
 
-Un script malveillant peut cependant exploiter une faille de securité[^1] dans Docker. Un conteneure enregistre tous les logs dans un fichier .json et le stock dans la mémoire tant que le cintenaire est en vie. Une boucle infinie par exemple qui fait des prints peut consomer toute la mémoire de la machine host[^2]. Pour Remedier 0 cela nous limitant la taille du fichier log à *10o*:
-
-[^1]: Ce n'est pas une faille de sécurité mais plus le comportement par defauts des conteneures docker.
-[^2]: Nous avons sacrifié une machine pour decouvrir ce bug. Merci à Achhraf :' ) 
 **Diagrame de sequence** pour les différents scènarios
 ```plantuml
 @startuml
@@ -581,6 +586,7 @@ Le déploiement de l'application n'a malheureusement pas pu être réalisé. Not
 - En ce qui concerne la sécurité, en théorie, le script a seulement accès en lecture aux fichiers en dehors de *app/exec* dans le conteneur. Cela signifie qu'il peut notamment lire les fichiers de test situés dans *app/python_scripts*, qui contiennent les solutions aux défis. Cependant, si le but initial du projet est de mettre à l'épreuve les compétences des joueurs en Python, est-ce que le fait qu'ils parviennent à trouver la solution en trichant avec leurs propres scripts Python ne signifie pas simplement qu'ils sont compétents en Python et qu'ils méritent... ?
 
 # Difficultées
+-
 
 # Prospection pour l'avenir
 

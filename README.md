@@ -269,7 +269,7 @@ createVolume(volumeName, size){
 }
 ```
 
-**Diagrame de sequence**
+**Diagrame de sequence** pour les différents scènarios
 ```plantuml
 @startuml
 participant dockerManager
@@ -290,11 +290,6 @@ app -> Container: Permission denied
 Container -> dockerManager: Exit code 1
 @enduml
 ```
-
-Un script malveillant peut cependant exploiter une faille de securité[^1] dans Docker. Un contenaire enregistre tous les logs dans un fichier .json et le stock dans la mémoire tant que le cintenaire est en vie. Une boucle infinie par exemple qui fait des prints peut consomer toute la mémoire de la machine host[^2]. Pour Remedier 0 cela nous limitant la taille du fichier log à *10o*:
-
-[^1]: Ce n'est pas une faille de sécurité mais plus le comportement par defauts des contenaires docker.
-[^2]: Nous avons sacrifié une machine pour decouvrir ce bug. Merci à Achhraf :' ) 
 
 Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans Docker. Un contenair enregistre tous les logs dans un fichier *.json* et les stocke en mémoire tant que le contenaor est en vie. Une boucle infinie, par exemple, qui effectue des impressions peut consommer toute la mémoire de la machine hôte[^2]. Pour remédier à cela, nous limitons la taille du fichier de log à *10 MB*. De plus, tous les testes python impose une limite de temps de 10 secondes.
 

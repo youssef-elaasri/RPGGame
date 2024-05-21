@@ -376,7 +376,7 @@ participant FileSystem
 
 
 User -> Frontend: Clicks Run
-Frontend -> dockerManager: RunContainer()
+Frontend -> dockerManager: run script
 
 dockerManager -> Dockerode: create container
 Dockerode -> Container: create container

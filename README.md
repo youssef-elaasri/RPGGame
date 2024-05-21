@@ -1,4 +1,5 @@
-# Projet de Spécialité : INP Legends
+### Projet de Spécialité : INP Legends
+
 ## Authors
 - [Dehbi Yakoub](https://github.com/dehbiy)
 - [Elaasri Youssef](https://github.com/youssef-elaasri)
@@ -11,14 +12,46 @@
 Ce document présente un compte rendu d'un projet de spécialité web. En bref, c'est un RPG 2D où le joueur doit résoudre des défis de programmation en Python. Nous présentons dans ce rapport un cahier des charges et notre implémentation correspondante.
 
 # Table des matières
+- [Cahier des Charges](#cahier-des-charges)
+  - [Description du Jeu](#description-du-jeu)
+  - [Cas d'Usages](#cas-dusages)
+  - [Diagrammes Séquentielles](#diagrammes-sequentielles)
+- [Notre Avancement](#notre-avancement)
+- [Architecture du Projet](#architecture-du-projet)
+  - [Frontend](#frontend)
+    - [Aperçu](#apercu)
+    - [Technologies Utilisées](#technologies-utilisees)
+    - [Structure du Projet](#structure-du-projet)
+    - [Fonctionnalités Principales](#fonctionnalites-principales)
+    - [Logique du Jeu](#logique-du-jeu)
+    - [Algorithme d'affichage des objets et des NPC](#algorithme-daffichage-des-objets-et-des-npc)
+    - [Algorithme de Génération Dynamique des Maps](#algorithme-de-génération-dynamique-des-maps)
+    - [Tests Frontend](#tests-frontend)
+  - [Backend](#backend)
+    - [Structure](#structure)
+    - [Node Scripts](#node-scripts)
+    - [Technologies Utilisées](#technologies-utilisees)
+    - [Docker](#docker)
+    - [Schéma de la Base de Données](#schema-de-la-base-de-donnees)
+    - [Rest API](#rest-api)
+    - [Multijoueur](#multijoueur)
+    - [Sécurité](#securite)
+    - [Tests Backend](#tests-backend)
+- [CI / CD](#ci--cd)
+  - [Intégration](#integration)
+  - [Déploiement](#deploiement)
+- [Aspects d'amélioration](#aspects-damelioration)
+- [Difficultés](#difficultes)
+- [Prospection pour l'avenir](#prospection-pour-lavenir)
 
-# Cahier des Charges
-## Description du Jeu
-<!-- Expliquer brièvement l'atmosphère du jeu -->
+## Cahier des Charges
+### Description du Jeu
 Dans "INP Legends", un jeu RPG-2D web qui se déroule dans l'atmosphère de Grenoble INP en l'an 2077, les joueurs sont plongés au cœur d'une épopée futuriste. L'intrigue se déploie autour d'une intelligence artificielle de pointe qui, ayant échappé à ses créateurs, sème le chaos dans le campus.
 Conçu comme une expérience éducative immersive, ce jeu invite les joueurs à relever une série de défis de programmation ingénieux. L'objectif est double : neutraliser l'intelligence artificielle rebelle et restaurer la sérénité au sein de l'INP. À travers cette quête, "INP Legends" ne se contente pas de divertir ; il vise à aiguiser les compétences en programmation des joueurs tout en préservant l'équilibre entre éducation et divertissement.
 
-## Cas d'Usages
+### Cas d'Usages
+L'ensemble des cas d'utilisation de notre jeu peuvent être représenté par le diagramme suivant :
+
 ```plantuml
 @startuml
 !theme plain
@@ -80,28 +113,25 @@ end note
 @enduml
 ```
 
-## Diagrammes Séquentielles
+
+### Diagrammes Séquentielles
 Voici quelques diagrammes séquentielles pour les principales utilisations du jeu.
 
-
-
-# Notre Avancement
+## Notre Avancement
 Nous avons pu couvrir la majorité du cahier des charges. À l'heure actuelle, notre application est capable de générer des cartes dynamiquement, de permettre au joueur de se déplacer, et d'interagir avec des NPCs (personnages non-joueurs) qui peuvent proposer des défis Python, exécuter et évaluer ce code, et enfin sauvegarder la progression du joueur. Le joueur peut, entre autres, se déplacer entre les salles et discuter avec les personnages présents dans ces salles. 
 
-# Architecture du Projet
-Notre projet est constitué de deux grandes parties, un `FrontEnd` en simple HTML, CSS et JS, et un `BackEnd` en NodeJS.
-## Frontend
-## Aperçu
+## Architecture du Projet
+### Frontend
+#### Aperçu
 Le frontend de INP Legends est conçu pour offrir une expérience interactive et fluide aux joueurs. Il intègre plusieurs composants clés, notamment une fenêtre de jeu, une fonctionnalité de chat, un panneau de profil joueur et un système d'authentification. L'application utilise des technologies web modernes et des bibliothèques pour assurer une interface utilisateur réactive et engageante.
 
-## Technologies Utilisées
+#### Technologies Utilisées
 - **HTML5** pour la structuration de la page web.
 - **CSS3** avec des bibliothèques externes comme Pico.css et Font Awesome pour le style.
 - **JavaScript** pour le script côté client, incluant divers modules pour gérer la logique du jeu, l'authentification, le chat et le profil joueur.
 
-## Structure du Projet
-
-### Fichier `index.html`
+#### Structure du Projet
+##### Fichier `index.html`
 Le fichier `index.html` constitue la base de l'application et inclut les éléments suivants :
 - **En-tête (`<head>`)** : comprend les liens vers les feuilles de style externes et les polices.
 - **Corps (`<body>`)** :
@@ -109,10 +139,10 @@ Le fichier `index.html` constitue la base de l'application et inclut les éléme
   - **Panneau de profil** : une section cachée par défaut, affichant les informations du joueur et permettant la modification du mot de passe.
   - **Modal d'authentification** : une fenêtre modale pour la connexion et l'inscription des utilisateurs.
 
-### Feuilles de Style
+##### Feuilles de Style
 - `src/styles.css` : contient les styles personnalisés pour l'application.
 
-### Scripts JavaScript
+##### Scripts JavaScript
 - **Bibliothèques externes** : `socket.io`, `jQuery`, et `Ace Editor`.
 - **Scripts personnalisés** :
   - `src/socket.js` : gère la connexion WebSocket.
@@ -124,7 +154,7 @@ Le fichier `index.html` constitue la base de l'application et inclut les éléme
   - `src/DirectionInput.js` : gère les entrées de direction pour le contrôle du jeu.
   - `src/GameObject.js`, `src/Person.js`, `src/NPC.js`, `src/Sprite.js`, `src/OverworldMap.js`, `src/OverworldEvent.js`, `src/MainWorld.js`, `src/init.js` : gèrent les différents aspects et objets du jeu.
 
-## Fonctionnalités Principales
+#### Fonctionnalités Principales
 - **Fenêtre de Jeu** : affiche le jeu et permet l'interaction avec le joueur.
 - **Chat** : permet aux joueurs de communiquer en temps réel.
 - **Profil Joueur** : affiche les informations du joueur et permet la modification du mot de passe.
@@ -132,16 +162,16 @@ Le fichier `index.html` constitue la base de l'application et inclut les éléme
 - **Contrôles du Jeu** : inclut des boutons pour sauvegarder le jeu, passer en plein écran, et se déconnecter.
 - **chalenges python** : affiche un IDE pour permettre à l'utilisateur de saisir un code python.
 
-## Logique du Jeu
+#### Logique du Jeu
 
-### Affichage et Navigation
+##### Affichage et Navigation
 Le jeu est affiché sur un canvas HTML, et la navigation se fait à l'aide des touches directionnelles du clavier. Le joueur peut se déplacer sur la carte, qui est rendue à l'aide de la classe `OverworldMap`.
 
 - **`OverworldMap.js`** : gère la carte du monde. Elle charge les tuiles de la carte et place les objets et les personnages (joueurs et NPC) à leurs positions initiales.
 - **`Sprite.js`** : gère les sprites, c'est-à-dire les images des personnages et des objets animés. Elle prend en charge l'animation et le rendu des sprites sur le canvas.
 - **`DirectionInput.js`** : capture les entrées directionnelles du clavier et les traduit en mouvements pour le personnage principal.
 
-### Interaction avec les NPC
+##### Interaction avec les NPC
 Les joueurs peuvent interagir avec les NPC (Personnages Non Joueurs) en s'approchant d'eux et en appuyant sur une touche d'interaction "espace".
 
 - **`Person.js`** : représente un personnage, joueur ou NPC. Elle gère les propriétés de base comme la position, la vitesse et les méthodes de déplacement.
@@ -170,9 +200,9 @@ Le jeu est initialisé et configuré à l'aide des scripts suivants :
 - **`init.js`** : initialise le jeu en configurant les paramètres de base et en lançant le moteur de jeu.
 - **`MainWorld.js`** : gère le monde principal du jeu, en coordonnant les différentes cartes et en contrôlant les transitions entre elles.
 
-## Algorithme d'affichage des objets et des NPC
+### Algorithme d'affichage des objets et des NPC
 
-## Fonction `updateMap()`
+#### Fonction `updateMap()`
 
 La fonction `updateMap()` est chargée de vérifier si le prochain déplacement du joueur devrait déclencher le changement de carte. Si tel est le cas, la fonction gère différents cas de changement de carte.
 
@@ -196,7 +226,7 @@ Les différents cas de changement de carte sont traités de la manière suivante
 
 
 
-### Fonction `startGameLoop()`
+#### Fonction `startGameLoop()`
 
 La fonction `startGameLoop()` représente le cœur de la boucle de jeu. Elle est responsable de l'actualisation et du rendu de tous les éléments visibles à l'écran, y compris les objets et les PNJ.
 
@@ -210,7 +240,7 @@ Une fois que tous les éléments ont été mis à jour, la fonction commence le 
 
 Les objets et PNJ "supérieurs", c'est-à-dire ceux qui doivent être rendus au-dessus des autres éléments, sont également pris en charge. Ils sont dessinés après les autres éléments et sont stockés dans un tableau `window.upperObjects` pour un rendu ultérieur.
 
-### Méthode `draw(ctx)` de la classe `Sprite`
+#### Méthode `draw(ctx)` de la classe `Sprite`
 
 La méthode `draw(ctx)` est chargée de dessiner un objet ou un PNJ sur le canevas en fonction de sa position et de son état actuels par rapport au joueur principal.
 
@@ -221,9 +251,9 @@ La méthode `draw()` gère également la logique d'affichage des différentes im
 Si l'objet doit être dessiné au-dessus des autres éléments, il est ajouté à un tableau `window.upperObjects` pour un rendu ultérieur.
 
 
-## Algorithme de Génération Dynamique des Maps
+### Algorithme de Génération Dynamique des Maps
 
-### Fonction `init(userId)`
+#### Fonction `init(userId)`
 
 La fonction `init()` est responsable de l'initialisation du jeu pour un utilisateur donné. Elle réalise les opérations suivantes :
 
@@ -250,7 +280,7 @@ La fonction `init()` est responsable de l'initialisation du jeu pour un utilisat
 6. **Démarrage de la boucle de jeu** :
    - Démarre la boucle de jeu en appelant `this.startGameLoop()`.
 
-### Fonction `prepareMAP(mapName, src)`
+#### Fonction `prepareMAP(mapName, src)`
 
 La fonction `prepareMAP()` est chargée de préparer une carte spécifique. Voici le processus :
 
@@ -259,7 +289,7 @@ La fonction `prepareMAP()` est chargée de préparer une carte spécifique. Voic
    - Assure que l'image est chargée de manière asynchrone avec `crossOrigin` pour éviter les problèmes de politique de même origine.
    - Une fois l'image chargée, appelle `util.crateMap(mapName, levelImage)`.
 
-### Fonction `crateMap(mapName, image)`
+#### Fonction `crateMap(mapName, image)`
 
 La fonction `crateMap()` convertit une image de carte en objets de jeu placés sur la carte. Voici le processus :
 
@@ -285,7 +315,7 @@ La fonction `crateMap()` convertit une image de carte en objets de jeu placés s
 
    - Les objets ajoutés dépendent des couleurs spécifiques des pixels, représentant différents éléments de la carte (murs, sols, meubles, etc.).
 
-### Fonction `addObject(mapName, object, name, x, y)`
+#### Fonction `addObject(mapName, object, name, x, y)`
 
 La fonction `addObject()` ajoute un objet spécifique à une carte. Elle prend les paramètres suivants :
 
@@ -297,8 +327,10 @@ La fonction `addObject()` ajoute un objet spécifique à une carte. Elle prend l
 Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à un objet.
 
 
-### Tests
+### Tests Frontend
 <!-- Expliquer la difficulté de tester un jeu -->
+Pour les tests Frontend, nous nous limitons aux tests `Cypress` pour la partie authentification et affichage des îcones etc... 
+Nous n'avons pas trouvé de méthode simple pour tester la partie jouabilité.
 
 ## Backend
 ### Structure
@@ -420,7 +452,7 @@ Dockerode --> dockerManager: container deleted
 Le repértoire contient tous les documents nécessaire pour tester les chalenges. Pour les test on utilise la bibliotèque python uittest.
 
 ### Schéma de la Base de Données
-
+Le schéma de la base de données décrit les différentes entités et leurs relations au sein de notre application. Voici un aperçu des tables et de leurs relations :
 <!-- Schéma de la DB -->
 ``` plantuml
 @startuml
@@ -473,8 +505,6 @@ SavePoint "n" -- "1" Map
 ```
 
 ### Rest API
-<!-- Add routes -->
-### API Endpoints
 
 | Méthode | Route                                 | Description                                                |
 |---------|---------------------------------------|------------------------------------------------------------|
@@ -574,8 +604,8 @@ Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans
 ### Tests Backend
 Nous avons utilisé `Jest` et `SuperTest` pour tester notre backend, en couvrant différents aspects de l'application. Nous avons spécifiquement pu testé les routes liées à l'utilisateur et aux sauvegardes. Celles liées à Docker n'ont été testées que manuellement.
 
-# CI / CD
-## Intégration 
+## CI / CD
+### Intégration 
 L'intégration continue (CI) est mise en place pour garantir que le code de notre application est constamment testé et analysé pour des erreurs potentielles. Nous utilisons plusieurs étapes pour linting, tester, et construire notre application.
 
   - Linting : Nous vérifions la qualité du code avec des outils comme ESLint pour les fichiers JavaScript, HTMLHint pour les fichiers HTML, et CSSLint pour les fichiers CSS. Cela nous aide à maintenir un code propre et cohérent.
@@ -584,16 +614,14 @@ L'intégration continue (CI) est mise en place pour garantir que le code de notr
 
   - Build : Nous avons des étapes pour construire le backend (commentées pour l'instant) et le frontend de l'application. Cela permet de compiler notre code et de préparer les artefacts nécessaires pour le déploiement.
 
-## Déploiement
+### Déploiement
 Le déploiement de l'application n'a malheureusement pas pu être réalisé. Notre application exécute du code Python dans des conteneurs Docker, ce qui a rendu difficile la recherche d'un service gratuit d'hébergement. Nous avons trouvé des pistes de solutions, comme par exemple créer une image Docker de notre serveur Node.js et la déployer sur un service cloud, mais nous n'avions pas le temps de découvrir cette piste.
 
-# Aspects d'amélioration
-
-# Difficultées
+## Difficultées
 - L'api du docker n'est pas evidente et peut introduire des failles de sécurité
 - Il est difficile de tester la partie frontend pour un rpg en 2d.
-- Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeux déja existant. Cela dit, la [generation dynamique](##Algorithme-de-Génération-Dynamique-des-Maps) de la map nous a bien facilité la tache.
+- Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeux déja existant. Cela dit, la [generation dynamique](#algorithme-de-génération-dynamique-des-maps) de la map nous a bien facilité la tache.
 
-# Prospection pour l'avenir
+## Prospection pour l'avenir
 
 

@@ -90,7 +90,7 @@ Nous avons pu couvrir la majorité du cahier des charges. À l'heure actuelle, n
 
 # Architecture du Projet
 Notre projet est constitué de deux grandes parties, un `FrontEnd` en simple HTML, CSS et JS, et un `BackEnd` en NodeJS.
-## Frontend
+# Frontend
 ## Aperçu
 Le frontend de INP Legends est conçu pour offrir une expérience interactive et fluide aux joueurs. Il intègre plusieurs composants clés, notamment une fenêtre de jeu, une fonctionnalité de chat, un panneau de profil joueur et un système d'authentification. L'application utilise des technologies web modernes et des bibliothèques pour assurer une interface utilisateur réactive et engageante.
 
@@ -297,8 +297,10 @@ La fonction `addObject()` ajoute un objet spécifique à une carte. Elle prend l
 Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à un objet.
 
 
-### Tests
+### Tests Frontend
 <!-- Expliquer la difficulté de tester un jeu -->
+Pour les tests Frontend, nous nous limitons aux tests `Cypress` pour la partie authentification et affichage des îcones etc... 
+Nous n'avons pas trouvé de méthode simple pour tester la partie jouabilité.
 
 ## Backend
 ### Structure
@@ -420,7 +422,7 @@ Dockerode --> dockerManager: container deleted
 Le repértoire contient tous les documents nécessaire pour tester les chalenges. Pour les test on utilise la bibliotèque python uittest.
 
 ### Schéma de la Base de Données
-
+Le schéma de la base de données décrit les différentes entités et leurs relations au sein de notre application. Voici un aperçu des tables et de leurs relations :
 <!-- Schéma de la DB -->
 ``` plantuml
 @startuml
@@ -473,8 +475,6 @@ SavePoint "n" -- "1" Map
 ```
 
 ### Rest API
-<!-- Add routes -->
-### API Endpoints
 
 | Méthode | Route                                 | Description                                                |
 |---------|---------------------------------------|------------------------------------------------------------|

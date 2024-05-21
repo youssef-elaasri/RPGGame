@@ -40,7 +40,6 @@ Ce document présente un compte rendu d'un projet de spécialité web. En bref, 
 - [CI / CD](#ci--cd)
   - [Intégration](#integration)
   - [Déploiement](#deploiement)
-- [Aspects d'amélioration](#aspects-damelioration)
 - [Difficultés](#difficultes)
 - [Prospection pour l'avenir](#prospection-pour-lavenir)
 
@@ -171,7 +170,7 @@ Le fichier `index.html` constitue la base de l'application et inclut les éléme
 
 - **Bibliothèques externes** : `socket.io`, `jQuery`, et `Ace Editor`.
 - **Scripts personnalisés** :
-  - `src/socket.js` : gère la connexion WebSocket.
+  - `src/socket.js` : gère la connexion SocketIO.
   - `src/authentication.js` : gère les fonctions d'authentification, comme la connexion et l'inscription.
   - `src/chatManager.js` : gère les fonctionnalités de chat en temps réel.
   - `src/playerProfile.js` : gère l'affichage et la mise à jour des informations du profil joueur.
@@ -245,15 +244,15 @@ Des blocs `try` et `catch` gèrent les erreurs potentielles. Les différents cas
 
 #### Fonction `startGameLoop()`
 
-La fonction `startGameLoop()` est le cœur de la boucle de jeu. Elle actualise et rend tous les éléments visibles à l'écran, y compris les objets et les PNJ.
+La fonction `startGameLoop()` est le cœur de la boucle de jeu. Elle actualise et rend tous les éléments visibles à l'écran, y compris les objets et les NPC.
 
 Elle commence par effacer le canvas à chaque itération, puis met à jour la carte de jeu avec `updateMap()`.
 
-Elle met à jour chaque objet de jeu, PNJ et joueur, puis les dessine sur le canvas. Les objets et PNJ "supérieurs" sont dessinés après les autres éléments pour un rendu correct.
+Elle met à jour chaque objet de jeu, NPC et joueur, puis les dessine sur le canvas. Les objets et NPC "supérieurs" sont dessinés après les autres éléments pour un rendu correct.
 
 #### Méthode `draw(ctx)` de la Classe `Sprite`
 
-La méthode `draw(ctx)` dessine un objet ou un PNJ sur le canvas en fonction de sa position et de son état actuels par rapport au joueur principal.
+La méthode `draw(ctx)` dessine un objet ou un NPC sur le canvas en fonction de sa position et de son état actuels par rapport au joueur principal.
 
 Elle calcule les coordonnées de rendu et dessine l'image correspondante sur le canvas. Si l'objet doit être dessiné au-dessus des autres éléments, il est ajouté à `window.upperObjects` pour un rendu ultérieur.
 
@@ -304,7 +303,7 @@ Nous n'avons pas trouvé de méthode simple pour tester la partie jouabilité.
 - init:reset: permet d'initier la base de données et la repeupler.
 - setup: C'est le premier script qu'il faut lancer en back. Il permet de créer l'image et la base de données pour faire fonctionner le back.
 - start: permet de lancer la serveur backend avec **nodemon**
-- test: comme son nom l'indique, elle permet de tester back avec jest et d'avoir le coverage.
+- test: comme son nom l'indique, elle permet de tester back avec jest et d'avoir la couverture des tests.
 
 ### Technologies Utilisées
 - `Node.js` : est l'environnement d'exécution principal de notre application côté serveur.
@@ -565,12 +564,12 @@ L'intégration continue (CI) est mise en place pour garantir que le code de notr
 Le déploiement de l'application n'a malheureusement pas pu être réalisé. Notre application exécute du code Python dans des conteneurs Docker, ce qui a rendu difficile la recherche d'un service gratuit d'hébergement. Nous avons trouvé des pistes de solutions, comme par exemple créer une image Docker de notre serveur Node.js et la déployer sur un service cloud, mais nous n'avions pas le temps de découvrir cette piste.
 
 ## Difficultées
-- L'api du docker n'est pas evidente et peut introduire des failles de sécurité
+- L'api du docker n'est pas évidente et peut introduire des failles de sécurité.
 - Il est difficile de tester la partie frontend pour un rpg en 2d.
 - Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeu déja existant. Cela dit, la [generation dynamique](#algorithme-de-génération-dynamique-des-maps) de la map nous a bien facilité la tache.
 
 ## Prospection pour l'avenir pour notre jeu
 
-Pour l'avenir on peut améliorer les Graphisme et l'interface utilisateur, on peut même créer notre propre sprites pour éviter les problème de licence. On peut aussi expander le monde de jeu pour avoir plus de maps et de challenges. Et on peut essayer d'optimizer nos algorithm pour des mieux performances.
+Pour l'avenir on peut améliorer les graphismes et l'interface utilisateur, on peut même créer nos propres sprites pour éviter les problèmes de licence. On peut aussi expander le monde de jeu pour avoir plus de cartes et de défis. Et on peut essayer d'optimiser nos algorithmes pour des meilleures performances.
 
 

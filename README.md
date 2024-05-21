@@ -590,6 +590,9 @@ Le déploiement de l'application n'a malheureusement pas pu être réalisé. Not
 # Aspects d'amélioration
 
 # Difficultées
+- L'api du docker n'est pas evidente et peut introduire des failles de sécurité
+- Il est difficile de tester la partie frontend pour un rpg en 2d.
+- Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeux déja existant. Cela dit, la [generation dynamique](##Algorithme-de-Génération-Dynamique-des-Maps) de la map nous a bien facilité la tache.
 
 # Prospection pour l'avenir
 

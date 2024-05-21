@@ -571,8 +571,8 @@ Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans
 ```
 
 
-### Tests
-<!-- Couverture de tests backend -->
+### Tests Backend
+Nous avons utilisé `Jest` et `SuperTest` pour tester notre backend, en couvrant différents aspects de l'application. Nous avons spécifiquement pu testé les routes liées à l'utilisateur et aux sauvegardes. Celles liées à Docker n'ont été testées que manuellement.
 
 # CI / CD
 ## Intégration 
@@ -580,8 +580,7 @@ L'intégration continue (CI) est mise en place pour garantir que le code de notr
 
   - Linting : Nous vérifions la qualité du code avec des outils comme ESLint pour les fichiers JavaScript, HTMLHint pour les fichiers HTML, et CSSLint pour les fichiers CSS. Cela nous aide à maintenir un code propre et cohérent.
 
-  - Tests : à compléter
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  - Tests : Nous vérifions le bon fonctionnement de notre code en le passant par un stage de test. Nous utilisons `Jest` et `SuperTest` pour le backend, et `Cypress` pour quelques aspects du frontend.
 
   - Build : Nous avons des étapes pour construire le backend (commentées pour l'instant) et le frontend de l'application. Cela permet de compiler notre code et de préparer les artefacts nécessaires pour le déploiement.
 

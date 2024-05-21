@@ -20,7 +20,6 @@ Conçu comme une expérience éducative immersive, ce jeu invite les joueurs à 
 
 ## Cas d'Usages
 ```plantuml
-plantuml.server = http://plantuml.com/
 @startuml
 !theme plain
 
@@ -302,6 +301,20 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
 <!-- Expliquer la difficulté de tester un jeu -->
 
 ## Backend
+### Structure
+- **Répertoires principaux** :
+  - **images/** : Contient les fichiers d'image utilisés par l'application.
+  - **models/** : Contient les définitions des modèles de données pour Sequelize.
+  - **multiplayer/** : Contient les scripts de gestion des fonctionnalités multijoueurs.
+  - **python_scripts/** : TOTO
+  - **routes** : Contient les définitions des routes API.
+
+- **Fichiers principaux** :
+  - `.env` : Fichier de configuration des variables d'environnement.
+  - `app.js` : Point d'entrée principal de l'application, configure Express.js et les middlewares.
+  - `init-database.js` : Initialise la base de données avec Sequelize.
+  - `server.js` : Configure et démarre le serveur HTTP et Socket.IO.
+
 <!-- Description du backend -->
 
 ### Node Scripts
@@ -312,12 +325,11 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
 - test: comme son nom l'indique, elle permet de tester back avec jest et d'avoir le coverage.
 
 ### Technologies Utilisées
-- Node.js : est l'environnement d'exécution principal de notre application côté serveur.
-- Express.js : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.
-- Dockerode : est utilisé dans dockerManager.js pour interagir avec l'API Docker. Il permet de gérer les conteneurs Docker qui exécutent les défis Python soumis par les joueurs, assurant ainsi une isolation et une évaluation sécurisée du code.
-- Sequelize : est utilisé pour interagir avec notre base de données MySQL. Nous avons choisi d'intégrer Sequelize à notre projet pour faciliter le déploiement.
-- Socket.IO : gère les événements de jeu en direct, comme les déplacements des joueurs et les discussions en temps réel.
-
+- `Node.js` : est l'environnement d'exécution principal de notre application côté serveur.
+- `Express.js` : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.
+- `Dockerode` : est utilisé dans dockerManager.js pour interagir avec l'API Docker. Il permet de gérer les conteneurs Docker qui exécutent les défis Python soumis par les joueurs, assurant ainsi une isolation et une évaluation sécurisée du code.
+- `Sequelize` : est utilisé pour interagir avec notre base de données MySQL. Nous avons choisi d'intégrer Sequelize à notre projet pour faciliter le déploiement.
+- `Socket.IO` : gère les événements de jeu en direct, comme les déplacements des joueurs et les discussions en temps réel.
 ### Docker
 
 **DockerManager** est essentiel pour l'exécution des fichiers Python et des tests Unit. Comme son nom l'indique, DockerManager est basé sur Docker et permet d'avoir un environnement isolé sur la machine pour exécuter des programmes.
@@ -559,8 +571,8 @@ Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans
 ```
 
 
-### Tests
-<!-- Couverture de tests backend -->
+### Tests Backend
+Nous avons utilisé `Jest` et `SuperTest` pour tester notre backend, en couvrant différents aspects de l'application. Nous avons spécifiquement pu testé les routes liées à l'utilisateur et aux sauvegardes. Celles liées à Docker n'ont été testées que manuellement.
 
 # CI / CD
 ## Intégration 
@@ -568,8 +580,7 @@ L'intégration continue (CI) est mise en place pour garantir que le code de notr
 
   - Linting : Nous vérifions la qualité du code avec des outils comme ESLint pour les fichiers JavaScript, HTMLHint pour les fichiers HTML, et CSSLint pour les fichiers CSS. Cela nous aide à maintenir un code propre et cohérent.
 
-  - Tests : à compléter
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  - Tests : Nous vérifions le bon fonctionnement de notre code en le passant par un stage de test. Nous utilisons `Jest` et `SuperTest` pour le backend, et `Cypress` pour quelques aspects du frontend.
 
   - Build : Nous avons des étapes pour construire le backend (commentées pour l'instant) et le frontend de l'application. Cela permet de compiler notre code et de préparer les artefacts nécessaires pour le déploiement.
 

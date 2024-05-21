@@ -115,7 +115,25 @@ end note
 
 
 ### Diagrammes Séquentielles
-Voici quelques diagrammes séquentielles pour les principales utilisations du jeu.
+Voici un diagramme de séquence décrivant l'intéraction avec un NPC.
+
+```plantuml
+@startuml
+!theme plain
+
+actor Player
+actor NPC
+participant "System" as System
+
+Player -> NPC: Initiates interaction
+NPC -> Player: Explains challenge
+NPC -> System: Requests challenge body
+System -> Player : Provides challenge body in IDE
+Player -> System: Clicks on 'Run'
+System -> Player: Returns result
+
+@enduml
+```
 
 ## Notre Avancement
 Nous avons pu couvrir la majorité du cahier des charges. À l'heure actuelle, notre application est capable de générer des cartes dynamiquement, de permettre au joueur de se déplacer, et d'interagir avec des NPCs (personnages non-joueurs) qui peuvent proposer des défis Python, exécuter et évaluer ce code, et enfin sauvegarder la progression du joueur. Le joueur peut, entre autres, se déplacer entre les salles et discuter avec les personnages présents dans ces salles. 
@@ -338,7 +356,7 @@ Nous n'avons pas trouvé de méthode simple pour tester la partie jouabilité.
   - **images/** : Contient les fichiers d'image utilisés par l'application.
   - **models/** : Contient les définitions des modèles de données pour Sequelize.
   - **multiplayer/** : Contient les scripts de gestion des fonctionnalités multijoueurs.
-  - **python_scripts/** : TOTO
+  - **python_scripts/** : Contient tous les documents nécessaire pour tester les chalenges. Pour les tests, on utilise la bibliothèque Python `unittest`.
   - **routes** : Contient les définitions des routes API.
 
 - **Fichiers principaux** :
@@ -572,7 +590,7 @@ Container -> dockerManager: Exit code 1
 Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans Docker. Un contenair enregistre tous les logs dans un fichier *.json* et les stocke en mémoire tant que le contenaor est en vie. Une boucle infinie, par exemple, qui effectue des impressions peut consommer toute la mémoire de la machine hôte[^2]. Pour remédier à cela, nous limitons la taille du fichier de log à *10 MB*. De plus, tous les testes python impose une limite de temps de 10 secondes.
 
 [^1]: Ce n'est pas une faille de sécurité, mais plutôt le comportement par défaut des conteneurs Docker.
-[^2]: Nous avons sacrifié une machine pour découvrir ce bug. Merci à Achhraf :' )
+[^2]: Nous avons sacrifié une machine pour découvrir ce bug. Merci à Achraf :' )
 
 
 

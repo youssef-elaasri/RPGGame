@@ -313,7 +313,7 @@ class dockerManager {
   + imageName: String
 
   + createVolume(String volumeName, Size size): void
-  +runContainer(): void
+  + runContainer(): void
 
 }
 note right of dockerManager::createVolume
@@ -339,12 +339,16 @@ end note
 
 @startuml
 actor User
+participant Frontend
 participant dockerManager
 participant Dockerode
 participant Container
 participant FileSystem
 
-User -> dockerManager: runContainer()
+
+User -> Frontend: Clicks Run
+Frontend -> dockerManager: RunContainer()
+
 dockerManager -> Dockerode: create container
 Dockerode -> Container: create container
 Dockerode --> dockerManager: container created
@@ -382,8 +386,6 @@ Dockerode --> dockerManager: container deleted
 @enduml
 
 ```
-
-
 
 ### Python Scripts
 <!-- Explication de la gestion des scripts python -->
@@ -449,6 +451,76 @@ SavePoint "n" -- "1" Map
 
 ### Securité
 <!-- Ecrier comment docker pas sécurisé -->
+La conteneurisation avec Docker constitue la principale couche de sécurité. En effet, cette dernière assure une isolation du code Python exécuté du système. Le conteneur lui-même est sécurisé : l'utilisateur n'a pas le droit d'écrire dans le conteneur, à l'exception du dossier dédié à l'exécution */app/exec*. Ce dossier même est limité en taille, ce qui garantit que les programmes exécutés ne consomment pas excessivement de ressources mémoire.
+
+```js
+createVolume(volumeName, size){
+  const volumeOptions = {
+                        Name: volumeName,
+                        Driver: 'local',
+                        DriverOpts: {
+                            'type': 'tmpfs', //  Système de fichiers Unix temporaire
+                            'device': 'tmpfs',
+                            'o': `size=${size}` // La taille maximale
+                        }
+                    };
+  // etc...
+}
+```
+
+**Diagrame de sequence** pour les différents scènarios
+```plantuml
+@startuml
+participant dockerManager
+participant Container
+participant exec
+participant app
+
+
+dockerManager -> Container : Run a ressource consuming script
+Container -> exec : Run script
+exec -> Container: No space left
+Container -> dockerManager: Exit code 1
+
+dockerManager -> Container : Run an app fetching script
+Container -> exec : Run script
+exec -> app : Write
+app -> Container: Permission denied
+Container -> dockerManager: Exit code 1
+@enduml
+```
+
+Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans Docker. Un contenair enregistre tous les logs dans un fichier *.json* et les stocke en mémoire tant que le contenaor est en vie. Une boucle infinie, par exemple, qui effectue des impressions peut consommer toute la mémoire de la machine hôte[^2]. Pour remédier à cela, nous limitons la taille du fichier de log à *10 MB*. De plus, tous les testes python impose une limite de temps de 10 secondes.
+
+[^1]: Ce n'est pas une faille de sécurité, mais plutôt le comportement par défaut des conteneurs Docker.
+[^2]: Nous avons sacrifié une machine pour découvrir ce bug. Merci à Achhraf :' )
+
+
+
+```js
+  runContainer(scriptName, path, content, volumeName) {
+    const containerOptions = {
+                Image: this.image,
+                Cmd: [`${scriptName}_tester.py`, `${scriptName}_suggested.py`, content],
+                AttachStdout: true,
+                AttachStderr: true,
+                HostConfig:{
+                    LogConfig: {
+                        Type: 'json-file',
+                        config:{
+                            'max-size': '10b', // 10o est le maximum pour un fichier log
+                            'max-file': '1' // Nous avons un seul fichier log
+                        }
+                    },
+                    Binds:  [
+                        `${process.cwd()}/${path}:/app/python_scripts`,
+                        `${volumeName}:/app/exec`
+                    ]
+                }
+            };
+  }
+```
+
 
 ### Tests
 <!-- Couverture de tests backend -->

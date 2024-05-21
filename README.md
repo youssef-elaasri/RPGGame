@@ -20,7 +20,6 @@ Conçu comme une expérience éducative immersive, ce jeu invite les joueurs à 
 
 ## Cas d'Usages
 ```plantuml
-plantuml.server = http://plantuml.com/
 @startuml
 !theme plain
 
@@ -302,13 +301,27 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
 <!-- Expliquer la difficulté de tester un jeu -->
 
 ## Backend
+### Structure
+- **Répertoires principaux** :
+  - **images/** : Contient les fichiers d'image utilisés par l'application.
+  - **models/** : Contient les définitions des modèles de données pour Sequelize.
+  - **multiplayer/** : Contient les scripts de gestion des fonctionnalités multijoueurs.
+  - **python_scripts/** : TOTO
+  - **routes** : Contient les définitions des routes API.
+
+- **Fichiers principaux** :
+  - `.env` : Fichier de configuration des variables d'environnement.
+  - `app.js` : Point d'entrée principal de l'application, configure Express.js et les middlewares.
+  - `init-database.js` : Initialise la base de données avec Sequelize.
+  - `server.js` : Configure et démarre le serveur HTTP et Socket.IO.
+
 <!-- Description du backend -->
 ### Technologies Utilisées
-- Node.js : est l'environnement d'exécution principal de notre application côté serveur.
-- Express.js : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.
-- Dockerode : est utilisé dans dockerManager.js pour interagir avec l'API Docker. Il permet de gérer les conteneurs Docker qui exécutent les défis Python soumis par les joueurs, assurant ainsi une isolation et une évaluation sécurisée du code.
-- Sequelize : est utilisé pour interagir avec notre base de données MySQL. Nous avons choisi d'intégrer Sequelize à notre projet pour faciliter le déploiement.
-- Socket.IO : gère les événements de jeu en direct, comme les déplacements des joueurs et les discussions en temps réel.
+- `Node.js` : est l'environnement d'exécution principal de notre application côté serveur.
+- `Express.js` : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.
+- `Dockerode` : est utilisé dans dockerManager.js pour interagir avec l'API Docker. Il permet de gérer les conteneurs Docker qui exécutent les défis Python soumis par les joueurs, assurant ainsi une isolation et une évaluation sécurisée du code.
+- `Sequelize` : est utilisé pour interagir avec notre base de données MySQL. Nous avons choisi d'intégrer Sequelize à notre projet pour faciliter le déploiement.
+- `Socket.IO` : gère les événements de jeu en direct, comme les déplacements des joueurs et les discussions en temps réel.
 ### Docker
 
 **DockerManager** est essentiel pour l'exécution des fichiers Python et des tests Unit. Comme son nom l'indique, DockerManager est basé sur Docker et permet d'avoir un environnement isolé sur la machine pour exécuter des programmes.

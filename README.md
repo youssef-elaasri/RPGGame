@@ -622,6 +622,8 @@ Le déploiement de l'application n'a malheureusement pas pu être réalisé. Not
 - Il est difficile de tester la partie frontend pour un rpg en 2d.
 - Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeux déja existant. Cela dit, la [generation dynamique](#algorithme-de-génération-dynamique-des-maps) de la map nous a bien facilité la tache.
 
-## Prospection pour l'avenir
+## Prospection pour l'avenir pour notre jeu
+
+Pour l'avenir on peut améliorer les Graphisme et l'interface utilisateur, on peut même créer notre propre sprites pour éviter les problème de licence. On peut aussi expander le monde de jeu pour avoir plus de maps et de chalenges. Et on peut essayer d'optimizer nos algorithm pour des mieux performances.
 
 

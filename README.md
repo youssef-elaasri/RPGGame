@@ -9,13 +9,13 @@
 - [Sebastien VIARDOT](https://gricad-gitlab.univ-grenoble-alpes.fr/viardots)
 
 ## Description
-Ce document présente un compte rendu d'un projet de spécialité web. En bref, c'est un RPG 2D où le joueur doit résoudre des défis de programmation en Python. Nous présentons dans ce rapport un cahier des charges et notre implémentation correspondante.
+Ce document présente un compte rendu d'un projet de spécialité web. En bref, c'est un RPG 2D où le joueur doit résoudre des défis de programmation en Python. Nous présentons dans ce rapport un cahier des charges et notre mise en œuvre correspondante.
 
 # Table des matières
 - [Cahier des Charges](#cahier-des-charges)
   - [Description du Jeu](#description-du-jeu)
   - [Cas d'Usages](#cas-dusages)
-  - [Diagrammes Séquentielles](#diagrammes-sequentielles)
+  - [Diagrammes Séquentiels](#diagrammes-sequentiels)
 - [Notre Avancement](#notre-avancement)
 - [Architecture du Projet](#architecture-du-projet)
   - [Frontend](#frontend)
@@ -114,7 +114,7 @@ end note
 ```
 
 
-### Diagrammes Séquentielles
+### Diagrammes Séquentiels
 Voici un diagramme de séquence décrivant l'intéraction avec un NPC.
 
 ```plantuml
@@ -187,7 +187,7 @@ Le fichier `index.html` constitue la base de l'application et inclut les éléme
 - **Profil Joueur** : affiche les informations du joueur et permet la modification du mot de passe.
 - **Authentification** : système de connexion et d'inscription sécurisé.
 - **Contrôles du Jeu** : inclut des boutons pour sauvegarder le jeu, passer en plein écran, et se déconnecter.
-- **Chalenges Python** : affiche un IDE pour permettre à l'utilisateur de saisir un code Python.
+- **Défis python** : affiche un IDE pour permettre à l'utilisateur de saisir un code python.
 
 #### Logique du Jeu
 
@@ -288,7 +288,7 @@ Nous n'avons pas trouvé de méthode simple pour tester la partie jouabilité.
   - **images/** : Contient les fichiers d'image utilisés par l'application.
   - **models/** : Contient les définitions des modèles de données pour Sequelize.
   - **multiplayer/** : Contient les scripts de gestion des fonctionnalités multijoueurs.
-  - **python_scripts/** : Contient tous les documents nécessaire pour tester les chalenges. Pour les tests, on utilise la bibliothèque Python `unittest`.
+  - **python_scripts/** : Contient tous les documents nécessaire pour tester les challenges. Pour les tests, on utilise la bibliothèque Python `unittest`.
   - **routes** : Contient les définitions des routes API.
 
 - **Fichiers principaux** :
@@ -397,9 +397,6 @@ Dockerode --> dockerManager: container deleted
 @enduml
 
 ```
-
-### Python Scripts
-Le repértoire contient tous les documents nécessaire pour tester les chalenges. Pour les test on utilise la bibliotèque python uittest.
 
 ### Schéma de la Base de Données
 Le schéma de la base de données décrit les différentes entités et leurs relations au sein de notre application. Voici un aperçu des tables et de leurs relations :
@@ -570,10 +567,10 @@ Le déploiement de l'application n'a malheureusement pas pu être réalisé. Not
 ## Difficultées
 - L'api du docker n'est pas evidente et peut introduire des failles de sécurité
 - Il est difficile de tester la partie frontend pour un rpg en 2d.
-- Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeux déja existant. Cela dit, la [generation dynamique](#algorithme-de-génération-dynamique-des-maps) de la map nous a bien facilité la tache.
+- Dessiner des maps n'est pas evident, surtout pour trouver des beaux graphique et faire du game design moderne. Nous avons fait le choix de ne pas trop prendre les graphiques de jeu déja existant. Cela dit, la [generation dynamique](#algorithme-de-génération-dynamique-des-maps) de la map nous a bien facilité la tache.
 
 ## Prospection pour l'avenir pour notre jeu
 
-Pour l'avenir on peut améliorer les Graphisme et l'interface utilisateur, on peut même créer notre propre sprites pour éviter les problème de licence. On peut aussi expander le monde de jeu pour avoir plus de maps et de chalenges. Et on peut essayer d'optimizer nos algorithm pour des mieux performances.
+Pour l'avenir on peut améliorer les Graphisme et l'interface utilisateur, on peut même créer notre propre sprites pour éviter les problème de licence. On peut aussi expander le monde de jeu pour avoir plus de maps et de challenges. Et on peut essayer d'optimizer nos algorithm pour des mieux performances.
 
 

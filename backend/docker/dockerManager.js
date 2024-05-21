@@ -1,6 +1,7 @@
 const Docker = require('dockerode');
 const fs = require('fs');
 const path = require('path');
+const { config } = require('process');
 
 class DockerManager {
     constructor(config) {
@@ -59,6 +60,13 @@ class DockerManager {
                 AttachStdout: true,
                 AttachStderr: true,
                 HostConfig:{
+                    LogConfig: {
+                        Type: 'json-file',
+                        config:{
+                            'max-size': '10b',
+                            'max-file': '1'
+                        }
+                    },
                     Binds:  [
                         `${process.cwd()}/${path}:/app/python_scripts`,
                         `${volumeName}:/app/exec`

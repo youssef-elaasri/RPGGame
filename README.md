@@ -313,12 +313,6 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
 
 **DockerManager** est essentiel pour l'exécution des fichiers Python et des tests Unit. Comme son nom l'indique, DockerManager est basé sur Docker et permet d'avoir un environnement isolé sur la machine pour exécuter des programmes.
 
-Pour mieux comprendre cette partie il faut se situer dans le context. Grace à la commande *npm run setup* nous pouvons créer l'image, **app image**. De cette dernière les conteneurs peuvent etres creer et restes coherents
-
-```sh
-  "rebuild-image": "docker rmi -f app_image || true && docker build -t app_image ./docker"
-```
-
 <!-- diagramme de classes -->
 ```plantuml
 @startuml
@@ -402,7 +396,7 @@ Dockerode --> dockerManager: container deleted
 ```
 
 ### Python Scripts
-<!-- Explication de la gestion des scripts python -->
+Le repértoire contient tous les documents nécessaire pour tester les chalenges. Pour les test on utilise la bibliotèque python uittest.
 
 ### Schéma de la Base de Données
 
@@ -502,10 +496,6 @@ createVolume(volumeName, size){
 }
 ```
 
-Un script malveillant peut cependant exploiter une faille de securité[^1] dans Docker. Un conteneure enregistre tous les logs dans un fichier .json et le stock dans la mémoire tant que le cintenaire est en vie. Une boucle infinie par exemple qui fait des prints peut consomer toute la mémoire de la machine host[^2]. Pour Remedier 0 cela nous limitant la taille du fichier log à *10o*:
-
-[^1]: Ce n'est pas une faille de sécurité mais plus le comportement par defauts des conteneures docker.
-[^2]: Nous avons sacrifié une machine pour decouvrir ce bug. Merci à Achhraf :' ) 
 **Diagrame de sequence** pour les différents scènarios
 ```plantuml
 @startuml
@@ -528,10 +518,11 @@ Container -> dockerManager: Exit code 1
 @enduml
 ```
 
-Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans Docker. Un conteneur enregistre tous les logs dans un fichier *.json* et les stocke en mémoire tant que le contenaor est en vie. Une boucle infinie, par exemple, qui effectue des impressions peut consommer toute la mémoire de la machine hôte[^2]. Pour remédier à cela, nous limitons la taille du fichier de log à *10 MB*. De plus, tous les testes python impose une limite de temps de 10 secondes.
+Un script malveillant peut cependant exploiter une faille de sécurité[^1] dans Docker. Un contenair enregistre tous les logs dans un fichier *.json* et les stocke en mémoire tant que le contenaor est en vie. Une boucle infinie, par exemple, qui effectue des impressions peut consommer toute la mémoire de la machine hôte[^2]. Pour remédier à cela, nous limitons la taille du fichier de log à *10 MB*. De plus, tous les testes python impose une limite de temps de 10 secondes.
 
 [^1]: Ce n'est pas une faille de sécurité, mais plutôt le comportement par défaut des conteneurs Docker.
 [^2]: Nous avons sacrifié une machine pour découvrir ce bug. Merci à Achhraf :' )
+
 
 
 ```js
@@ -577,8 +568,6 @@ L'intégration continue (CI) est mise en place pour garantir que le code de notr
 Le déploiement de l'application n'a malheureusement pas pu être réalisé. Notre application exécute du code Python dans des conteneurs Docker, ce qui a rendu difficile la recherche d'un service gratuit d'hébergement. Nous avons trouvé des pistes de solutions, comme par exemple créer une image Docker de notre serveur Node.js et la déployer sur un service cloud, mais nous n'avions pas le temps de découvrir cette piste.
 
 # Aspects d'amélioration
-
-- En ce qui concerne la sécurité, en théorie, le script a seulement accès en lecture aux fichiers en dehors de *app/exec* dans le conteneur. Cela signifie qu'il peut notamment lire les fichiers de test situés dans *app/python_scripts*, qui contiennent les solutions aux défis. Cependant, si le but initial du projet est de mettre à l'épreuve les compétences des joueurs en Python, est-ce que le fait qu'ils parviennent à trouver la solution en trichant avec leurs propres scripts Python ne signifie pas simplement qu'ils sont compétents en Python et qu'ils méritent... ?
 
 # Difficultées
 

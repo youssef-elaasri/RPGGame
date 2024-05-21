@@ -316,6 +316,14 @@ Cette fonction est appelée dans `crateMap()` pour chaque pixel correspondant à
   - `server.js` : Configure et démarre le serveur HTTP et Socket.IO.
 
 <!-- Description du backend -->
+
+### Node Scripts
+- rebuild-image: permet de créer une image **app_image** si elle n'existe pas.
+- init:reset: permet d'initier la base de données et la repeupler.
+- setup: C'est le premier script qu'il faut lancer en back. Il permet de créer l'image et la base de données pour faire fonctionner le back.
+- start: permet de lancer la serveur backend avec **nodemon**
+- test: comme son nom l'indique, elle permet de tester back avec jest et d'avoir le coverage.
+
 ### Technologies Utilisées
 - `Node.js` : est l'environnement d'exécution principal de notre application côté serveur.
 - `Express.js` : est le framework web utilisé dans app.js pour créer les API RESTful. Il gère les routes et les requêtes HTTP.

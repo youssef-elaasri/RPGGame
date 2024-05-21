@@ -409,7 +409,7 @@ Dockerode --> dockerManager: container deleted
 ```
 
 ### Python Scripts
-<!-- Explication de la gestion des scripts python -->
+Le repértoire contient tous les documents nécessaire pour tester les chalenges. Pour les test on utilise la bibliotèque python uittest.
 
 ### Schéma de la Base de Données
 

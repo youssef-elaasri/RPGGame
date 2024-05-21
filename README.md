@@ -15,7 +15,7 @@ Ce document présente un compte rendu d'un projet de spécialité web. En bref, 
 - [Cahier des Charges](#cahier-des-charges)
   - [Description du Jeu](#description-du-jeu)
   - [Cas d'Usages](#cas-dusages)
-  - [Diagrammes Séquentiels](#diagrammes-sequentiels)
+  - [Diagrammes Séquentiels](#diagrammes-séquentiels)
 - [Notre Avancement](#notre-avancement)
 - [Architecture du Projet](#architecture-du-projet)
   - [Frontend](#frontend)

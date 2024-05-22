@@ -7,7 +7,7 @@ function sendMessage() {
 
         const data = {
             message: message,
-            sender: window.Player.id
+            sender: _username
         };
         socket.emit('sendMessage', data);
     }

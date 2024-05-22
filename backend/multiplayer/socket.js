@@ -12,6 +12,7 @@ function setupSocket (io) {
                 id: socket.id,
                 x: playerData.x,
                 y: playerData.y,
+                username: playerData.username,
                 direction: playerData.direction,
                 map: playerData.map,
             };

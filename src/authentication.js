@@ -35,6 +35,7 @@ function toggleChat() {
 }
 
 let token;
+let _username;
 
 // Login function
 function login() {
@@ -63,6 +64,7 @@ function login() {
         })
         .then(data => {
             if (data.token) {
+                _username = username;
                 token = data.token;
                 alert('Login successful');
                 populatePlayerProfile(data);

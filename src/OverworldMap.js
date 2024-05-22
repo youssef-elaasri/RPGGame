@@ -86,7 +86,6 @@ class OverworldMap {
     async handleLobbyExit  (updateMapAndPlayerPosition, saveAndEmit) {
         try {
             const res = await loadLobby();
-            console.log(res);
             updateMapAndPlayerPosition(res, window.OverworldMaps[res].lobbyDoor[0], window.OverworldMaps[res].lobbyDoor[1]);
             await saveAndEmit(res);
         } catch (error) {

@@ -34,6 +34,8 @@ function toggleChat() {
     document.getElementById('chatBar').classList.toggle("hidden");
 }
 
+let token;
+
 // Login function
 function login() {
     const username = document.getElementById('username').value;
@@ -61,7 +63,7 @@ function login() {
         })
         .then(data => {
             if (data.token) {
-                localStorage.setItem('authToken', data.token); // Store the token for later use
+                token = data.token;
                 alert('Login successful');
                 populatePlayerProfile(data);
                 toggleErrorMessage(false, "");
@@ -151,8 +153,6 @@ async function logout() {
     const confirmLogout = confirm("Did you save your game?");
 
     if (confirmLogout) {
-        // Clear stored JWT token or user data
-        localStorage.removeItem('authToken');
         window.location.reload();
     }
 }
@@ -160,7 +160,6 @@ async function logout() {
 async function saveGame() {
     // Obtain the current game state
     const userId = window.Player.id;
-    const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:8080/api/users/${userId}/save`, {
             method: 'POST',
@@ -192,7 +191,6 @@ async function saveGame() {
 }
 
 async function loadGame(userId) {
-    const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:8080/api/users/${userId}/load`, {
             method: 'GET',
@@ -220,7 +218,6 @@ async function loadGame(userId) {
 async function saveLobby(mapName) {
     // Obtain the current game state
     const userId = window.Player.id;
-    const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:8080/api/users/${userId}/saveLobby`, {
             method: 'POST',
@@ -250,7 +247,6 @@ async function saveLobby(mapName) {
 
 async function loadLobby() {
     const userId = window.Player.id;
-    const token = localStorage.getItem('authToken');
     try {
         const response = await fetch(`http://localhost:8080/api/users/${userId}/loadLobby`, {
             method: 'GET',
@@ -280,7 +276,6 @@ async function loadLobby() {
 function changePassword() {
     const currentPassword = document.getElementById('currentPassword').value;
     const newPassword = document.getElementById('newPassword').value;
-    const authToken = localStorage.getItem('authToken'); // Assuming the token is stored in localStorage after login
     const userId = window.Player.id;
 
     if (!authToken) {

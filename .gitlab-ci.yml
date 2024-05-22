@@ -1,6 +1,6 @@
 stages:
   - lint
-  - test
+  - test_back
   - build_backend
   - build_frontend
 
@@ -26,6 +26,16 @@ stylelint:
   script:
     - npm install csslint-cli
     - npx csslint-cli src/*.css
+
+#test_backend:
+#  stage: test_back
+#  image: node
+#  script:
+#    - cd backend
+#    - npm install
+#    - npm test
+#  only:
+#    - main
 
 #backend_build:
 #  stage: build_backend

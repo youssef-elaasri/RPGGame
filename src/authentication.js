@@ -83,10 +83,10 @@ function login() {
 // Sign up function
 function signup() {
     const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value; // Make sure this ID matches your input
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    fetch('http://localhost:8080/register', { // Adjust this URL based on your actual API endpoint
+    fetch('http://localhost:8080/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ function signup() {
             // Handle success case
             toggleErrorMessage(false, '');
             alert('Registration successful');
-            toggleAuthMode(true); // Assuming this function toggles your authentication mode/state
+            toggleAuthMode(true);
         })
         .catch((error) => {
             console.error('Error:', error);

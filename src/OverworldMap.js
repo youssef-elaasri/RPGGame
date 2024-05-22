@@ -194,7 +194,7 @@ window.OverworldMaps = {
                     "but never mind, I think there is a lot of people here who need your help more than I do"
                 ],
                 x: util.inGrid(45),
-                y:util.inGrid(23),
+                y:util.inGrid(24),
                 challenge: () => IDE.runChallenge({
                     fileName : "tri_batiments",
                     NPCname : "facilityManager",
@@ -281,7 +281,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["papet",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     papet : {
         name : "papet",
@@ -293,7 +294,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["GI",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     GI : {
         name : "GI",
@@ -305,7 +307,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["polytech",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     polytech : {
         name : "polytech",
@@ -317,7 +320,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["IAE",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     IAE : {
         name : "IAE",
@@ -329,7 +333,8 @@ window.OverworldMaps = {
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
             [util.asGridCoord(7,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
             [util.asGridCoord(8,14)] : ["imag",[util.inGrid(4),util.inGrid(1)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
     imag : {
         name : "imag",
@@ -339,6 +344,7 @@ window.OverworldMaps = {
         changeMap : {
             [util.asGridCoord(4,0)] : ["IAE",[util.inGrid(7),util.inGrid(13)]],
             [util.asGridCoord(13,0)] : ["lobby",[util.inGrid(13),util.inGrid(21)]],
-        }
+        },
+        lobbyDoor : [util.inGrid(13),util.inGrid(1)]
     },
 }
